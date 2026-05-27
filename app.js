@@ -14,39 +14,72 @@ document.addEventListener("DOMContentLoaded", () => {
     // ==========================================================================
     const defaultSchoolDatabase = {
         logo: {
-            type: "icon",
+            type: "image",
             icon: "fa-school",
             base64Image: "",
+            imageUrl: "https://sdnwedusan.aksespedia.com/storage/tenants/50/fZxyOX0jIfZ5pDa1hu4tcZnyYt8hjX49vqLs9vTy.png",
             name: "SDN Wedusan",
             tagline: "Mewujudkan Generasi Cerdas & Berkarakter"
         },
+        sidebarBanners: [
+            {
+                id: "side_1",
+                title: "CMS Untukmu Negeri",
+                link: "#profil",
+                base64Image: "",
+                imageUrl: "https://images.unsplash.com/photo-1546410531-bb4caa6b424d?auto=format&fit=crop&q=80&w=400"
+            },
+            {
+                id: "side_2",
+                title: "Aplikasi Terpadu",
+                link: "#program",
+                base64Image: "",
+                imageUrl: "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&q=80&w=400"
+            },
+            {
+                id: "side_3",
+                title: "Gugus Dewi Sartika",
+                link: "#berita",
+                base64Image: "",
+                imageUrl: "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&q=80&w=400"
+            }
+        ],
         heroSlides: [
             {
                 id: "slide_1",
                 badge: "<i class=\"fas fa-graduation-cap\"></i> Selamat Datang",
-                title: "Platform Digital Resmi <span>SD Negeri Wedusan</span>",
-                desc: "Berkomitmen mewujudkan generasi yang cerdas secara kognitif, kreatif, berprestasi tinggi, serta memiliki karakter kepemimpinan luhur berlandaskan nilai-nilai luhur bangsa.",
-                link: "Daftar PPDB Baru|https://wa.me/085347641171?text=Halo%20Admin%20SPMB%2C%20saya%20ingin%20bertanya%20tentang%20pendaftaran.",
+                title: "Selamat Datang di Platform Digital Resmi <span>SD Negeri Wedusan</span>",
+                desc: "Berkomitmen mewujudkan generasi cerdas, berkarakter, dan berdaya saing global melalui pendidikan berkualitas.",
+                link: "Daftar PPDB Baru|#kontak",
                 base64Image: "",
-                imageUrl: "https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&q=80&w=800"
+                imageUrl: "https://sdnwedusan.aksespedia.com/storage/tenants/50/ZQaiNR8vqNZHqJG28ymmefxZj6Sj7X3ui5Zn2l25.jpg"
             },
             {
                 id: "slide_2",
-                badge: "<i class=\"fas fa-bullseye\"></i> Karakter Luhur",
-                title: "Membangun Semangat Nasionalisme & <span>Budi Pekerti</span>",
-                desc: "Mari Bersama Terus Melaju Untuk Indonesia Maju dengan Menjunjung Tinggi Nilai-Nilai Pancasila dan Pembiasaan Keagamaan Rutin.",
-                link: "Jelajahi Program|#program",
+                badge: "<i class=\"fas fa-flag\"></i> Nasionalisme",
+                title: "Membangun Semangat Nasionalisme Melalui <span>Peringatan Hari Besar</span>",
+                desc: "Mari Bersama Terus Melaju Untuk Indonesia Maju dengan Menjunjung Tinggi Nilai-Nilai Luhur Bangsa.",
+                link: "Lihat Berita|#berita",
                 base64Image: "",
-                imageUrl: "https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?auto=format&fit=crop&q=80&w=800"
+                imageUrl: "https://sdnwedusan.aksespedia.com/storage/tenants/50/Y4e8mkVeB4ASOecNWOqpt1j5C1phJ8pKcyXzjZhU.jpg"
             },
             {
                 id: "slide_3",
-                badge: "<i class=\"fas fa-laptop-code\"></i> Administrasi Terpadu",
-                title: "Inovasi Tanpa Batas Melalui <span>CMS Untukmu Negeri</span>",
-                desc: "Layanan cek kelulusan mandiri kelas VI dan pencetakan Surat Keterangan Lulus (SKL) resmi secara online langsung dari rumah Anda.",
-                link: "Cek Kelulusan|#portal-kelulusan",
+                badge: "<i class=\"fas fa-laptop\"></i> Digitalisasi",
+                title: "Kolaborasi Ekosistem Digital Untuk <span>Masa Depan Pendidikan</span>",
+                desc: "Menyatukan Potensi Teknologi dan Karakter Bangsa Untuk Generasi Unggul.",
+                link: "Jelajahi|#profil",
                 base64Image: "",
-                imageUrl: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&q=80&w=800"
+                imageUrl: "https://sdnwedusan.aksespedia.com/assets/dummy/13.png"
+            },
+            {
+                id: "slide_4",
+                badge: "<i class=\"fas fa-cogs\"></i> Efisiensi",
+                title: "Inovasi Tanpa Batas Dalam Mengelola <span>Administrasi Lembaga</span>",
+                desc: "Efisiensi dan Transparansi Dalam Genggaman Melalui CMS Untukmu Negeri.",
+                link: "Hubungi Kami|#kontak",
+                base64Image: "",
+                imageUrl: "https://sdnwedusan.aksespedia.com/assets/dummy/14.png"
             }
         ],
         news: [
@@ -56,7 +89,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 date: "26 Mei 2026",
                 title: "Prestasi Juara II POPDA Korfball 2026 Gugus Dewi Sartika",
                 desc: "Dukung penuh minat bakat siswa, kontingen Gugus Dewi Sartika berhasil membawa pulang medali Perak POPDA Korfball.",
-                link: "https://sdnwedusan.aksespedia.com/berita/dukung-minat-bakat-siswa-gugus-dewi-sartika-torehkan-prestasi-juara-ii-di-ajang-popda-korfball-2026",
+                content: "Dukuhseti, Pati — Kontingen Gugus Dewi Sartika berhasil mencetak sejarah luar biasa dengan menyabet medali Perak (Juara II) dalam ajang bergengsi Pekan Olahraga Pelajar Daerah (POPDA) cabang olahraga Korfball tingkat Kabupaten Pati tahun 2026. Pertandingan final yang berlangsung sengit di Stadion Joyokusumo ini mempertemukan perwakilan sekolah kita dengan tim tangguh dari Kecamatan Juwana.<br><br>Kepala Sekolah SD Negeri Wedusan menyampaikan apresiasi yang luar biasa atas kerja keras dan semangat pantang menyerah yang ditunjukkan oleh anak-anak didik beserta tim pembina olahraga sekolah. Cabang olahraga Korfball yang menggabungkan kecepatan, ketangkasan tangan, dan kerja sama tim yang erat terbukti menjadi salah satu program unggulan non-akademik di sekolah kami.<br><br>Dengan torehan prestasi ini, sekolah berkomitmen untuk terus mendukung penuh dan memfasilitasi pengembangan minat dan bakat siswa di bidang olahraga melalui penyediaan sarana latihan yang memadai dan bimbingan ekskul yang intensif agar mampu mengukir prestasi emas yang lebih tinggi lagi di masa depan.",
+                link: "",
                 icon: "fa-users-rectangle",
                 base64Image: ""
             },
@@ -66,7 +100,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 date: "02 Mei 2026",
                 title: "Gelorakan Hardiknas 2026, SDN Wedusan Perkuat Sinergi",
                 desc: "Perkuat Sinergi Semesta demi Pendidikan Bermutu demi menyongsong generasi unggul berkarakter Pancasila.",
-                link: "https://sdnwedusan.aksespedia.com/berita/gelorakan-hardiknas-2026-sdn-wedusan-perkuat-sinergi-semesta-demi-pendidikan-bermutu",
+                content: "Wedusan, Pati — SD Negeri Wedusan menggelar upacara bendera peringatan Hari Pendidikan Nasional (Hardiknas) tahun 2026 secara meriah dan khidmat. Upacara diikuti oleh seluruh siswa-siswi kelas I hingga VI, guru, tenaga kependidikan, serta perwakilan komite sekolah dengan mengenakan pakaian adat tradisional nusantara yang mencerminkan kebinekaan global.<br><br>Dalam amanat tertulis Kepala Dinas Pendidikan yang dibacakan oleh pembina upacara, Hardiknas tahun ini mengusung tema penting tentang Penguatan Sinergi Semesta untuk perbaikan mutu pendidikan berkelanjutan demi mewujudkan generasi unggul berkarakter Profil Pelajar Pancasila. SD Negeri Wedusan secara aktif menerapkan Kurikulum Merdeka dengan fokus pada literasi digital cerdas serta pembiasaan karakter luhur.<br><br>Setelah upacara usai, kegiatan dilanjutkan dengan pentas seni tari tradisional persembahan siswa-siswi berbakat, demonstrasi literasi digital, serta peluncuran buletin digital resmi sekolah yang dapat diakses oleh seluruh wali murid secara transparan demi memperkuat kemitraan semesta antara keluarga dan sekolah.",
+                link: "",
                 icon: "fa-ribbon",
                 base64Image: ""
             },
@@ -75,8 +110,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 tag: "POPDA & O2SN",
                 date: "24 April 2026",
                 title: "Membanggakan! Raih Juara POPDA & O2SN Kec. Dukuhseti",
-                desc: "Siswa-siswi SD Negeri Wedusan tampil perkasa menyabet emas and penghargaan di ajang POPDA & O2SN Dukuhseti.",
-                link: "https://sdnwedusan.aksespedia.com/berita/membanggakan-siswa-siswi-sdn-wedusan-raih-juara-di-ajang-popda-dan-o2sn-tingkat-kecamatan-dukuhseti-2026",
+                desc: "Siswa-siswi SD Negeri Wedusan tampil perkasa menyabet emas dan penghargaan di ajang POPDA & O2SN Dukuhseti.",
+                content: "Dukuhseti, Pati — Kontingen atlet cilik dari SD Negeri Wedusan tampil mendominasi dan sukses keluar sebagai juara umum di ajang seleksi POPDA & O2SN (Olimpiade Olahraga Siswa Nasional) tingkat Kecamatan Dukuhseti tahun 2026. Atlet-atlet unggulan sekolah berhasil menyabet medali emas di berbagai cabang utama seperti Atletik Kids, Bulutangkis Tunggal Putra/Putri, Catur Klasik, dan Renang Gaya Bebas.<br><br>Prestasi luar biasa ini merupakan buah manis dari latihan keras rutin pasca-sekolah serta pendampingan spiritual pembiasaan doa bersama sebelum bertanding. Keberhasilan menyabet posisi juara umum tingkat kecamatan ini sekaligus mengantarkan para atlet SD Negeri Wedusan untuk melaju mewakili Kecamatan Dukuhseti di ajang POPDA & O2SN tingkat Kabupaten Pati.<br><br>Wali kelas beserta jajaran komite sekolah turut memberikan sambutan hangat dan bonus apresiasi kepada para pemenang. Diharapkan prestasi membanggakan ini dapat memotivasi seluruh siswa didik lainnya untuk terus giat belajar, berolahraga, disiplin diri, serta mengukir prestasi emas demi mengharumkan nama sekolah.",
+                link: "",
                 icon: "fa-trophy",
                 base64Image: ""
             }
@@ -86,7 +122,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 id: "fac_1",
                 title: "Gerbang & Papan Nama",
                 desc: "Akses masuk sekolah yang kokoh, megah, dan berwibawa di pinggir jalan raya utama Desa Wedusan.",
-                link: "https://sdnwedusan.aksespedia.com/fasilitas",
+                content: "Akses masuk utama SD Negeri Wedusan didesain secara kokoh, megah, dan berwibawa tepat di pinggir jalan raya utama Desa Wedusan, Dukuhseti, Pati. Gerbang sekolah yang asri dan bersih mencerminkan kerapian serta kedisiplinan tinggi warga sekolah. Setiap pagi, guru piket menyambut kedatangan para siswa di gerbang ini dengan budaya senyum, salam, sapa, sopan, dan santun (5S).",
+                link: "",
                 icon: "fa-door-open",
                 base64Image: ""
             },
@@ -94,7 +131,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 id: "fac_2",
                 title: "Perpustakaan Nyaman",
                 desc: "Ruang membaca tenang dan sejuk yang dilengkapi ribuan buku referensi ilmu pengetahuan menarik.",
-                link: "https://sdnwedusan.aksespedia.com/fasilitas",
+                content: "Perpustakaan SD Negeri Wedusan merupakan ruang membaca yang sejuk, tenang, dan sangat nyaman bagi siswa didik. Perpustakaan ini dilengkapi dengan ribuan koleksi buku referensi, novel anak, ensiklopedia modern, buku cerita bergambar, serta sudut baca digital pintar. Tempat ini menjadi pusat literasi murid untuk menggali berbagai ilmu pengetahuan baru secara menyenangkan.",
+                link: "",
                 icon: "fa-book-reader",
                 base64Image: ""
             },
@@ -102,7 +140,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 id: "fac_3",
                 title: "Ruang Kelas Kondusif",
                 desc: "Ruang belajar luas yang bersih, terang, dilengkapi proyektor interaktif dan sirkulasi udara baik.",
-                link: "https://sdnwedusan.aksespedia.com/fasilitas",
+                content: "Setiap ruang kelas di SD Negeri Wedusan memiliki pencahayaan alami yang sangat baik, bersih, luas, dilengkapi papan tulis interaktif proyektor digital, kipas angin, serta sirkulasi udara yang optimal. Penataan meja dan kursi belajar didesain fleksibel untuk mendukung metode pembelajaran kelompok aktif, diskusi mandiri, maupun presentasi kreativitas siswa.",
+                link: "",
                 icon: "fa-chalkboard-user",
                 base64Image: ""
             },
@@ -110,7 +149,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 id: "fac_4",
                 title: "Musholla & Area Ibadah",
                 desc: "Musholla sekolah yang bersih untuk pembiasaan sholat berjamaah dan tadarus keagamaan harian murid.",
-                link: "https://sdnwedusan.aksespedia.com/fasilitas",
+                content: "Musholla sekolah didesain dengan tingkat kebersihan dan kesucian yang sangat terjaga untuk menunjang pembiasaan keagamaan harian murid. Setiap hari, musholla ini menjadi tempat utama bagi siswa dan guru untuk melaksanakan sholat dhuha berjamaah, pembacaan Asma'ul Husna pagi hari, sholat dzuhur berjamaah, serta kegiatan tadarus Al-Qur'an rutin.",
+                link: "",
                 icon: "fa-mosque",
                 base64Image: ""
             },
@@ -118,7 +158,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 id: "fac_5",
                 title: "Kamar Mandi Higienis",
                 desc: "Fasilitas toilet bersih, terpisah untuk siswa pria dan wanita, serta guru dengan air mengalir melimpah.",
-                link: "https://sdnwedusan.aksespedia.com/fasilitas",
+                content: "Kamar mandi di sekolah dirancang terpisah antara siswa laki-laki dan perempuan dengan standar kebersihan toilet higienis yang tinggi. Fasilitas ini didukung dengan air bersih yang mengalir melimpah, wastafel cuci tangan dengan sabun, cermin, dan lantai anti-selip guna memastikan kenyamanan sanitasi harian seluruh siswa didik di lingkungan sekolah.",
+                link: "",
                 icon: "fa-restroom",
                 base64Image: ""
             },
@@ -126,7 +167,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 id: "fac_6",
                 title: "Halaman Hijau Adiwiyata",
                 desc: "Area bermain outdoor dan halaman upacara bendera yang asri dikelilingi pepohonan pelindung rindang.",
-                link: "https://sdnwedusan.aksespedia.com/fasilitas",
+                content: "Halaman sekolah didesain asri, sejuk, dan rimbun dikelilingi taman obat keluarga (TOGA) serta pohon pelindung rindang. Halaman ini berfungsi serbaguna untuk area bermain outdoor siswa yang aman, lapangan upacara bendera hari Senin, area senam Sabtu Sehat, serta laboratorium alam terbuka bagi pembelajaran sains luar kelas.",
+                link: "",
                 icon: "fa-tree",
                 base64Image: ""
             }
@@ -137,7 +179,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 badge: "09 Feb 2026",
                 title: "Ujian Praktik Kelas VI SD",
                 desc: "Pelaksanaan ujian praktik kelayakan kompetensi bagi seluruh peserta didik kelas VI sebagai salah satu syarat utama kelulusan.",
-                link: "https://sdnwedusan.aksespedia.com/agenda/ujian-praktik-kelas-vi",
+                content: "Pelaksanaan Ujian Praktik bagi seluruh siswa kelas VI merupakan salah satu syarat utama dan krusial dalam penilaian kelulusan sekolah dasar. Cabang ujian praktik meliputi praktik ibadah keagamaan (sholat & wudhu), ujian kesenian tradisional (tari & menyanyi lagu daerah), ujian bahasa (berpidato & membaca puisi), serta praktik sains fisika dasar. Siswa diimbau untuk mempersiapkan fisik dan kompetensi praktiknya secara matang.",
+                link: "",
                 icon: "fa-file-signature"
             },
             {
@@ -145,7 +188,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 badge: "05 Feb 2026",
                 title: "Rapat Pleno Komite Sekolah",
                 desc: "Rapat koordinasi sinergi tahunan antara pengurus komite sekolah, paguyuban wali murid, serta Kepala Sekolah untuk program pendidikan.",
-                link: "https://sdnwedusan.aksespedia.com/agenda",
+                content: "Rapat koordinasi tahunan ini mempertemukan pengurus komite sekolah, paguyuban wali murid kelas I-VI, jajaran guru, dan Kepala Sekolah. Rapat bertujuan untuk mensinergikan program kerja sekolah dasar selama satu tahun ajaran penuh, menyelaraskan program literasi digital, menyerap aspirasi orang tua murid, serta merencanakan peningkatan fasilitas sarana prasarana sekolah secara transparan.",
+                link: "",
                 icon: "fa-users"
             },
             {
@@ -153,7 +197,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 badge: "02 Feb 2026",
                 title: "Lomba Kompetensi Siswa",
                 desc: "Ajang unjuk bakat, kreativitas, prestasi, dan keterampilan akademik maupun non-akademik antarkelas di lingkungan sekolah.",
-                link: "https://sdnwedusan.aksespedia.com/agenda",
+                content: "Lomba Kompetensi Siswa (LKS) antarkelas diselenggarakan untuk memeriahkan jeda tengah semester. Jenis lomba mencakup lomba cerdas cermat sains-matematika, lomba mewarnai dan menggambar kaligrafi, lomba pidato bahasa Indonesia, serta lomba kebersihan dan keasrian kelas. Kegiatan ini bertujuan menggali bakat terpendam siswa dalam suasana yang ceria dan sportif.",
+                link: "",
                 icon: "fa-trophy"
             },
             {
@@ -161,7 +206,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 badge: "01 Feb 2026",
                 title: "Pelepasan Siswa Kelas VI",
                 desc: "Acara seremonial pelepasan siswa kelas akhir yang dikombinasikan dengan pentas gebyar kreativitas seni tari tradisional.",
-                link: "https://sdnwedusan.aksespedia.com/agenda",
+                content: "Acara seremonial pelepasan siswa-siswi kelas VI yang telah menyelesaikan masa pendidikan dasar selama 6 tahun di SD Negeri Wedusan. Acara ini dikombinasikan dengan pentas gebyar kreativitas seni budaya daerah (tari tradisional, pembacaan puisi perpisahan, serta paduan suara murid). Pelepasan dihadiri oleh seluruh orang tua siswa kelas akhir dan komite sekolah dengan penuh rasa haru dan bangga.",
+                link: "",
                 icon: "fa-graduation-cap"
             }
         ],
@@ -195,7 +241,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 title: "Jadwal KBM Ramadhan",
                 badge: "Dokumen PDF Resmi • 127 KB",
                 desc: "Kalender Kegiatan Belajar Mengajar (KBM) khusus bulan suci Ramadhan 1447 H / 2026 M. (127 KB)",
-                link: "https://sdnwedusan.aksespedia.com/storage/tenants/50/Stzc6r5Ghfwzltf3DTaK4WIOASTJKsKCtEM7GlyH.pdf",
+                link: "https://drive.google.com/file/d/1ke0bLNoEsCbUJmEQLVxhMthtEPaPGYrp/view?usp=sharing",
                 icon: "fa-file-pdf"
             }
         ],
@@ -266,6 +312,78 @@ document.addEventListener("DOMContentLoaded", () => {
                 icon: "fa-campground"
             }
         ],
+        gallery: [
+            {
+                id: "gal_1",
+                title: "Prestasi POPDA dan O2SN Tingkat Kecamatan",
+                badge: "2 Foto",
+                date: "06 Feb 2026",
+                desc: "Dokumentasi kontingen atlet berprestasi SDN Wedusan yang sukses menyabet gelar juara di ajang olahraga tingkat daerah.",
+                content: "Dokumentasi kontingen atlet berprestasi SDN Wedusan yang sukses menyabet gelar juara di ajang olahraga tingkat daerah, mempersembahkan medali emas untuk nama baik sekolah dan desa Wedusan. Prestasi ini memotivasi seluruh murid untuk terus giat berolahraga, disiplin diri, serta mengukir prestasi emas demi mengharumkan nama sekolah.",
+                imageUrl: "https://sdnwedusan.aksespedia.com/storage/tenants/50/QIadXZlVh4UMqOvqQw9FbBa2fp6ByaZ5xvPYOa6L.jpg",
+                base64Image: ""
+            },
+            {
+                id: "gal_2",
+                title: "Supervisi Administrasi dan Pembelajaran",
+                badge: "5 Foto",
+                date: "05 Feb 2026",
+                desc: "Kegiatan supervisi rutin untuk penjaminan mutu kurikulum, kelayakan mengajar guru, dan administrasi kelas terpadu.",
+                content: "Kegiatan supervisi rutin untuk penjaminan mutu kurikulum, kelayakan mengajar guru, dan administrasi kelas terpadu yang dipimpin langsung oleh jajaran pengawas sekolah dasar tingkat kecamatan guna meningkatkan kualitas pendidikan.",
+                imageUrl: "https://sdnwedusan.aksespedia.com/storage/tenants/50/FalGFyURqHAeuIlMZXBv0vPtZvUIA7fhVtdU3Itk.jpg",
+                base64Image: ""
+            },
+            {
+                id: "gal_3",
+                title: "Pembacaan Asma'ul Husna dan Tahlil",
+                badge: "4 Foto",
+                date: "02 Feb 2026",
+                desc: "Pembiasaan keagamaan di musholla sekolah dengan melafalkan Asma'ul Husna serta doa tahlil berjamaah harian.",
+                content: "Pembiasaan keagamaan di musholla sekolah dengan melafalkan Asma'ul Husna serta doa tahlil berjamaah harian guna membentuk karakter murid yang bertakwa, beriman, dan berakhlak mulia sejak dini.",
+                imageUrl: "https://sdnwedusan.aksespedia.com/storage/tenants/50/cZgnsxmBgSTRXKz9X3zeQCiC4h9kpNX57b93kqlI.jpg",
+                base64Image: ""
+            },
+            {
+                id: "gal_4",
+                title: "Pembiasaan Karakter & Senyum Salam Sapa",
+                badge: "1 Foto",
+                date: "01 Feb 2026",
+                desc: "Budaya 5S (Senyum, Sapa, Salam, Sopan, Santun) menyambut kehadiran siswa di gerbang depan setiap pagi.",
+                content: "Budaya 5S (Senyum, Sapa, Salam, Sopan, Santun) menyambut kehadiran siswa di gerbang depan setiap pagi oleh kepala sekolah and guru piket harian untuk mendidik adab luhur sebelum belajar.",
+                imageUrl: "https://sdnwedusan.aksespedia.com/storage/tenants/50/cidVqRgsSfadn8NZKWJL06L8nrH32vL0o7klgxGv.jpg",
+                base64Image: ""
+            },
+            {
+                id: "gal_5",
+                title: "Menjenguk Teman Sekolah Yang Sakit",
+                badge: "2 Foto",
+                date: "28 Jan 2026",
+                desc: "Aksi sosial empati guru dan perwakilan siswa menjenguk teman kelas yang sedang dirawat sakit di rumah.",
+                content: "Aksi sosial empati guru dan perwakilan siswa menjenguk teman kelas yang sedang dirawat sakit di rumah guna mempererat kekeluargaan, melatih kepekaan sosial, dan menanamkan solidaritas kemanusiaan.",
+                imageUrl: "https://sdnwedusan.aksespedia.com/storage/tenants/50/KaLXpP7o5HcegGEE9Cl3Y5jOQLJhqcpoU7Rv1Npi.jpg",
+                base64Image: ""
+            },
+            {
+                id: "gal_6",
+                title: "Kegiatan Jeda Semester (PERSARI Pramuka)",
+                badge: "13 Foto",
+                date: "20 Des 2025",
+                desc: "Pertemuan Satu Hari (PERSARI) Pramuka Siaga yang seru dengan berbagai permainan edukasi outdoor.",
+                content: "Pertemuan Satu Hari (PERSARI) Pramuka Siaga yang seru dengan berbagai permainan edukasi outdoor, jelajah alam bebas, ketangkasan regu, dan api unggun kebersamaan melatih kedisiplinan mental anak.",
+                imageUrl: "https://sdnwedusan.aksespedia.com/storage/tenants/50/96iyCPvud4kMRtEiAkRgs3EqkdPJyH0gDrWEzhjc.jpg",
+                base64Image: ""
+            },
+            {
+                id: "gal_7",
+                title: "Sabtu Sehat dan Bersih Lingkungan",
+                badge: "4 Foto",
+                date: "15 Nov 2025",
+                desc: "Senam pagi kebugaran jasmani dilanjutkan kerja bakti membersihkan lingkungan kelas dan TOGA sekolah.",
+                content: "Senam pagi kebugaran jasmani dilanjutkan kerja bakti bersama membersihkan lingkungan kelas dan TOGA sekolah untuk mewujudkan lingkungan Adiwiyata yang sehat, sejuk, dan bebas polusi.",
+                imageUrl: "https://sdnwedusan.aksespedia.com/storage/tenants/50/y2Id1a2MrO3IQEjDJ0aGfHzGlORotEBHpiz4z8vD.jpg",
+                base64Image: ""
+            }
+        ],
         registrations: [
             {
                 id: "reg_1",
@@ -289,7 +407,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 asalTk: "RA Miftahul Ulum Wedusan",
                 alamat: "RT 04 RW 02 Desa Wedusan"
             }
-        ]
+        ],
+        contact: {
+            email: "sdwedusan@gmail.com",
+            phone: "085347641171",
+            address: "Jl. Puncel - Ngablak KM. 05 Desa Wedusan, Kec. Dukuhseti, Kabupaten Pati, Jawa Tengah (59158)"
+        }
     };
 
     // Initialize State with Self-Healing Fallback
@@ -308,7 +431,7 @@ document.addEventListener("DOMContentLoaded", () => {
         !schoolDB.news || !schoolDB.facilities || 
         !schoolDB.agenda || !schoolDB.downloads || !schoolDB.heroSlides ||
         !schoolDB.stats || !schoolDB.welcome || !schoolDB.visionMission ||
-        !schoolDB.programs || !schoolDB.registrations) {
+        !schoolDB.programs || !schoolDB.registrations || !schoolDB.contact) {
         
         console.warn("Database tidak lengkap atau tidak valid. Melakukan reset ke database default.");
         schoolDB = defaultSchoolDatabase;
@@ -335,6 +458,94 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
     
+    // Self-heal sidebarBanners key if missing from older browser cache
+    if (schoolDB && !schoolDB.sidebarBanners) {
+        schoolDB.sidebarBanners = defaultSchoolDatabase.sidebarBanners;
+        try {
+            localStorage.setItem("school_website_db", JSON.stringify(schoolDB));
+        } catch (e) {
+            console.error("Gagal menyimpan self-healing sidebarBanners:", e);
+        }
+    }
+    
+    // Self-heal contact schema key if missing from older browser cache
+    if (schoolDB && !schoolDB.contact) {
+        schoolDB.contact = defaultSchoolDatabase.contact;
+        try {
+            localStorage.setItem("school_website_db", JSON.stringify(schoolDB));
+        } catch (e) {
+            console.error("Gagal menyimpan self-healing contact:", e);
+        }
+    }
+
+    // Self-heal gallery schema key if missing from older browser cache
+    if (schoolDB && !schoolDB.gallery) {
+        schoolDB.gallery = defaultSchoolDatabase.gallery;
+        try {
+            localStorage.setItem("school_website_db", JSON.stringify(schoolDB));
+        } catch (e) {
+            console.error("Gagal menyimpan self-healing gallery:", e);
+        }
+    }
+    
+    // Self-heal logo to use premium transparent Kemendikbud shield
+    if (schoolDB && schoolDB.logo) {
+        if (!schoolDB.logo.imageUrl || schoolDB.logo.type === "icon") {
+            schoolDB.logo.type = "image";
+            schoolDB.logo.imageUrl = "https://sdnwedusan.aksespedia.com/storage/tenants/50/fZxyOX0jIfZ5pDa1hu4tcZnyYt8hjX49vqLs9vTy.png";
+            try {
+                localStorage.setItem("school_website_db", JSON.stringify(schoolDB));
+            } catch (e) {
+                console.error("Gagal menyimpan self-healing logo image:", e);
+            }
+        }
+    }
+
+    // Self-heal hero slides to use the premium official sdnwedusan images
+    if (schoolDB && schoolDB.heroSlides) {
+        let needsUpdate = false;
+        schoolDB.heroSlides.forEach((slide, idx) => {
+            if (slide.imageUrl && slide.imageUrl.includes("unsplash.com")) {
+                needsUpdate = true;
+                if (idx === 0) {
+                    slide.imageUrl = "https://sdnwedusan.aksespedia.com/storage/tenants/50/ZQaiNR8vqNZHqJG28ymmefxZj6Sj7X3ui5Zn2l25.jpg";
+                    slide.title = "Selamat Datang di Platform Digital Resmi <span>SD Negeri Wedusan</span>";
+                    slide.desc = "Berkomitmen mewujudkan generasi cerdas, berkarakter, dan berdaya saing global melalui pendidikan berkualitas.";
+                } else if (idx === 1) {
+                    slide.imageUrl = "https://sdnwedusan.aksespedia.com/storage/tenants/50/Y4e8mkVeB4ASOecNWOqpt1j5C1phJ8pKcyXzjZhU.jpg";
+                    slide.title = "Membangun Semangat Nasionalisme Melalui <span>Peringatan Hari Besar</span>";
+                    slide.desc = "Mari Bersama Terus Melaju Untuk Indonesia Maju dengan Menjunjung Tinggi Nilai-Nilai Luhur Bangsa.";
+                } else if (idx === 2) {
+                    slide.imageUrl = "https://sdnwedusan.aksespedia.com/assets/dummy/13.png";
+                    slide.title = "Kolaborasi Ekosistem Digital Untuk <span>Masa Depan Pendidikan</span>";
+                    slide.desc = "Menyatukan Potensi Teknologi dan Karakter Bangsa Untuk Generasi Unggul.";
+                }
+            }
+        });
+        
+        // Ensure there are 4 slides like the official website
+        if (schoolDB.heroSlides.length < 4) {
+            schoolDB.heroSlides.push({
+                id: "slide_4",
+                badge: "<i class=\"fas fa-cogs\"></i> Efisiensi",
+                title: "Inovasi Tanpa Batas Dalam Mengelola <span>Administrasi Lembaga</span>",
+                desc: "Efisiensi dan Transparansi Dalam Genggaman Melalui CMS Untukmu Negeri.",
+                link: "Hubungi Kami|#kontak",
+                base64Image: "",
+                imageUrl: "https://sdnwedusan.aksespedia.com/assets/dummy/14.png"
+            });
+            needsUpdate = true;
+        }
+
+        if (needsUpdate) {
+            try {
+                localStorage.setItem("school_website_db", JSON.stringify(schoolDB));
+            } catch (e) {
+                console.error("Gagal menyimpan self-healing hero slides:", e);
+            }
+        }
+    }
+    
     let isAdminLoggedIn = localStorage.getItem("school_admin_logged_in") === "true";
 
     // 1. Render Engines
@@ -343,9 +554,10 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!container) return;
 
         const logo = schoolDB.logo || {
-            type: "icon",
+            type: "image",
             icon: "fa-school",
             base64Image: "",
+            imageUrl: "https://sdnwedusan.aksespedia.com/storage/tenants/50/fZxyOX0jIfZ5pDa1hu4tcZnyYt8hjX49vqLs9vTy.png",
             name: "SDN Wedusan",
             tagline: "Mewujudkan Generasi Cerdas & Berkarakter"
         };
@@ -356,8 +568,9 @@ document.addEventListener("DOMContentLoaded", () => {
             </div>
         ` : "";
 
-        const logoHtml = logo.type === "image" && logo.base64Image ? `
-            <img src="${logo.base64Image}" style="height: 38px; width: 38px; object-fit: contain; border-radius: 4px;" alt="Logo">
+        const logoSrc = logo.base64Image || logo.imageUrl || "";
+        const logoHtml = logo.type === "image" && logoSrc ? `
+            <img src="${logoSrc}" style="height: 100%; width: 100%; object-fit: cover; border-radius: inherit;" alt="Logo">
         ` : `
             <i class="fas ${logo.icon || 'fa-school'}"></i>
         `;
@@ -414,40 +627,26 @@ document.addEventListener("DOMContentLoaded", () => {
             const imageSrc = item.base64Image || item.imageUrl || "";
 
             return `
-                <div class="slide ${idx === 0 ? 'active' : ''}" data-id="${item.id}">
-                    <div class="container">
-                        <div class="hero-grid">
-                            <div class="hero-content">
-                                <div class="hero-badge">${item.badge}</div>
-                                <h1 class="hero-title">${item.title}</h1>
-                                <p class="hero-desc">${item.desc}</p>
-                                <div class="hero-action-buttons">
-                                    <a href="${buttonUrl}" class="btn btn-primary" ${buttonUrl.startsWith('http') ? 'target="_blank"' : ''}>
-                                        ${buttonText} <i class="fas fa-arrow-circle-right"></i>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="hero-visual">
-                                <div class="hero-img-box" style="background-image: url('${imageSrc}'); background-size: cover; background-position: center; border: none; padding: 0; position: relative;">
-                                    <div class="admin-controls" onclick="event.preventDefault(); event.stopPropagation();">
-                                        <button class="btn-admin-card edit" onclick="openEditItem('heroSlides', '${item.id}')"><i class="fas fa-edit"></i></button>
-                                        <button class="btn-admin-card delete" onclick="deleteItem('heroSlides', '${item.id}')"><i class="fas fa-trash"></i></button>
-                                    </div>
-                                </div>
-                                <div class="float-card float-card-1">
-                                    <div class="float-icon"><i class="fas fa-graduation-cap"></i></div>
-                                    <div class="float-text">
-                                        <h4>250+ Siswa</h4>
-                                        <p>Cerdas & Berkarakter</p>
-                                    </div>
-                                </div>
-                                <div class="float-card float-card-2">
-                                    <div class="float-icon amber"><i class="fas fa-award"></i></div>
-                                    <div class="float-text">
-                                        <h4>Akreditasi A</h4>
-                                        <p>Sangat Unggul</p>
-                                    </div>
-                                </div>
+                <div class="slide ${idx === 0 ? 'active' : ''}" data-id="${item.id}" style="background-image: url('${imageSrc}'); background-size: cover; background-position: center; position: absolute; width: 100%; height: 100%;">
+                    <!-- Dark green-blue professional visual overlay for maximum text contrast and glassmorphic shine -->
+                    <div class="slide-overlay" style="position: absolute; inset: 0; background: linear-gradient(135deg, rgba(20, 83, 45, 0.85) 0%, rgba(13, 52, 28, 0.75) 100%); z-index: 2;"></div>
+                    
+                    <!-- Admin control overlay absolute layout in the top right corner -->
+                    <div class="admin-controls" onclick="event.preventDefault(); event.stopPropagation();" style="position: absolute; top: 120px; right: 40px; z-index: 50; display: flex; gap: 10px;">
+                        <button class="btn-admin-card edit" onclick="openEditItem('heroSlides', '${item.id}')" title="Edit Slide"><i class="fas fa-edit"></i></button>
+                        <button class="btn-admin-card delete" onclick="deleteItem('heroSlides', '${item.id}')" title="Hapus Slide"><i class="fas fa-trash"></i></button>
+                    </div>
+
+                    <!-- Centered Slide Content container -->
+                    <div class="container" style="position: relative; z-index: 10; height: 100%; display: flex; align-items: center; justify-content: center; text-align: center;">
+                        <div class="hero-content" style="max-width: 880px; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; animation: slideUp 0.8s ease;">
+                            <div class="hero-badge" style="background: rgba(255, 255, 255, 0.12); color: white; border: 1px solid rgba(255, 255, 255, 0.25); text-shadow: 0 1px 2px rgba(0,0,0,0.25); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); font-weight: 700; margin-bottom: 24px; padding: 8px 18px; font-size: 13px; border-radius: 9999px;">${item.badge}</div>
+                            <h1 class="hero-title" style="color: white; text-shadow: 0 4px 15px rgba(0,0,0,0.5); font-size: 48px; font-weight: 900; line-height: 1.25; margin-bottom: 20px; font-family: var(--font-sans);">${item.title}</h1>
+                            <p class="hero-desc" style="color: rgba(255, 255, 255, 0.92); text-shadow: 0 2px 8px rgba(0,0,0,0.4); font-size: 16px; max-width: 720px; margin-bottom: 35px; line-height: 1.7; font-weight: 500;">${item.desc}</p>
+                            <div class="hero-action-buttons" style="display: flex; justify-content: center;">
+                                <a href="${buttonUrl}" class="btn btn-primary" ${buttonUrl.startsWith('http') ? 'target="_blank"' : ''} style="background: linear-gradient(135deg, var(--accent), #d97706); border: none; box-shadow: 0 10px 25px rgba(245, 158, 11, 0.35); font-weight: 800; padding: 16px 38px; border-radius: 9999px; font-size: 15px; display: inline-flex; align-items: center; gap: 8px;">
+                                    ${buttonText} <i class="fas fa-arrow-circle-right"></i>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -457,18 +656,25 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Control Arrows & Dots
         const controlsHtml = `
-            <button class="slider-control prev"><i class="fas fa-chevron-left"></i></button>
-            <button class="slider-control next"><i class="fas fa-chevron-right"></i></button>
-            <div class="slider-dots">
+            <button class="slider-control prev" style="z-index: 30;"><i class="fas fa-chevron-left"></i></button>
+            <button class="slider-control next" style="z-index: 30;"><i class="fas fa-chevron-right"></i></button>
+            <div class="slider-dots" style="z-index: 30; bottom: 40px;">
                 ${schoolDB.heroSlides.map((_, idx) => `<span class="dot ${idx === 0 ? 'active' : ''}"></span>`).join("")}
             </div>
             <!-- Admin "+ Tambah Slide Baru" overlay button inside hero slider container -->
-            <div class="add-btn-wrapper slider-add-btn" style="position: absolute; bottom: 20px; right: 20px; z-index: 50; margin-bottom: 0;">
-                <button class="btn-add-item" onclick="openAddItem('heroSlides')"><i class="fas fa-plus"></i> Tambah Slide Baru</button>
+            <div class="add-btn-wrapper slider-add-btn" style="position: absolute; bottom: 30px; right: 40px; z-index: 50; margin-bottom: 0; width: auto;">
+                <button class="btn-add-item" onclick="openAddItem('heroSlides')" style="background: rgba(255, 255, 255, 0.15); color: white; border: 1px dashed rgba(255, 255, 255, 0.4); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);"><i class="fas fa-plus"></i> Tambah Slide Baru</button>
             </div>
         `;
 
-        sliderContainer.innerHTML = slidesHtml + controlsHtml;
+        sliderContainer.innerHTML = `
+            <div class="hero-carousel-wrapper" style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; overflow: hidden; background: #0f172a;">
+                <div class="hero-slides-container" style="height: 100%; position: relative;">
+                    ${slidesHtml}
+                </div>
+                ${controlsHtml}
+            </div>
+        `;
 
         // Initialize slider animation listeners
         reinitSliderEngine();
@@ -484,8 +690,8 @@ document.addEventListener("DOMContentLoaded", () => {
             </div>
         ` : "";
 
-        const itemsHtml = schoolDB.stats.map(item => `
-            <div class="stat-item">
+        const itemsHtml = schoolDB.stats.map((item, idx) => `
+            <div class="stat-item stat-card-${idx}">
                 <h2>${item.value}</h2>
                 <p>${item.label}</p>
             </div>
@@ -596,13 +802,18 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             }
 
+            const imgSrc = item.base64Image || item.imageUrl;
+            const coverHtml = imgSrc ? `
+                <div class="card-cover-box" style="background-image: url('${imgSrc}'); background-size: cover; background-position: center; height: 160px; border-radius: var(--radius-md) var(--radius-md) 0 0; margin: -40px -32px 24px -32px; border-bottom: 1px solid var(--border-color);"></div>
+            ` : `<div class="feature-icon"><i class="fas ${item.icon || 'fa-award'}"></i></div>`;
+
             return `
                 <div class="feature-card" data-id="${item.id}" style="position: relative;">
                     <div class="admin-controls" onclick="event.preventDefault(); event.stopPropagation();">
                         <button class="btn-admin-card edit" onclick="openEditItem('programs', '${item.id}')"><i class="fas fa-edit"></i></button>
                         <button class="btn-admin-card delete" onclick="deleteItem('programs', '${item.id}')"><i class="fas fa-trash"></i></button>
                     </div>
-                    <div class="feature-icon"><i class="fas ${item.icon || 'fa-award'}"></i></div>
+                    ${coverHtml}
                     <h3>${item.title}</h3>
                     <p>${item.desc}</p>
                     <a href="${buttonUrl}" class="feature-link" ${buttonUrl.startsWith('http') ? 'target="_blank"' : ''}>${buttonText} <i class="fas fa-arrow-right"></i></a>
@@ -642,7 +853,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         <div class="gallery-date"><i class="fas fa-calendar-alt"></i> ${item.date}</div>
                         <h3>${item.title}</h3>
                         <p>${item.desc}</p>
-                        <a href="${item.link || '#'}" class="feature-link" target="_blank">Baca Selengkapnya <i class="fas fa-arrow-right"></i></a>
+                        <a href="#" class="feature-link" onclick="openDetailView(event, 'news', '${item.id}')">Baca Selengkapnya <i class="fas fa-arrow-right"></i></a>
                     </div>
                 </div>
             `;
@@ -666,7 +877,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     ${item.base64Image ? `<div ${bgImgStyle}></div>` : iconContent}
                     <h3>${item.title}</h3>
                     <p>${item.desc}</p>
-                    <a href="${item.link || '#'}" class="feature-link" target="_blank">Selengkapnya <i class="fas fa-arrow-right"></i></a>
+                    <a href="#" class="feature-link" onclick="openDetailView(event, 'facilities', '${item.id}')">Selengkapnya <i class="fas fa-arrow-right"></i></a>
                 </div>
             `;
         }).join("");
@@ -677,25 +888,100 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!grid) return;
         
         grid.innerHTML = schoolDB.agenda.map(item => {
+            const imgSrc = item.base64Image || item.imageUrl;
+            const coverHtml = imgSrc ? `
+                <div class="card-cover-box" style="background-image: url('${imgSrc}'); background-size: cover; background-position: center; height: 160px; border-radius: var(--radius-md) var(--radius-md) 0 0; margin: -40px -32px 24px -32px; border-bottom: 1px solid var(--border-color);"></div>
+            ` : `<div class="feature-icon"><i class="fas ${item.icon || 'fa-calendar-alt'}"></i></div>`;
+
             return `
                 <div class="feature-card" data-id="${item.id}" style="position: relative;">
                     <div class="admin-controls" onclick="event.preventDefault(); event.stopPropagation();">
                         <button class="btn-admin-card edit" onclick="openEditItem('agenda', '${item.id}')"><i class="fas fa-edit"></i></button>
                         <button class="btn-admin-card delete" onclick="deleteItem('agenda', '${item.id}')"><i class="fas fa-trash"></i></button>
                     </div>
-                    <div class="feature-icon"><i class="fas ${item.icon || 'fa-calendar-alt'}"></i></div>
+                    ${coverHtml}
                     <div class="card-date-badge">${item.badge}</div>
                     <h3>${item.title}</h3>
                     <p>${item.desc}</p>
-                    <a href="${item.link || '#'}" class="feature-link" target="_blank">Selengkapnya <i class="fas fa-arrow-right"></i></a>
+                    <a href="#" class="feature-link" onclick="openDetailView(event, 'agenda', '${item.id}')">Selengkapnya <i class="fas fa-arrow-right"></i></a>
                 </div>
             `;
         }).join("");
     }
 
+    function renderDynamicGallery() {
+        const grid = document.getElementById("gallery-masonry-grid");
+        if (!grid) return;
+
+        const addBtn = isAdminLoggedIn ? `
+            <div class="add-btn-wrapper" style="display: flex; justify-content: center; margin-bottom: 40px;">
+                <button class="btn-add-item" onclick="openAddItem('gallery')"><i class="fas fa-plus"></i> Tambah Foto Galeri Baru</button>
+            </div>
+        ` : "";
+
+        if (!schoolDB.gallery || schoolDB.gallery.length === 0) {
+            grid.innerHTML = `
+                <div style="grid-column: 1 / -1; text-align: center; padding: 40px; color: var(--text-muted); font-style: italic;">
+                    Belum ada foto galeri yang diunggah.
+                </div>
+            `;
+            return;
+        }
+
+        const cardsHtml = schoolDB.gallery.map((item, idx) => {
+            const imgSrc = item.base64Image || item.imageUrl || "";
+            // Item 1 is featured/large (span 2 cols, span 2 rows)
+            const isFeatured = idx === 0 ? "bento-featured" : "";
+            
+            return `
+                <div class="gallery-masonry-item ${isFeatured}" data-id="${item.id}" onclick="openDetailView(event, 'gallery', '${item.id}')">
+                    <div class="admin-controls" onclick="event.preventDefault(); event.stopPropagation();">
+                        <button class="btn-admin-card edit" onclick="openEditItem('gallery', '${item.id}')" title="Edit Foto"><i class="fas fa-edit"></i></button>
+                        <button class="btn-admin-card delete" onclick="deleteItem('gallery', '${item.id}')" title="Hapus Foto"><i class="fas fa-trash"></i></button>
+                    </div>
+                    <img src="${imgSrc}" alt="${item.title}" loading="lazy">
+                    <div class="gallery-item-content">
+                        <div class="gallery-item-meta">
+                            <span>${item.date || ""}</span>
+                            <span class="gallery-item-count"><i class="fas fa-camera"></i> ${item.badge || '1 Foto'}</span>
+                        </div>
+                        <h3>${item.title}</h3>
+                    </div>
+                </div>
+            `;
+        }).join("");
+
+        grid.innerHTML = addBtn + `<div class="gallery-masonry-grid">${cardsHtml}</div>`;
+    }
+
     function renderDynamicDownloads() {
         const grid = document.getElementById("downloads-grid");
         if (!grid) return;
+        
+        // Show or hide admin Google Drive guidance dynamically
+        const adminInfo = document.getElementById("downloads-admin-info");
+        if (adminInfo) {
+            if (isAdminLoggedIn) {
+                adminInfo.innerHTML = `
+                    <div class="admin-helper-banner" style="background: rgba(5, 150, 105, 0.05); border: 1px dashed var(--primary); border-radius: var(--radius-md); padding: 24px; display: flex; align-items: center; gap: 20px; box-shadow: var(--shadow-sm); animation: fadeIn 0.4s ease; margin-bottom: 30px;">
+                        <div style="font-size: 32px; color: var(--primary);"><i class="fab fa-google-drive"></i></div>
+                        <div style="flex-grow: 1; font-size: 13px; line-height: 1.6; color: var(--text-main);">
+                            <strong style="color: var(--primary); display: block; font-size: 14px; margin-bottom: 6px;"><i class="fas fa-info-circle"></i> Mode Admin: Panduan Upload Berkas / File Penting</strong>
+                            Karena website ini berjalan secara serverless (gratis tanpa database berbayar), berkas baru (PDF, Word, Excel, dll.) <strong>tidak bisa langsung diunggah ke website secara mentah</strong> demi menjaga performa website agar tidak lambat. 
+                            <br>
+                            Silakan unggah dokumen Anda ke <strong>Google Drive Sekolah</strong> terlebih dahulu, ubah setelan akses berbagi file menjadi <strong>"Siapa saja yang memiliki link dapat melihat"</strong>, salin linknya, kemudian klik tombol <strong>+ Tambah Dokumen Baru</strong> di bawah dan tempelkan link tersebut ke dalam kolom "Tautan Google Drive".
+                        </div>
+                        <div style="flex-shrink: 0;">
+                            <a href="https://drive.google.com" target="_blank" class="btn btn-primary" style="padding: 10px 20px; font-size: 12px; border-radius: var(--radius-sm);"><i class="fab fa-google-drive"></i> Buka Google Drive</a>
+                        </div>
+                    </div>
+                `;
+                adminInfo.style.display = "block";
+            } else {
+                adminInfo.innerHTML = "";
+                adminInfo.style.display = "none";
+            }
+        }
         
         grid.innerHTML = schoolDB.downloads.map(item => {
             return `
@@ -713,6 +999,28 @@ document.addEventListener("DOMContentLoaded", () => {
         }).join("");
     }
 
+    function renderDynamicContact() {
+        const c = schoolDB.contact || {
+            email: "sdwedusan@gmail.com",
+            phone: "085347641171",
+            address: "Jl. Puncel - Ngablak KM. 05 Desa Wedusan, Kec. Dukuhseti, Kabupaten Pati, Jawa Tengah (59158)"
+        };
+
+        // Update Top Bar
+        const topEmail = document.getElementById("top-email");
+        if (topEmail) topEmail.innerText = c.email;
+        const topPhone = document.getElementById("top-phone");
+        if (topPhone) topPhone.innerText = c.phone;
+
+        // Update Contact Section
+        const contactAddress = document.getElementById("contact-address");
+        if (contactAddress) contactAddress.innerText = c.address;
+        const contactEmail = document.getElementById("contact-email");
+        if (contactEmail) contactEmail.innerText = c.email;
+        const contactPhone = document.getElementById("contact-phone");
+        if (contactPhone) contactPhone.innerText = c.phone;
+    }
+
     function renderAllDynamicSections() {
         try { renderDynamicLogo(); } catch (e) { console.error("Error rendering logo:", e); }
         try { renderDynamicHeroSlider(); } catch (e) { console.error("Error rendering hero slider:", e); }
@@ -723,7 +1031,9 @@ document.addEventListener("DOMContentLoaded", () => {
         try { renderDynamicNews(); } catch (e) { console.error("Error rendering news:", e); }
         try { renderDynamicFacilities(); } catch (e) { console.error("Error rendering facilities:", e); }
         try { renderDynamicAgenda(); } catch (e) { console.error("Error rendering agenda:", e); }
+        try { renderDynamicGallery(); } catch (e) { console.error("Error rendering gallery:", e); }
         try { renderDynamicDownloads(); } catch (e) { console.error("Error rendering downloads:", e); }
+        try { renderDynamicContact(); } catch (e) { console.error("Error rendering contact:", e); }
     }
 
     // Toggle Admin Mode Class on Body
@@ -735,6 +1045,85 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         renderAllDynamicSections();
     }
+
+    // Standalone Article Detail Popup Viewer
+    window.openDetailView = (e, section, id) => {
+        if (e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+        
+        const item = schoolDB[section].find(x => x.id === id);
+        if (!item) return;
+
+        // Set Kop Category Badge
+        const badgeEl = document.getElementById("detail-badge");
+        if (badgeEl) {
+            if (section === "news") {
+                badgeEl.innerText = item.tag || "Berita Terkini";
+                badgeEl.style.background = "var(--primary-light)";
+                badgeEl.style.color = "var(--primary)";
+            } else if (section === "facilities") {
+                badgeEl.innerText = "Sarana Prasarana";
+                badgeEl.style.background = "var(--accent-light)";
+                badgeEl.style.color = "var(--accent)";
+            } else if (section === "agenda") {
+                badgeEl.innerText = "Agenda Mendatang";
+                badgeEl.style.background = "rgba(30, 58, 138, 0.08)";
+                badgeEl.style.color = "var(--secondary)";
+            } else if (section === "gallery") {
+                badgeEl.innerText = "Galeri Kegiatan";
+                badgeEl.style.background = "rgba(16, 185, 129, 0.1)";
+                badgeEl.style.color = "#059669";
+            }
+        }
+
+        // Set Title
+        const titleEl = document.getElementById("detail-title");
+        if (titleEl) titleEl.innerText = item.title;
+
+        // Set Date or Badge
+        const dateEl = document.getElementById("detail-date");
+        if (dateEl) {
+            if (section === "news") {
+                dateEl.innerHTML = `<i class="fas fa-calendar-alt"></i> Diterbitkan pada: ${item.date || ""}`;
+            } else if (section === "agenda") {
+                dateEl.innerHTML = `<i class="fas fa-calendar-check"></i> Tanggal Pelaksanaan: ${item.badge || ""}`;
+            } else if (section === "gallery") {
+                dateEl.innerHTML = `<i class="fas fa-image"></i> Album: ${item.title} • ${item.badge || ""}`;
+            } else {
+                dateEl.innerHTML = `<i class="fas fa-school"></i> Fasilitas Sekolah SDN Wedusan`;
+            }
+        }
+
+        // Set Cover Image Banner
+        const imgBox = document.getElementById("detail-img-box");
+        const imgEl = document.getElementById("detail-img");
+        if (imgBox && imgEl) {
+            const imageSrc = item.base64Image || item.imageUrl || "";
+            if (imageSrc) {
+                imgEl.src = imageSrc;
+                imgBox.style.display = "block";
+            } else {
+                imgEl.src = "";
+                imgBox.style.display = "none";
+            }
+        }
+
+        // Set Rich Multi-paragraph content
+        const textEl = document.getElementById("detail-text");
+        if (textEl) {
+            // Render multi-paragraph or default description if content is missing
+            const richContent = item.content || item.desc || "Belum ada bacaan berita lengkap untuk item ini. Anda dapat menyunting dan melengkapinya melalui kontrol panel admin.";
+            textEl.innerHTML = richContent;
+        }
+
+        document.getElementById("detail-view-modal").classList.add("active");
+    };
+
+    window.closeDetailView = () => {
+        document.getElementById("detail-view-modal").classList.remove("active");
+    };
 
     // Bind Global Functions to Window Object for HTML Access
     window.openAddItem = (section) => {
@@ -750,7 +1139,20 @@ document.addEventListener("DOMContentLoaded", () => {
         const lblBadge = document.getElementById("lbl-crud-badge");
         const fileInput = document.getElementById("crud-file-input");
         const filePreview = document.getElementById("crud-img-preview-box");
+        const lblImage = document.getElementById("lbl-crud-image");
         
+        // Reset label link and placeholder to defaults
+        document.querySelector("label[for='crud-link']").innerHTML = "Tautan Aksi (Link URL)";
+        document.getElementById("crud-link").placeholder = "Contoh: https://google.com atau link dokumen";
+
+        if (lblImage) {
+            if (section === "gallery") {
+                lblImage.innerText = "Pilihan Gambar Unggulan (Galeri)";
+            } else {
+                lblImage.innerText = "Pilihan Gambar Unggulan (Berita/Fasilitas/Program/Agenda)";
+            }
+        }
+
         if (section === "news") {
             lblTitle.innerText = "Judul Berita";
             lblBadge.innerText = "Kategori / Tag Berita (Misal: Prestasi)";
@@ -766,21 +1168,46 @@ document.addEventListener("DOMContentLoaded", () => {
             lblBadge.innerText = "Badge Slide Atas (Contoh: <i class='fas fa-school'></i> Portal)";
             fileInput.disabled = false;
             filePreview.style.opacity = "1";
+        } else if (section === "sidebarBanners") {
+            lblTitle.innerText = "Judul Banner Sidebar";
+            lblBadge.innerText = "Keterangan Tambahan (Opsional)";
+            fileInput.disabled = false;
+            filePreview.style.opacity = "1";
         } else if (section === "programs") {
             lblTitle.innerText = "Nama Program Unggulan";
             lblBadge.innerText = "Ikon Aksi / Pilihan (Format: Judul Tombol|Tautan)";
-            fileInput.disabled = true;
-            filePreview.style.opacity = "0.4";
+            fileInput.disabled = false;
+            filePreview.style.opacity = "1";
         } else if (section === "agenda") {
             lblTitle.innerText = "Nama Agenda";
             lblBadge.innerText = "Tanggal Kegiatan (Contoh: 09 Feb 2026)";
-            fileInput.disabled = true;
-            filePreview.style.opacity = "0.4";
+            fileInput.disabled = false;
+            filePreview.style.opacity = "1";
+        } else if (section === "gallery") {
+            lblTitle.innerText = "Judul Foto / Kegiatan Galeri";
+            lblBadge.innerText = "Keterangan / Jumlah Foto (Misal: 4 Foto)";
+            fileInput.disabled = false;
+            filePreview.style.opacity = "1";
         } else if (section === "downloads") {
             lblTitle.innerText = "Nama Dokumen";
             lblBadge.innerText = "Keterangan Berkas (Contoh: Microsoft Word • SOP)";
             fileInput.disabled = true;
             filePreview.style.opacity = "0.4";
+            
+            // Customize label and placeholder with Drive helper links!
+            document.querySelector("label[for='crud-link']").innerHTML = `Tautan Akses / Tautan Google Drive <a href="https://drive.google.com" target="_blank" style="margin-left: 8px; font-size:11px; color:var(--primary); font-weight:700; text-decoration:none;"><i class="fas fa-external-link-alt"></i> Buka Google Drive Sekolah</a>`;
+            document.getElementById("crud-link").placeholder = "Upload file ke Drive sekolah terlebih dahulu, lalu tempel link berbaginya di sini...";
+        }
+        
+        // Handle rich content field reset and visibility dynamically
+        const contentField = document.getElementById("field-crud-content");
+        if (contentField) {
+            document.getElementById("crud-content").value = "";
+            if (section === "news" || section === "facilities" || section === "agenda" || section === "gallery") {
+                contentField.style.display = "block";
+            } else {
+                contentField.style.display = "none";
+            }
         }
         
         document.getElementById("admin-crud-modal").classList.add("active");
@@ -804,8 +1231,27 @@ document.addEventListener("DOMContentLoaded", () => {
         const filePreview = document.getElementById("crud-img-preview-box");
         const imgEl = document.getElementById("crud-img-preview");
         const base64Input = document.getElementById("crud-base64-image");
+        const lblImage = document.getElementById("lbl-crud-image");
         
-        if (section === "news" || section === "facilities" || section === "heroSlides") {
+        // Reset label link and placeholder to defaults
+        document.querySelector("label[for='crud-link']").innerHTML = "Tautan Aksi (Link URL)";
+        document.getElementById("crud-link").placeholder = "Contoh: https://google.com atau link dokumen";
+
+        if (lblImage) {
+            if (section === "gallery") {
+                lblImage.innerText = "Pilihan Gambar Unggulan (Galeri)";
+            } else {
+                lblImage.innerText = "Pilihan Gambar Unggulan (Berita/Fasilitas/Program/Agenda)";
+            }
+        }
+
+        if (section === "downloads") {
+            // Customize label and placeholder with Drive helper links!
+            document.querySelector("label[for='crud-link']").innerHTML = `Tautan Akses / Tautan Google Drive <a href="https://drive.google.com" target="_blank" style="margin-left: 8px; font-size:11px; color:var(--primary); font-weight:700; text-decoration:none;"><i class="fas fa-external-link-alt"></i> Buka Google Drive Sekolah</a>`;
+            document.getElementById("crud-link").placeholder = "Upload file ke Drive sekolah terlebih dahulu, lalu tempel link berbaginya di sini...";
+        }
+
+        if (section === "news" || section === "facilities" || section === "heroSlides" || section === "sidebarBanners" || section === "programs" || section === "agenda" || section === "gallery") {
             fileInput.disabled = false;
             filePreview.style.opacity = "1";
             if (item.base64Image) {
@@ -825,6 +1271,17 @@ document.addEventListener("DOMContentLoaded", () => {
             filePreview.style.opacity = "0.4";
             imgEl.style.display = "none";
             base64Input.value = "";
+        }
+        
+        // Handle rich content field value and visibility dynamically
+        const contentField = document.getElementById("field-crud-content");
+        if (contentField) {
+            document.getElementById("crud-content").value = item.content || "";
+            if (section === "news" || section === "facilities" || section === "agenda" || section === "gallery") {
+                contentField.style.display = "block";
+            } else {
+                contentField.style.display = "none";
+            }
         }
         
         document.getElementById("admin-crud-modal").classList.add("active");
@@ -998,6 +1455,37 @@ document.addEventListener("DOMContentLoaded", () => {
         showToast("Visi & Misi sekolah berhasil diperbarui secara presisten!", "success");
     };
 
+    // 4. Contact Editor Window Handlers
+    window.openEditContact = () => {
+        const c = schoolDB.contact || {
+            email: "sdwedusan@gmail.com",
+            phone: "085347641171",
+            address: "Jl. Puncel - Ngablak KM. 05 Desa Wedusan, Kec. Dukuhseti, Kabupaten Pati, Jawa Tengah (59158)"
+        };
+        document.getElementById("contact-phone-input").value = c.phone;
+        document.getElementById("contact-email-input").value = c.email;
+        document.getElementById("contact-address-input").value = c.address;
+        
+        document.getElementById("admin-contact-modal").classList.add("active");
+    };
+
+    window.closeContactModal = () => {
+        document.getElementById("admin-contact-modal").classList.remove("active");
+    };
+
+    window.submitContactForm = (e) => {
+        e.preventDefault();
+        schoolDB.contact = {
+            phone: document.getElementById("contact-phone-input").value.trim(),
+            email: document.getElementById("contact-email-input").value.trim(),
+            address: document.getElementById("contact-address-input").value.trim()
+        };
+        localStorage.setItem("school_website_db", JSON.stringify(schoolDB));
+        renderDynamicContact();
+        window.closeContactModal();
+        showToast("Kontak resmi sekolah berhasil diperbarui secara presisten!", "success");
+    };
+
     // ==========================================================================
     // SPMB WIDGET & STUDENT CRM PORTAL HANDLERS (ONLINE & OFFLINE)
     // ==========================================================================
@@ -1061,7 +1549,8 @@ Alamat: ${alamat}
 
 Mohon bantuannya untuk memproses verifikasi berkas lebih lanjut. Terima kasih!`;
 
-        const waUrl = `https://wa.me/085347641171?text=${encodeURIComponent(messageText)}`;
+        const cleanPhone = formatWaNumber(schoolDB.contact.phone || "085347641171");
+        const waUrl = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(messageText)}`;
         
         window.closeSpmbModal();
         showToast("Pendaftaran berhasil disimpan di sistem! Dialihkan ke WhatsApp Panitia...", "success");
@@ -1250,9 +1739,10 @@ Mohon bantuannya untuk memproses verifikasi berkas lebih lanjut. Terima kasih!`;
         }
         
         const logo = schoolDB.logo || {
-            type: "icon",
+            type: "image",
             icon: "fa-school",
             base64Image: "",
+            imageUrl: "https://sdnwedusan.aksespedia.com/storage/tenants/50/fZxyOX0jIfZ5pDa1hu4tcZnyYt8hjX49vqLs9vTy.png",
             name: "SDN Wedusan",
             tagline: "Mewujudkan Generasi Cerdas & Berkarakter"
         };
@@ -1264,8 +1754,9 @@ Mohon bantuannya untuk memproses verifikasi berkas lebih lanjut. Terima kasih!`;
         document.getElementById("logo-base64-image").value = logo.base64Image || "";
         
         const imgEl = document.getElementById("logo-img-preview");
-        if (logo.base64Image) {
-            imgEl.src = logo.base64Image;
+        const logoSrc = logo.base64Image || logo.imageUrl || "";
+        if (logoSrc) {
+            imgEl.src = logoSrc;
             imgEl.style.display = "block";
         } else {
             imgEl.style.display = "none";
@@ -1298,6 +1789,7 @@ Mohon bantuannya untuk memproses verifikasi berkas lebih lanjut. Terima kasih!`;
             type: document.getElementById("logo-type").value,
             icon: document.getElementById("logo-icon-select").value,
             base64Image: document.getElementById("logo-base64-image").value,
+            imageUrl: schoolDB.logo.imageUrl || "https://sdnwedusan.aksespedia.com/storage/tenants/50/fZxyOX0jIfZ5pDa1hu4tcZnyYt8hjX49vqLs9vTy.png",
             name: document.getElementById("logo-name").value.trim(),
             tagline: document.getElementById("logo-tagline").value.trim()
         };
@@ -1401,6 +1893,7 @@ Mohon bantuannya untuk memproses verifikasi berkas lebih lanjut. Terima kasih!`;
             const icon = document.getElementById("crud-icon-select").value;
             const badge = document.getElementById("crud-badge").value.trim();
             const base64Image = document.getElementById("crud-base64-image").value;
+            const content = document.getElementById("crud-content") ? document.getElementById("crud-content").value.trim() : "";
             
             if (id) {
                 // Editing existing item
@@ -1415,12 +1908,26 @@ Mohon bantuannya untuk memproses verifikasi berkas lebih lanjut. Terima kasih!`;
                         schoolDB[section][idx].date = badge || new Date().toLocaleDateString('id-ID', {day: 'numeric', month: 'long', year: 'numeric'});
                         schoolDB[section][idx].tag = "Kabar";
                         schoolDB[section][idx].base64Image = base64Image;
+                        schoolDB[section][idx].content = content;
                     } else if (section === "facilities") {
                         schoolDB[section][idx].base64Image = base64Image;
+                        schoolDB[section][idx].content = content;
                     } else if (section === "heroSlides") {
                         schoolDB[section][idx].badge = badge || "<i class=\"fas fa-school\"></i> Portal";
                         schoolDB[section][idx].base64Image = base64Image;
-                    } else if (section === "agenda" || section === "downloads") {
+                    } else if (section === "sidebarBanners") {
+                        schoolDB[section][idx].base64Image = base64Image;
+                    } else if (section === "programs") {
+                        schoolDB[section][idx].base64Image = base64Image;
+                    } else if (section === "agenda") {
+                        schoolDB[section][idx].badge = badge;
+                        schoolDB[section][idx].content = content;
+                        schoolDB[section][idx].base64Image = base64Image;
+                    } else if (section === "gallery") {
+                        schoolDB[section][idx].badge = badge || "1 Foto";
+                        schoolDB[section][idx].base64Image = base64Image;
+                        schoolDB[section][idx].content = content;
+                    } else if (section === "downloads") {
                         schoolDB[section][idx].badge = badge;
                     }
                 }
@@ -1438,13 +1945,28 @@ Mohon bantuannya untuk memproses verifikasi berkas lebih lanjut. Terima kasih!`;
                     newItem.date = badge || new Date().toLocaleDateString('id-ID', {day: 'numeric', month: 'long', year: 'numeric'});
                     newItem.tag = "Kabar";
                     newItem.base64Image = base64Image;
+                    newItem.content = content;
                 } else if (section === "facilities") {
                     newItem.base64Image = base64Image;
+                    newItem.content = content;
                 } else if (section === "heroSlides") {
                     newItem.badge = badge || "<i class=\"fas fa-school\"></i> Portal";
                     newItem.base64Image = base64Image;
                     newItem.imageUrl = "https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&q=80&w=800"; // default fallback
-                } else if (section === "agenda" || section === "downloads") {
+                } else if (section === "sidebarBanners") {
+                    newItem.base64Image = base64Image;
+                } else if (section === "programs") {
+                    newItem.base64Image = base64Image;
+                } else if (section === "agenda") {
+                    newItem.badge = badge;
+                    newItem.content = content;
+                    newItem.base64Image = base64Image;
+                } else if (section === "gallery") {
+                    newItem.badge = badge || "1 Foto";
+                    newItem.base64Image = base64Image;
+                    newItem.content = content;
+                    newItem.date = new Date().toLocaleDateString('id-ID', {day: 'numeric', month: 'short', year: 'numeric'});
+                } else if (section === "downloads") {
                     newItem.badge = badge;
                 }
                 

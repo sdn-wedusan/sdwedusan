@@ -24,11 +24,14 @@
     <div class="top-bar">
         <div class="container">
             <div class="top-info">
-                <span><i class="fas fa-envelope"></i> sdwedusan@gmail.com</span>
-                <span><i class="fas fa-phone-alt"></i> 085347641171</span>
+                <span><i class="fas fa-envelope"></i> <span id="top-email">sdwedusan@gmail.com</span></span>
+                <span><i class="fas fa-phone-alt"></i> <span id="top-phone">085347641171</span></span>
             </div>
-            <div class="top-links">
-                <a href="#portal-kelulusan" class="pulse-btn"><i class="fas fa-graduation-cap"></i> Pengumuman Kelulusan</a>
+            <div class="top-socials">
+                <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="https://youtube.com" target="_blank"><i class="fab fa-youtube"></i></a>
+                <a href="https://tiktok.com" target="_blank"><i class="fab fa-tiktok"></i></a>
             </div>
         </div>
     </div>
@@ -53,7 +56,9 @@
                 <li><a href="#fasilitas" class="nav-link">Fasilitas</a></li>
                 <li><a href="#berita" class="nav-link">Berita</a></li>
                 <li><a href="#agenda" class="nav-link">Agenda</a></li>
+                <li><a href="#galeri" class="nav-link">Galeri</a></li>
                 <li><a href="#kontak" class="nav-link">Kontak</a></li>
+                <li><a href="#unduh" class="nav-link">Unduh</a></li>
                 <li><a href="#" class="btn-nav" onclick="openSpmbModal(event)"><i class="fas fa-paper-plane"></i> SPMB</a></li>
             </ul>
             
@@ -109,20 +114,7 @@
     <!-- ==========================================
          7. DYNAMIC PORTAL KELULUSAN (INTEGRASI UTAMA)
          ========================================== -->
-    <section id="portal-kelulusan" class="portal-banner">
-        <div class="container">
-            <div class="portal-banner-grid">
-                <div class="portal-banner-content">
-                    <div class="portal-badge"><i class="fas fa-info-circle"></i> Sistem Kelulusan Mandiri Siswa (Digital SKL)</div>
-                    <h2>Layanan Cek Kelulusan Online Kelas VI</h2>
-                    <p>Surat Keterangan Lulus (SKL) dan Transkrip Nilai resmi murid kelas VI Tahun Ajaran 2025/2026 kini dapat dicari, diunduh, dan dicetak secara mandiri dari rumah! Cukup masukkan **10 Digit NISN** murid untuk mengecek status dan mencetak dokumen Anda.</p>
-                </div>
-                <div class="portal-banner-action">
-                    <a href="../skl-generator-sd/index.html" class="btn btn-primary" target="_blank"><i class="fas fa-search"></i> Cek Kelulusan & Cetak SKL</a>
-                </div>
-            </div>
-        </div>
-    </section>
+
 
     <!-- ==========================================
          8. FASILITAS SEKOLAH
@@ -305,9 +297,30 @@
     </section>
 
     <!-- ==========================================
+         10b. GALERI KEGIATAN (BENTO MASONRY)
+         ========================================== -->
+    <section id="galeri" class="gallery-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Dokumentasi</span>
+                <h2 class="section-title">Galeri Kegiatan Sekolah</h2>
+                <p class="section-subtitle">Dokumentasi berbagai momen berharga, prestasi, pembiasaan budi pekerti, dan dinamika pembelajaran di lingkungan sekolah.</p>
+            </div>
+            
+            <div class="add-btn-wrapper">
+                <button class="btn-add-item" onclick="openAddItem('gallery')"><i class="fas fa-plus"></i> Tambah Foto Galeri Baru</button>
+            </div>
+            
+            <div id="gallery-masonry-grid" class="gallery-masonry-grid">
+                <!-- Rendered dynamically by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
          11. PUSAT UNDUH & DOKUMEN (DOWNLOADS)
          ========================================== -->
-    <section class="download-section">
+    <section id="unduh" class="download-section">
         <div class="container">
             <div class="section-header">
                 <span class="section-badge">Pusat berkas</span>
@@ -318,6 +331,10 @@
             <div class="add-btn-wrapper">
                 <button class="btn-add-item" onclick="openAddItem('downloads')"><i class="fas fa-plus"></i> Tambah Dokumen Baru</button>
             </div>
+            
+            <!-- Dynamic Admin Google Drive Upload Guidance Helper -->
+            <div id="downloads-admin-info" style="margin-bottom: 30px; display: none;"></div>
+
             <div class="features-grid" id="downloads-grid">
                 <!-- File 1 -->
                 <a href="https://docs.google.com/document/d/1ke0bLNoEsCbUJmEQLVxhMthtEPaPGYrp/edit?usp=sharing&ouid=114689328531825124802&rtpof=true&sd=true" class="feature-card" target="_blank" style="text-decoration: none;">
@@ -403,7 +420,12 @@
          13. CONTACT & FORM
          ========================================== -->
     <section id="kontak" class="contact">
-        <div class="container">
+        <div class="container" id="contact-section-container" style="position: relative;">
+            <!-- Admin Edit Contact Button -->
+            <div class="admin-controls" style="position: absolute; top: 15px; right: 15px; display: flex; z-index: 50; margin: 0;">
+                <button class="btn btn-add-item" onclick="openEditContact()" style="padding: 6px 14px; font-size: 12px; border-style: solid;"><i class="fas fa-edit"></i> Edit Kontak</button>
+            </div>
+
             <div class="contact-grid">
                 <div class="contact-info">
                     <span class="section-badge">Hubungi Kami</span>
@@ -415,7 +437,7 @@
                             <div class="contact-item-icon"><i class="fas fa-map-marked-alt"></i></div>
                             <div class="contact-item-text">
                                 <h4>Alamat Resmi Sekolah</h4>
-                                <p>Jl. Puncel - Ngablak KM. 05 Desa Wedusan, Kec. Dukuhseti, Kabupaten Pati, Jawa Tengah (59158)</p>
+                                <p id="contact-address">Jl. Puncel - Ngablak KM. 05 Desa Wedusan, Kec. Dukuhseti, Kabupaten Pati, Jawa Tengah (59158)</p>
                             </div>
                         </div>
                         
@@ -423,7 +445,7 @@
                             <div class="contact-item-icon"><i class="fas fa-envelope-open"></i></div>
                             <div class="contact-item-text">
                                 <h4>Surel Resmi</h4>
-                                <p>sdwedusan@gmail.com</p>
+                                <p id="contact-email">sdwedusan@gmail.com</p>
                             </div>
                         </div>
                         
@@ -431,7 +453,7 @@
                             <div class="contact-item-icon"><i class="fas fa-phone-alt"></i></div>
                             <div class="contact-item-text">
                                 <h4>Kontak PPDB / WhatsApp</h4>
-                                <p>085347641171 (Admin Tata Usaha)</p>
+                                <p id="contact-phone">085347641171 (Admin Tata Usaha)</p>
                             </div>
                         </div>
                     </div>
@@ -502,7 +524,6 @@
                 <div class="footer-col">
                     <h4>Portal Layanan</h4>
                     <ul class="footer-links">
-                        <li><a href="../skl-generator-sd/index.html" target="_blank">Digital SKL Kelas VI</a></li>
                         <li><a href="#fasilitas">Fasilitas Sekolah</a></li>
                         <li><a href="#berita">Liputan Berita</a></li>
                         <li><a href="#" onclick="openSpmbModal(event)">Pendaftaran SPMB Baru</a></li>
@@ -533,12 +554,9 @@
          ========================================== -->
     <div class="floating-widget">
         <button class="widget-toggle" aria-label="Quick Actions">
-            <i class="fas fa-graduation-cap"></i>
+            <i class="fas fa-school"></i>
         </button>
         <div class="widget-menu">
-            <a href="../skl-generator-sd/index.html" class="widget-item" target="_blank" title="Cek Kelulusan">
-                <i class="fas fa-search"></i> <span>Cek Kelulusan</span>
-            </a>
             <a href="#" class="widget-item" onclick="openSpmbModal(event)" title="Pendaftaran SPMB">
                 <i class="fas fa-user-plus"></i> <span>Daftar SPMB</span>
             </a>
@@ -613,6 +631,12 @@
                     <textarea id="crud-desc" class="form-input" placeholder="Tuliskan keterangan detail di sini..." required></textarea>
                 </div>
 
+                <!-- Dynamic Content Area for Articles/Rich Content -->
+                <div class="form-field" id="field-crud-content" style="display: none;">
+                    <label for="crud-content">Konten Lengkap Artikel / Deskripsi Panjang</label>
+                    <textarea id="crud-content" class="form-input" style="min-height: 180px;" placeholder="Tuliskan isi artikel berita, penjelasan fasilitas, atau info agenda secara lengkap di sini..."></textarea>
+                </div>
+
                 <div class="form-group-2">
                     <div class="form-field">
                         <label for="crud-link">Tautan Aksi (Link URL)</label>
@@ -646,7 +670,7 @@
                 </div>
 
                 <div class="form-field">
-                    <label>Pilihan Gambar Unggulan (Hanya untuk Berita/Fasilitas)</label>
+                    <label id="lbl-crud-image">Pilihan Gambar Unggulan (Hanya untuk Berita/Fasilitas)</label>
                     <div class="image-upload-wrapper">
                         <input type="file" id="crud-file-input" accept="image/*" class="form-input-file">
                         <div class="image-upload-preview" id="crud-img-preview-box">
@@ -983,6 +1007,59 @@
 
                 <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 15px;"><i class="fas fa-save"></i> Simpan Logo & Branding</button>
             </form>
+        </div>
+    </div>
+
+    <!-- 8. Admin Edit Kontak Sekolah Modal -->
+    <div id="admin-contact-modal" class="modal-overlay">
+        <div class="modal-card glass-modal">
+            <div class="modal-card-header">
+                <h3><i class="fas fa-address-book text-primary"></i> Edit Kontak Resmi Sekolah</h3>
+                <button class="modal-close" onclick="closeContactModal()">&times;</button>
+            </div>
+            <form id="admin-contact-form" onsubmit="submitContactForm(event)">
+                <div class="form-field">
+                    <label for="contact-phone-input">Nomor Telepon / WhatsApp PPDB</label>
+                    <input type="text" id="contact-phone-input" class="form-input" required placeholder="Contoh: 085347641171">
+                </div>
+                <div class="form-field">
+                    <label for="contact-email-input">Alamat Surel / Email</label>
+                    <input type="email" id="contact-email-input" class="form-input" required placeholder="Contoh: sdwedusan@gmail.com">
+                </div>
+                <div class="form-field">
+                    <label for="contact-address-input">Alamat Lengkap Sekolah</label>
+                    <textarea id="contact-address-input" class="form-input" style="min-height: 100px;" required placeholder="Masukkan alamat lengkap sekolah..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 15px;"><i class="fas fa-save"></i> Simpan Kontak</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ==========================================
+         16. DETAIL VIEW MODAL (STANDALONE POPUP VIEWER)
+         ========================================== -->
+    <div id="detail-view-modal" class="modal-overlay">
+        <div class="modal-card glass-modal large" style="max-width: 800px; width: 95%;">
+            <div class="modal-card-header" style="margin-bottom: 15px; padding-bottom: 12px;">
+                <span id="detail-badge" class="section-badge" style="margin-bottom: 0; font-size: 11px;">Kategori</span>
+                <button class="modal-close" onclick="closeDetailView()">&times;</button>
+            </div>
+            <div style="max-height: 70vh; overflow-y: auto; padding-right: 8px;">
+                <h2 id="detail-title" class="section-title" style="text-align: left; font-size: 28px; margin-bottom: 12px; color: var(--secondary); line-height: 1.3;">Judul Detail</h2>
+                <div id="detail-date" style="font-size: 13px; color: var(--text-muted); margin-bottom: 15px; display: flex; align-items: center; gap: 6px; font-weight: 500;">
+                    <!-- Date placeholder -->
+                </div>
+                
+                <!-- Cover Image Banner -->
+                <div id="detail-img-box" style="width: 100%; height: 350px; border-radius: var(--radius-md); overflow: hidden; margin-bottom: 20px; display: none; box-shadow: var(--shadow-sm); border: 1px solid var(--border-color);">
+                    <img id="detail-img" src="" style="width: 100%; height: 100%; object-fit: cover;" alt="Cover">
+                </div>
+                
+                <!-- Textual Rich Content -->
+                <div id="detail-text" style="font-size: 15px; line-height: 1.7; color: var(--text-main); text-align: justify; display: flex; flex-direction: column; gap: 14px;">
+                    <!-- Rincian konten detail luring -->
+                </div>
+            </div>
         </div>
     </div>
 
