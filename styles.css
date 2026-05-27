@@ -192,36 +192,50 @@ h1, h2, h3, h4, h5 {
 .brand {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 14px;
     text-decoration: none;
 }
 
 .brand-logo {
-    width: 54px;
-    height: 54px;
+    width: 68px;
+    height: 68px;
     background: linear-gradient(135deg, var(--primary), var(--secondary));
-    border-radius: var(--radius-sm);
+    border-radius: var(--radius-md);
     display: flex;
     align-items: center;
     justify-content: center;
     color: white;
-    font-size: 26px;
-    box-shadow: 0 4px 12px rgba(5, 150, 105, 0.3);
+    font-size: 32px;
+    box-shadow: 0 4px 12px rgba(5, 150, 105, 0.35);
     flex-shrink: 0;
+    transition: var(--transition);
+}
+
+.navbar.scrolled .brand-logo {
+    width: 54px;
+    height: 54px;
+    font-size: 26px;
 }
 
 .brand-text {
     display: flex;
     flex-direction: column;
+    white-space: nowrap;
+    flex-shrink: 0;
 }
 
 .brand-name {
     font-family: var(--font-sans);
-    font-size: 18px;
+    font-size: 22px;
     font-weight: 800;
     color: var(--secondary);
     letter-spacing: 0.5px;
     transition: var(--transition);
+    white-space: nowrap;
+}
+
+.navbar.scrolled .brand-name {
+    font-size: 19px;
 }
 
 .navbar:not(.scrolled) .brand-name {
@@ -229,11 +243,17 @@ h1, h2, h3, h4, h5 {
 }
 
 .brand-sub {
-    font-size: 11px;
+    font-size: 11.5px;
     color: var(--text-muted);
     font-weight: 500;
-    margin-top: -2px;
+    margin-top: 2px;
     transition: var(--transition);
+    white-space: nowrap;
+}
+
+.navbar.scrolled .brand-sub {
+    font-size: 10px;
+    margin-top: 1px;
 }
 
 .navbar:not(.scrolled) .brand-sub {
@@ -1441,6 +1461,27 @@ textarea.form-input {
 /* ==========================================================================
    10. RESPONSIVE DESIGN (MEDIA QUERIES)
    ========================================================================== */
+@media (max-width: 1200px) {
+    .nav-menu {
+        gap: 14px;
+    }
+    .nav-link {
+        font-size: 13.5px;
+    }
+    .brand {
+        gap: 10px;
+    }
+    .brand-name {
+        font-size: 18px;
+    }
+    .brand-sub {
+        font-size: 10px;
+    }
+    .navbar.scrolled .brand-name {
+        font-size: 17px;
+    }
+}
+
 @media (max-width: 1024px) {
     .hero-title { font-size: 44px; }
     .hero-grid { gap: 40px; }
@@ -2401,6 +2442,7 @@ body.admin-mode .sidebar-banner-card .admin-controls {
 
 .gallery-masonry-item {
     position: relative;
+    height: 100%;
     border-radius: var(--radius-lg);
     overflow: hidden;
     background-color: var(--bg-card);
@@ -2531,4 +2573,18 @@ body.admin-mode .sidebar-banner-card .admin-controls {
 
 .feature-card:hover .card-cover-box {
     transform: scale(1.01);
+}
+
+/* Responsive adjustments for School History Block */
+@media (max-width: 900px) {
+    .school-history-block {
+        grid-template-columns: 1fr !important;
+        gap: 35px !important;
+    }
+    .history-image-col {
+        order: -1; /* Image goes above text on mobile for premium readability */
+    }
+    .history-image-frame img {
+        height: 280px !important;
+    }
 }

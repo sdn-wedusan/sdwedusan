@@ -412,6 +412,13 @@ document.addEventListener("DOMContentLoaded", () => {
             email: "sdwedusan@gmail.com",
             phone: "085347641171",
             address: "Jl. Puncel - Ngablak KM. 05 Desa Wedusan, Kec. Dukuhseti, Kabupaten Pati, Jawa Tengah (59158)"
+        },
+        schoolHistory: {
+            title: "Sejarah Singkat SD Negeri Wedusan",
+            desc: "Sejak berdirinya, SD Negeri Wedusan terus konsisten mendedikasikan diri untuk melahirkan generasi yang cerdas secara akademik, luhur secara karakter, dan kokoh dalam nilai keimanan di Desa Wedusan.",
+            content: "SD Negeri Wedusan didirikan pada tahun 1974 sebagai jawaban atas kebutuhan mendasar masyarakat Desa Wedusan, Kecamatan Dukuhseti, Kabupaten Pati akan akses pendidikan dasar yang berkualitas. Pada awal perintisan, sekolah ini berdiri dengan fasilitas yang sangat sederhana, namun didorong oleh semangat gotong royong warga desa dan tekad pendidik yang luhur.<br><br>Seiring berjalannya waktu, sekolah terus bertransformasi secara fisik dan akademis. Berbagai sarana penunjang mulai dari perpustakaan, sarana ibadah (musholla), hingga ruang kelas modern yang representatif dibangun demi menjamin kenyamanan belajar murid. Pendidik di sekolah kami juga senantiasa meningkatkan kapasitas diri untuk memberikan pembelajaran terbaik.<br><br>Kini, di era modernisasi, SD Negeri Wedusan tidak hanya berfokus pada kecakapan akademik tradisional, melainkan juga memelopori integrasi pendidikan berbasis karakter Pancasila dan literasi digital. Kami percaya bahwa kolaborasi yang kuat antara sekolah, orang tua, dan masyarakat merupakan kunci utama dalam mencetak generasi penerus yang cerdas, kreatif, berakhlak mulia, dan siap bersaing di masa depan.",
+            imageUrl: "https://sdnwedusan.aksespedia.com/storage/tenants/50/FalGFyURqHAeuIlMZXBv0vPtZvUIA7fhVtdU3Itk.jpg",
+            base64Image: ""
         }
     };
 
@@ -485,6 +492,16 @@ document.addEventListener("DOMContentLoaded", () => {
             localStorage.setItem("school_website_db", JSON.stringify(schoolDB));
         } catch (e) {
             console.error("Gagal menyimpan self-healing gallery:", e);
+        }
+    }
+    
+    // Self-heal schoolHistory schema key if missing from older browser cache
+    if (schoolDB && !schoolDB.schoolHistory) {
+        schoolDB.schoolHistory = defaultSchoolDatabase.schoolHistory;
+        try {
+            localStorage.setItem("school_website_db", JSON.stringify(schoolDB));
+        } catch (e) {
+            console.error("Gagal menyimpan self-healing schoolHistory:", e);
         }
     }
     
@@ -746,13 +763,44 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!container) return;
 
         const vm = schoolDB.visionMission;
+        const history = schoolDB.schoolHistory || defaultSchoolDatabase.schoolHistory;
         const editBtn = isAdminLoggedIn ? `
-            <div class="admin-controls" style="position: absolute; top: 15px; right: 15px; display: flex; z-index: 50; margin: 0;">
-                <button class="btn btn-add-item" onclick="openEditVision()" style="padding: 6px 14px; font-size: 12px; border-style: solid;"><i class="fas fa-edit"></i> Edit Visi & Misi</button>
+            <div class="admin-controls" style="position: absolute; top: 15px; right: 15px; display: flex; z-index: 50; margin: 0; gap: 10px;">
+                <button class="btn btn-add-item" onclick="openEditHistory()" style="padding: 6px 14px; font-size: 12px; border-style: solid;"><i class="fas fa-landmark"></i> Edit Sejarah</button>
+                <button class="btn btn-add-item" onclick="openEditVision()" style="padding: 6px 14px; font-size: 12px; border-style: solid;"><i class="fas fa-bullseye"></i> Edit Visi & Misi</button>
             </div>
         ` : "";
 
-        container.innerHTML = editBtn + `
+        const historyImgSrc = history.base64Image || history.imageUrl || "";
+
+        container.innerHTML = `
+            ${editBtn}
+            
+            <!-- 1. SEJARAH SEKOLAH BLOCK (2 COLUMNS) -->
+            <div class="school-history-block" style="display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 50px; margin-bottom: 60px; align-items: center;">
+                <div class="history-content-col">
+                    <span class="section-badge" style="margin-left: 0;">Lintasan Sejarah</span>
+                    <h2 class="section-title" style="text-align: left; font-size: 32px; margin-bottom: 20px; line-height: 1.25;">${history.title}</h2>
+                    <p class="history-subtitle" style="font-size: 16px; font-weight: 600; color: var(--primary); line-height: 1.6; margin-bottom: 20px;">${history.desc}</p>
+                    <div class="history-text" style="font-size: 15px; line-height: 1.8; color: var(--text-main); text-align: justify;">
+                        ${history.content}
+                    </div>
+                </div>
+                
+                <div class="history-image-col">
+                    <div class="history-image-frame" style="position: relative; border-radius: var(--radius-lg); overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.08); border: 4px solid white;">
+                        <img src="${historyImgSrc}" alt="Sejarah SDN Wedusan" style="width: 100%; height: 400px; object-fit: cover; transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1); display: block;" class="hover-zoom-img">
+                        <div style="position: absolute; bottom: 0; left: 0; width: 100%; background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 100%); padding: 20px; color: white; z-index: 2;">
+                            <span style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--accent);"><i class="fas fa-landmark"></i> SDN Wedusan</span>
+                            <p style="margin: 4px 0 0 0; font-size: 14px; font-weight: 600;">Dedikasi Pendidikan Sejak 1974</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <hr style="border: 0; height: 1px; background: linear-gradient(to right, transparent, var(--border-color), transparent); margin-bottom: 60px;">
+            
+            <!-- 2. VISI & MISI BLOCK -->
             <div class="section-header">
                 <span class="section-badge">Landasan Utama</span>
                 <h2 class="section-title">Visi & Misi SD Negeri Wedusan</h2>
@@ -913,12 +961,6 @@ document.addEventListener("DOMContentLoaded", () => {
         const grid = document.getElementById("gallery-masonry-grid");
         if (!grid) return;
 
-        const addBtn = isAdminLoggedIn ? `
-            <div class="add-btn-wrapper" style="display: flex; justify-content: center; margin-bottom: 40px;">
-                <button class="btn-add-item" onclick="openAddItem('gallery')"><i class="fas fa-plus"></i> Tambah Foto Galeri Baru</button>
-            </div>
-        ` : "";
-
         if (!schoolDB.gallery || schoolDB.gallery.length === 0) {
             grid.innerHTML = `
                 <div style="grid-column: 1 / -1; text-align: center; padding: 40px; color: var(--text-muted); font-style: italic;">
@@ -951,7 +993,7 @@ document.addEventListener("DOMContentLoaded", () => {
             `;
         }).join("");
 
-        grid.innerHTML = addBtn + `<div class="gallery-masonry-grid">${cardsHtml}</div>`;
+        grid.innerHTML = cardsHtml;
     }
 
     function renderDynamicDownloads() {
@@ -1455,6 +1497,61 @@ document.addEventListener("DOMContentLoaded", () => {
         showToast("Visi & Misi sekolah berhasil diperbarui secara presisten!", "success");
     };
 
+    // 3b. Sejarah Sekolah Editor
+    window.openEditHistory = () => {
+        const hist = schoolDB.schoolHistory || defaultSchoolDatabase.schoolHistory;
+        document.getElementById("hist-title").value = hist.title;
+        document.getElementById("hist-desc").value = hist.desc;
+        document.getElementById("hist-content").value = hist.content.replace(/<br\s*\/?>/gi, '\n');
+        
+        const base64 = hist.base64Image || "";
+        const preview = document.getElementById("hist-img-preview");
+        const previewBox = document.getElementById("hist-img-preview-box");
+        const hiddenInput = document.getElementById("hist-base64-image");
+        
+        hiddenInput.value = base64;
+        if (base64 || hist.imageUrl) {
+            preview.src = base64 || hist.imageUrl;
+            preview.style.display = "block";
+            if (previewBox.querySelector("p")) previewBox.querySelector("p").style.display = "none";
+            if (previewBox.querySelector("i")) previewBox.querySelector("i").style.display = "none";
+        } else {
+            preview.src = "";
+            preview.style.display = "none";
+            if (previewBox.querySelector("p")) previewBox.querySelector("p").style.display = "block";
+            if (previewBox.querySelector("i")) previewBox.querySelector("i").style.display = "block";
+        }
+        
+        document.getElementById("admin-history-modal").classList.add("active");
+    };
+
+    window.closeHistoryModal = () => {
+        document.getElementById("admin-history-modal").classList.remove("active");
+    };
+
+    window.submitHistoryForm = (e) => {
+        e.preventDefault();
+        const title = document.getElementById("hist-title").value.trim();
+        const desc = document.getElementById("hist-desc").value.trim();
+        const rawContent = document.getElementById("hist-content").value.trim();
+        const content = rawContent.replace(/\n/g, "<br>");
+        const base64Image = document.getElementById("hist-base64-image").value;
+        
+        const currentHist = schoolDB.schoolHistory || {};
+        schoolDB.schoolHistory = {
+            title: title,
+            desc: desc,
+            content: content,
+            imageUrl: currentHist.imageUrl || "https://sdnwedusan.aksespedia.com/storage/tenants/50/FalGFyURqHAeuIlMZXBv0vPtZvUIA7fhVtdU3Itk.jpg",
+            base64Image: base64Image
+        };
+        
+        localStorage.setItem("school_website_db", JSON.stringify(schoolDB));
+        renderDynamicVisionMission();
+        window.closeHistoryModal();
+        showToast("Sejarah singkat sekolah berhasil diperbarui secara presisten!", "success");
+    };
+
     // 4. Contact Editor Window Handlers
     window.openEditContact = () => {
         const c = schoolDB.contact || {
@@ -1874,6 +1971,36 @@ Mohon bantuannya untuk memproses verifikasi berkas lebih lanjut. Terima kasih!`;
                 imgEl.src = base64;
                 imgEl.style.display = "block";
                 showToast("Foto Logo Sekolah berhasil dimuat untuk disimpan!", "success");
+            };
+            reader.readAsDataURL(file);
+        });
+    }
+
+    const histFileInput = document.getElementById("hist-file-input");
+    if (histFileInput) {
+        histFileInput.addEventListener("change", (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+            
+            if (file.size > 1024 * 1024) { // Limit 1MB to preserve performance
+                showToast("Ukuran foto sejarah terlalu besar! Maksimal ukuran adalah 1MB.", "danger");
+                histFileInput.value = "";
+                return;
+            }
+            
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                const base64 = event.target.result;
+                document.getElementById("hist-base64-image").value = base64;
+                const imgEl = document.getElementById("hist-img-preview");
+                imgEl.src = base64;
+                imgEl.style.display = "block";
+                
+                const previewBox = document.getElementById("hist-img-preview-box");
+                if (previewBox.querySelector("p")) previewBox.querySelector("p").style.display = "none";
+                if (previewBox.querySelector("i")) previewBox.querySelector("i").style.display = "none";
+                
+                showToast("Foto sejarah sekolah berhasil dimuat untuk disimpan!", "success");
             };
             reader.readAsDataURL(file);
         });

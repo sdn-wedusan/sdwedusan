@@ -951,6 +951,47 @@
         </div>
     </div>
 
+    <!-- 6b. Admin Edit Sejarah Sekolah Modal -->
+    <div id="admin-history-modal" class="modal-overlay">
+        <div class="modal-card glass-modal large">
+            <div class="modal-card-header">
+                <h3><i class="fas fa-landmark text-primary"></i> Edit Sejarah Singkat Sekolah</h3>
+                <button class="modal-close" onclick="closeHistoryModal()">&times;</button>
+            </div>
+            <form id="admin-history-form" onsubmit="submitHistoryForm(event)">
+                <div class="form-field">
+                    <label for="hist-title">Judul Sejarah</label>
+                    <input type="text" id="hist-title" class="form-input" required placeholder="Contoh: Sejarah Singkat SD Negeri Wedusan">
+                </div>
+
+                <div class="form-field">
+                    <label for="hist-desc">Ringkasan / Tagline Sejarah</label>
+                    <textarea id="hist-desc" class="form-input" style="min-height: 60px;" required placeholder="Contoh: Sejak berdirinya, SD Negeri Wedusan terus konsisten..."></textarea>
+                </div>
+
+                <div class="form-field">
+                    <label for="hist-content">Konten Lengkap Sejarah</label>
+                    <textarea id="hist-content" class="form-input" style="min-height: 150px;" required placeholder="Tuliskan sejarah sekolah selengkapnya..."></textarea>
+                </div>
+
+                <div class="form-field">
+                    <label>Pilihan Gambar Cover Sejarah</label>
+                    <div class="image-upload-wrapper">
+                        <input type="file" id="hist-file-input" accept="image/*" class="form-input-file">
+                        <div class="image-upload-preview" id="hist-img-preview-box">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <p>Klik atau Tarik gambar ke sini untuk mengunggah (Maks 1MB)</p>
+                            <img id="hist-img-preview" src="" style="display: none; width: 100%; height: 100%; object-fit: cover;" alt="Preview">
+                        </div>
+                        <input type="hidden" id="hist-base64-image">
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 15px;"><i class="fas fa-save"></i> Simpan Sejarah</button>
+            </form>
+        </div>
+    </div>
+
     <!-- 7. Admin Edit Logo & Identitas Sekolah Modal -->
     <div id="admin-logo-modal" class="modal-overlay">
         <div class="modal-card glass-modal large">
