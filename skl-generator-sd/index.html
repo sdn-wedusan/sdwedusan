@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KelulusanSD - Aplikasi SKL & Transkrip Nilai SD Negeri Wedusan</title>
+    
+    <!-- CDNs: Font Awesome & SheetJS (Excel Parser) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    
+    <!-- Link App Stylesheet -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- ==========================================
+         0. SECURE DUAL-TAB GLASSMORPHIC LOGIN PORTAL
+         ========================================== -->
+    <div id="login-portal" class="login-backdrop">
+        <div class="login-card" style="max-width: 480px;">
+            <div class="login-logo">
+                <i class="fas fa-graduation-cap"></i>
+            </div>
+            <h2 class="login-title">Kelulusan<span style="color:#a5b4fc;">SD</span></h2>
+            <p class="login-subtitle">SD Negeri Wedusan, Kabupaten Pati</p>
+            
+            <!-- Login/Lookup Tab Bar -->
+            <div style="display: flex; background: rgba(255,255,255,0.05); border-radius: var(--border-radius-sm); margin-bottom: 24px; padding: 4px;">
+                <button id="tab-login-admin" class="btn btn-sm" onclick="switchLoginTab('admin')" style="flex: 1; background: var(--primary); color: white; border-radius: var(--border-radius-sm); font-weight: 600; padding: 8px; font-size:12px; cursor:pointer; border:none; outline:none; transition: all 0.2s ease;">
+                    <i class="fas fa-user-shield"></i> Guru / Admin
+                </button>
+                <button id="tab-login-student" class="btn btn-sm" onclick="switchLoginTab('student')" style="flex: 1; background: transparent; color: #94a3b8; border-radius: var(--border-radius-sm); font-weight: 600; padding: 8px; font-size:12px; cursor:pointer; border:none; outline:none; transition: all 0.2s ease;">
+                    <i class="fas fa-user-graduate"></i> Cek Siswa Mandiri
+                </button>
+            </div>
+            
+            <!-- Admin Login Form -->
+            <div id="login-form-admin">
+                <form onsubmit="attemptLogin(event)">
+                    <div class="login-input-group">
+                        <label><i class="fas fa-user"></i> Nama Pengguna (Username)</label>
+                        <input type="text" id="login-username" class="form-control login-input" placeholder="Masukkan username" required autocomplete="username">
+                    </div>
+                    <div class="login-input-group">
+                        <label><i class="fas fa-lock"></i> Kata Sandi (Password)</label>
+                        <input type="password" id="login-password" class="form-control login-input" placeholder="Masukkan password" required autocomplete="current-password">
+                    </div>
+                    <button type="submit" class="btn login-btn">
+                        <i class="fas fa-sign-in-alt"></i> Masuk Ke Sistem
+                    </button>
+                </form>
+                <div class="login-hint">
+                    <i class="fas fa-info-circle"></i> Akun Pengelola Bawaan:<br>
+                    <strong>Username:</strong> admin | <strong>Password:</strong> admin
+                </div>
+            </div>
+            
+            <!-- Student Self-Service Lookup Form -->
+            <div id="login-form-student" style="display: none;">
+                <form onsubmit="attemptStudentLookup(event)">
+                    <p style="font-size: 12px; color: #cbd5e1; margin-bottom: 20px; line-height: 1.5; text-align: left;">
+                        <i class="fas fa-info-circle text-primary"></i> Siswa dapat memeriksa status kelulusan secara mandiri dengan memasukkan Nomor Induk Siswa Nasional (NISN) yang terdaftar.
+                    </p>
+                    <div class="login-input-group" style="margin-bottom: 24px;">
+                        <label><i class="fas fa-id-card"></i> Masukkan NISN Siswa (10 Digit)</label>
+                        <input type="text" id="lookup-nisn" class="form-control login-input" placeholder="Contoh: 0124849286" required minlength="10" maxlength="10">
+                    </div>
+                    <button type="submit" class="btn login-btn" style="background: linear-gradient(135deg, var(--accent), #059669) !important; box-shadow: 0 8px 16px rgba(16, 185, 129, 0.25);">
+                        <i class="fas fa-search"></i> Periksa Status Kelulusan
+                    </button>
+                </form>
+                <div class="login-hint" style="background: rgba(16, 185, 129, 0.05); border-color: rgba(16, 185, 129, 0.1); color: #a7f3d0;">
+                    <i class="fas fa-clock"></i> Pengumuman kelulusan resmi dibuka otomatis sesuai tanggal kelulusan di pengaturan sekolah.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================
+         00. STUDENT SELF-SERVICE LOOKUP PORTAL WORKSPACE
+         ========================================== -->
+    <div id="student-portal-workspace" style="display: none; min-height: 100vh; background-color: var(--bg-app); flex-direction: column; width: 100%;">
+        
+        <!-- Header -->
+        <header class="main-header no-print" style="height: 70px; padding: 0 40px; justify-content: space-between; border-bottom: 1px solid var(--border-color); flex-shrink: 0; background-color: white; width: 100%; display: flex; align-items: center;">
+            <div class="header-title-section" style="display: flex; align-items: center; gap: 12px;">
+                <div class="brand-icon" style="width: 36px; height: 36px; background: linear-gradient(135deg, var(--accent), #34d399); color: white; border-radius: var(--border-radius-md); display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: bold;">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <div>
+                    <h1 style="font-family: var(--font-heading); font-size: 18px; font-weight: 700; color: var(--secondary); margin: 0; line-height: 1.2;">Portal Kelulusan Mandiri Siswa</h1>
+                    <p style="font-size: 11px; color: #64748b; margin: 2px 0 0 0;" id="st-portal-school-title">SD Negeri Wedusan</p>
+                </div>
+            </div>
+            
+            <button class="btn btn-danger btn-sm" onclick="exitStudentPortal()">
+                <i class="fas fa-sign-out-alt"></i> Keluar Portal
+            </button>
+        </header>
+        
+        <!-- Workspace Body -->
+        <main style="padding: 40px; flex-grow: 1; display: flex; flex-direction: column; align-items: center; gap: 32px;">
+            
+            <!-- Celebratory Banner -->
+            <div id="st-portal-banner" class="premium-card no-print" style="background: linear-gradient(135deg, #059669 0%, #064e3b 50%, #0f172a 100%); color: white; width: 100%; max-width: 900px; text-align: center; padding: 32px; border: none; box-shadow: 0 15px 30px rgba(16, 185, 129, 0.2); animation: pulseScale 3s infinite alternate;">
+                <div id="st-portal-emoji" style="font-size: 48px; margin-bottom: 12px;">🎉🎓🏆</div>
+                <h2 style="font-family: var(--font-heading); font-size: 26px; font-weight: 800; color: white; margin-bottom: 8px;" id="st-portal-welcome-msg">
+                    SELAMAT! AHMAD FARIS SYAHPUTRA
+                </h2>
+                <p id="st-portal-status-desc" style="font-size: 15px; opacity: 0.95; line-height: 1.6; max-width: 700px; margin: 0 auto 20px auto;">
+                    Anda dinyatakan **LULUS** dari satuan pendidikan dasar! Silakan lihat dan unduh Surat Keterangan Lulus (SKL) dan Transkrip Nilai Anda di bawah ini secara resmi.
+                </p>
+                
+                <div id="st-portal-action-btns" style="display: flex; justify-content: center; gap: 16px;">
+                    <button class="btn btn-secondary" onclick="printStudentSKL()" style="background-color: white; color: #064e3b; border: none; font-weight: 700; cursor:pointer;">
+                        <i class="fas fa-file-pdf"></i> Unduh / Cetak SKL
+                    </button>
+                    <button class="btn btn-secondary" onclick="printStudentTranskrip()" style="background-color: rgba(255,255,255,0.15); color: white; border: 1px solid rgba(255,255,255,0.25); font-weight: 600; cursor:pointer;">
+                        <i class="fas fa-file-pdf"></i> Unduh / Cetak Transkrip
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Document Display Canvas -->
+            <div style="display: flex; flex-direction: column; gap: 40px; width: 100%; align-items: center;" id="student-portal-print-canvas">
+                <!-- Digital printed sheets rendered here dynamically -->
+            </div>
+            
+        </main>
+    </div>
+
+    <div class="app-container" id="app-workspace" style="display: none;">
+        
+        <!-- ==========================================
+             1. SIDEBAR NAVIGATION
+             ========================================== -->
+        <aside class="sidebar">
+            <div class="sidebar-brand">
+                <div class="brand-icon">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <div class="brand-name">Kelulusan<span>SD</span></div>
+            </div>
+            
+            <ul class="sidebar-menu">
+                <li>
+                    <a id="menu-dashboard" class="menu-item active" onclick="switchPanel('dashboard')">
+                        <i class="fas fa-th-large"></i> <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a id="menu-profil" class="menu-item" onclick="switchPanel('profil')">
+                        <i class="fas fa-school"></i> <span>Profil & Pengaturan</span>
+                    </a>
+                </li>
+                <li>
+                    <a id="menu-siswa" class="menu-item" onclick="switchPanel('siswa')">
+                        <i class="fas fa-user-graduate"></i> <span>Data Siswa & Nilai</span>
+                    </a>
+                </li>
+                <li>
+                    <a id="menu-skl" class="menu-item" onclick="switchPanel('skl')">
+                        <i class="fas fa-file-signature"></i> <span>Cetak SKL</span>
+                    </a>
+                </li>
+                <li>
+                    <a id="menu-transkrip" class="menu-item" onclick="switchPanel('transkrip')">
+                        <i class="fas fa-file-invoice"></i> <span>Cetak Transkrip</span>
+                    </a>
+                </li>
+                <li>
+                    <a id="menu-ekspor" class="menu-item" onclick="switchPanel('ekspor')">
+                        <i class="fas fa-exchange-alt"></i> <span>Ekspor & Impor</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="menu-item" onclick="logout()" style="color: #ef4444; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 8px; border-radius: 0; padding-top: 16px;">
+                        <i class="fas fa-sign-out-alt"></i> <span>Keluar Sistem</span>
+                    </a>
+                </li>
+            </ul>
+            
+            <!-- Sidebar Countdown/Announcement Widget -->
+            <div id="sidebar-countdown-widget" class="sidebar-widget" style="margin-top: auto; margin-bottom: 20px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: var(--border-radius-md); padding: 16px; color: white;">
+                <div style="font-size:11px; font-weight:700; color:#a5b4fc; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:8px; display:flex; align-items:center; gap:6px;">
+                    <i class="fas fa-bullhorn animate-pulse"></i> Pengumuman Kelulusan
+                </div>
+                <div id="side-countdown-display" style="font-weight:700; font-size:14px; margin-bottom:4px;">
+                    Mengalkulasi...
+                </div>
+                <div id="side-countdown-status" style="font-size:10px; color:#94a3b8;">
+                    Menunggu waktu resmi
+                </div>
+            </div>
+
+            <div class="sidebar-footer">
+                <p>SD Negeri Wedusan v1.0.0</p>
+                <p>© 2026 Pati Regency</p>
+            </div>
+        </aside>
+
+        <!-- ==========================================
+             2. MAIN WRAPPER (HEADER & VIEWS)
+             ========================================== -->
+        <div class="main-wrapper">
+            
+            <!-- Global Main Header -->
+            <header class="main-header">
+                <div class="header-title-section">
+                    <h1 id="page-title">Sistem Informasi Kelulusan</h1>
+                    <p id="page-subtitle">SD Negeri Wedusan, Kabupaten Pati, Jawa Tengah</p>
+                </div>
+                
+                <div class="quick-stats">
+                    <div class="stat-pill">
+                        <i class="fas fa-users text-primary"></i> Total Siswa: <span id="quick-total-siswa">0</span>
+                    </div>
+                    <div class="stat-pill">
+                        <i class="fas fa-chart-line text-emerald"></i> Rata-rata Kelas: <span id="quick-rata-rata">0,00</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Main Content Container -->
+            <main class="content-body">
+                
+                <!-- ==========================================
+                     PANEL A: DASHBOARD RINGKASAN
+                     ========================================== -->
+                <section id="panel-dashboard" class="view-panel active">
+                    <div class="card-grid-3">
+                        <div class="premium-card">
+                            <div class="card-icon-header">
+                                <h3>Total Siswa Terdaftar</h3>
+                                <div class="card-badge-icon"><i class="fas fa-users"></i></div>
+                            </div>
+                            <div class="card-value" id="stat-total-siswa">0</div>
+                        </div>
+                        
+                        <div class="premium-card">
+                            <div class="card-icon-header">
+                                <h3>Rata-Rata Nilai Sekolah</h3>
+                                <div class="card-badge-icon emerald"><i class="fas fa-award"></i></div>
+                            </div>
+                            <div class="card-value" id="stat-rata-rata">0,00</div>
+                        </div>
+                        
+                        <div class="premium-card">
+                            <div class="card-icon-header">
+                                <h3>Status Kelulusan</h3>
+                                <div class="card-badge-icon amber"><i class="fas fa-check-double"></i></div>
+                            </div>
+                            <div class="card-value" id="stat-status-kelulusan">100% LULUS</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Dynamic Graduation Announcement Card -->
+                    <div id="dashboard-announcement-card" style="margin-bottom: 32px;">
+                        <!-- Generated dynamically by JS -->
+                    </div>
+
+                    <div class="premium-card">
+                        <h3 style="font-family: var(--font-heading); font-size: 18px; color: var(--secondary); text-transform: none; margin-bottom: 20px;">
+                            <i class="fas fa-info-circle text-primary"></i> Panduan Singkat Penggunaan Aplikasi:
+                        </h3>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px;">
+                            <div style="border-left: 3px solid var(--primary); padding-left: 16px;">
+                                <h4 style="font-weight: 600; color: var(--secondary); margin-bottom: 6px;">1. Profil & Rumus</h4>
+                                <p style="font-size: 13px; color: #64748b; line-height: 1.5;">Atur identitas sekolah, nama Kepala Sekolah, logo dinas/sekolah, kurikulum yang digunakan (IPAS/K13), serta bobot penilaian akhir.</p>
+                            </div>
+                            <div style="border-left: 3px solid var(--accent); padding-left: 16px;">
+                                <h4 style="font-weight: 600; color: var(--secondary); margin-bottom: 6px;">2. Kelola Data Siswa</h4>
+                                <p style="font-size: 13px; color: #64748b; line-height: 1.5;">Input nama siswa, NIS/NISN, data wali, serta masukkan nilai semester rapor, Ujian Sekolah, dan Ujian Praktik secara tabulasi grid.</p>
+                            </div>
+                            <div style="border-left: 3px solid var(--warning); padding-left: 16px;">
+                                <h4 style="font-weight: 600; color: var(--secondary); margin-bottom: 6px;">3. Cetak & Simpan</h4>
+                                <p style="font-size: 13px; color: #64748b; line-height: 1.5;">Buka menu cetak, pilih siswa, lihat live preview, lalu tekan Cetak untuk menyimpan menjadi berkas PDF resmi berstandar kertas A4.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ==========================================
+                     PANEL B: PROFIL SEKOLAH & RUMUS
+                     ========================================== -->
+                <section id="panel-profil" class="view-panel">
+                    <div class="card-grid-2">
+                        <!-- Card 1: Identitas Sekolah -->
+                        <div class="premium-card">
+                            <h3 style="color: var(--secondary); text-transform:none; margin-bottom: 24px; font-size: 18px; border-bottom: 1px solid var(--border-color); padding-bottom: 12px;">
+                                <i class="fas fa-school text-primary"></i> Identitas Satuan Pendidikan
+                            </h3>
+                            <div class="form-group">
+                                <label>Pemerintah Kabupaten (KOP Baris 1)</label>
+                                <input type="text" id="sp-kabupaten" class="form-control" placeholder="Contoh: PATI">
+                            </div>
+                            <div class="form-group">
+                                <label>Nama Dinas Pendidikan (KOP Baris 2)</label>
+                                <input type="text" id="sp-dinas" class="form-control" placeholder="Contoh: DINAS PENDIDIKAN DAN KEBUDAYAAN">
+                            </div>
+                            <div class="form-group">
+                                <label>Nama Satuan Pendidikan / Sekolah (KOP Baris 3)</label>
+                                <input type="text" id="sp-sekolah" class="form-control" placeholder="Contoh: SD NEGERI WEDUSAN">
+                            </div>
+                            <div class="form-group-row">
+                                <div class="form-group">
+                                    <label>NPSN Sekolah</label>
+                                    <input type="text" id="sp-npsn" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label>Kode Pos</label>
+                                    <input type="text" id="sp-kodepos" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Alamat Sekolah lengkap</label>
+                                <input type="text" id="sp-alamat" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Email Sekolah</label>
+                                <input type="email" id="sp-email" class="form-control">
+                            </div>
+                        </div>
+
+                        <!-- Card 2: Pengaturan Dokumen & Kepala Sekolah -->
+                        <div class="premium-card" style="display: flex; flex-direction: column; gap: 24px;">
+                            <div>
+                                <h3 style="color: var(--secondary); text-transform:none; margin-bottom: 20px; font-size: 18px; border-bottom: 1px solid var(--border-color); padding-bottom: 12px;">
+                                    <i class="fas fa-user-tie text-primary"></i> Penandatanganan & Tanggal
+                                </h3>
+                                <div class="form-group">
+                                    <label>Nama Kepala Sekolah</label>
+                                    <input type="text" id="sp-kasek-nama" class="form-control">
+                                </div>
+                                <div class="form-group-row">
+                                    <div class="form-group">
+                                        <label>NIP Kepala Sekolah</label>
+                                        <input type="text" id="sp-kasek-nip" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Tahun Ajaran</label>
+                                        <input type="text" id="sp-tahun-ajaran" class="form-control" placeholder="Contoh: 2024/2025">
+                                    </div>
+                                </div>
+                                <div class="form-group-row">
+                                    <div class="form-group">
+                                        <label>Tanggal Kelulusan (SKL)</label>
+                                        <input type="date" id="sp-tanggal-skl" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Tanggal Cetak Transkrip</label>
+                                        <input type="date" id="sp-tanggal-transkrip" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h3 style="color: var(--secondary); text-transform:none; margin-bottom: 20px; font-size: 18px; border-bottom: 1px solid var(--border-color); padding-bottom: 12px;">
+                                    <i class="fas fa-cog text-primary"></i> Konfigurasi Sistem
+                                </h3>
+                                <div class="form-group-row">
+                                    <div class="form-group">
+                                        <label>Pilihan Kurikulum</label>
+                                        <select id="cfg-kurikulum" class="form-control">
+                                            <option value="merdeka">Kurikulum Merdeka (IPAS Gabung)</option>
+                                            <option value="k13">Kurikulum 2013 (IPA & IPS Pisah)</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Rentang Semester Rapor</label>
+                                        <select id="cfg-semester" class="form-control">
+                                            <option value="7-12">Sem 7 - 12 (Kelas 4, 5, 6)</option>
+                                            <option value="9-12">Sem 9 - 12 (Kelas 5, 6)</option>
+                                            <option value="11-12">Sem 11 - 12 (Kelas 6 Saja)</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group-row">
+                                    <div class="form-group">
+                                        <label>Font Cetak Dokumen</label>
+                                        <select id="cfg-font" class="form-control">
+                                            <option value="times">Times New Roman (Resmi)</option>
+                                            <option value="arial">Arial (Modern)</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>KKM Satuan Pendidikan</label>
+                                        <input type="number" id="sp-kkm" class="form-control" min="0" max="100" placeholder="Contoh: 75">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-grid-2">
+                        <!-- Card 3: Rumus Pembobotan Nilai Akhir -->
+                        <div class="premium-card">
+                            <h3 style="color: var(--secondary); text-transform:none; margin-bottom: 20px; font-size: 18px; border-bottom: 1px solid var(--border-color); padding-bottom: 12px;">
+                                <i class="fas fa-calculator text-primary"></i> Bobot Formula Nilai Akhir (NA)
+                            </h3>
+                            <p style="font-size: 13px; color: #64748b; line-height: 1.6; margin-bottom: 20px;">
+                                Masukkan persentase bobot untuk menghitung Nilai Akhir per mata pelajaran. **Jumlah total persentase ketiga komponen wajib tepat 100%!**
+                            </p>
+                            
+                            <div class="form-group-row">
+                                <div class="form-group">
+                                    <label>Bobot Rata Rapor (%)</label>
+                                    <input type="number" id="w-rapor" class="form-control" min="0" max="100">
+                                </div>
+                                <div class="form-group">
+                                    <label>Bobot Ujian Sekolah (%)</label>
+                                    <input type="number" id="w-us" class="form-control" min="0" max="100">
+                                </div>
+                                <div class="form-group">
+                                    <label>Bobot Ujian Praktik (%)</label>
+                                    <input type="number" id="w-praktik" class="form-control" min="0" max="100">
+                                </div>
+                            </div>
+                            
+                            <div style="background-color: var(--primary-light); padding: 16px; border-radius: var(--border-radius-md); font-size: 13px; color: var(--primary); line-height: 1.5;">
+                                <i class="fas fa-info-circle"></i> <strong>Catatan:</strong> Jika suatu mata pelajaran diatur tanpa ujian praktik di database (atau sel nilainya dikosongkan), sistem akan melakukan scaling bobot secara otomatis agar nilai akhir tetap proporsional 100%.
+                            </div>
+                        </div>
+
+                        <!-- Card 4: Upload Logo KOP -->
+                        <div class="premium-card">
+                            <h3 style="color: var(--secondary); text-transform:none; margin-bottom: 20px; font-size: 18px; border-bottom: 1px solid var(--border-color); padding-bottom: 12px;">
+                                <i class="fas fa-image text-primary"></i> Logo KOP Surat Resmi
+                            </h3>
+                            
+                            <div class="form-group-row">
+                                <div class="logo-upload-box" onclick="document.getElementById('file-logo-left').click()">
+                                    <i class="fas fa-cloud-upload-alt text-primary"></i>
+                                    <span style="font-size:12px; font-weight:600;">Logo Kiri (Pemkab)</span>
+                                    <input type="file" id="file-logo-left" accept="image/*" style="display:none;" onchange="handleLogoUpload('file-logo-left', 'logoLeft', 'logo-left-preview')">
+                                    <img id="logo-left-preview" class="logo-preview-img" style="display:none;">
+                                </div>
+
+                                <div class="logo-upload-box" onclick="document.getElementById('file-logo-right').click()">
+                                    <i class="fas fa-cloud-upload-alt text-primary"></i>
+                                    <span style="font-size:12px; font-weight:600;">Logo Kanan (Tut Wuri)</span>
+                                    <input type="file" id="file-logo-right" accept="image/*" style="display:none;" onchange="handleLogoUpload('file-logo-right', 'logoRight', 'logo-right-preview')">
+                                    <img id="logo-right-preview" class="logo-preview-img" style="display:none;">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 5: Kelola Muatan Lokal (Kelompok B) -->
+                        <div class="premium-card">
+                            <h3 style="color: var(--secondary); text-transform:none; margin-bottom: 20px; font-size: 18px; border-bottom: 1px solid var(--border-color); padding-bottom: 12px;">
+                                <i class="fas fa-book-reader text-primary"></i> Muatan Lokal Tambahan (Kelompok B)
+                            </h3>
+                            <p style="font-size: 13px; color: #64748b; line-height: 1.6; margin-bottom: 16px;">
+                                Tambahkan mata pelajaran Muatan Lokal tambahan di bawah Kelompok B secara dinamis sesuai kebutuhan sekolah Anda.
+                            </p>
+                            
+                            <div class="form-group-row" style="margin-bottom: 16px;">
+                                <div class="form-group" style="margin-bottom: 0;">
+                                    <label>Nama Mata Pelajaran Mulok</label>
+                                    <input type="text" id="add-mulok-name" class="form-control" placeholder="Contoh: Seni Suara Daerah">
+                                </div>
+                                <div class="form-group" style="margin-bottom: 0; max-width: 150px;">
+                                    <label>Ujian Praktik?</label>
+                                    <select id="add-mulok-praktik" class="form-control">
+                                        <option value="true">Ada</option>
+                                        <option value="false">Tidak Ada</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <button class="btn btn-primary btn-sm" onclick="addCustomMulokSubject()" style="width: 100%; margin-bottom: 20px;">
+                                <i class="fas fa-plus"></i> Tambah Muatan Lokal
+                            </button>
+                            
+                            <label style="font-size: 13px; font-weight: 600; color: #475569; display: block; margin-bottom: 8px;">Daftar Muatan Lokal Aktif:</label>
+                            <div id="mulok-list-container" style="display: flex; flex-direction: column; gap: 8px;">
+                                <!-- Populated dynamically by JS -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sticky Save Bar -->
+                    <div style="display:flex; justify-content:flex-end; gap:12px; margin-top:24px;">
+                        <button class="btn btn-secondary" onclick="resetDatabase()">
+                            <i class="fas fa-trash-restore"></i> Reset Database
+                        </button>
+                        <button class="btn btn-primary" onclick="saveSchoolProfile()">
+                            <i class="fas fa-save"></i> Simpan Seluruh Pengaturan
+                        </button>
+                    </div>
+                </section>
+
+                <!-- ==========================================
+                     PANEL C: DATA SISWA & NILAI
+                     ========================================== -->
+                <section id="panel-siswa" class="view-panel">
+                    <div class="action-bar">
+                        <div class="search-box">
+                            <i class="fas fa-search"></i>
+                            <input type="text" class="form-control" placeholder="Cari siswa berdasarkan nama/NISN..." oninput="handleSearch(event)">
+                        </div>
+                        
+                        <div style="display: flex; gap: 12px;">
+                            <button class="btn btn-success" onclick="exportExcelData()">
+                                <i class="fas fa-file-excel"></i> Unduh Excel Data Siswa
+                            </button>
+                            <button class="btn btn-primary" onclick="openStudentModal()">
+                                <i class="fas fa-user-plus"></i> Tambah Siswa Baru
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="custom-table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 80px;">No</th>
+                                    <th>Nama Lengkap</th>
+                                    <th>NIS / NISN</th>
+                                    <th>Agama</th>
+                                    <th>Rata-rata Nilai</th>
+                                    <th style="width: 250px;">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="student-table-body">
+                                <!-- Populated dynamically by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- ==========================================
+                     PANEL D: CETAK SKL (PRINTOUT PREVIEW)
+                     ========================================== -->
+                <section id="panel-skl" class="view-panel">
+                    <div class="print-layout-container">
+                        
+                        <!-- Control Bar -->
+                        <div class="canvas-controls">
+                            <div class="canvas-controls-left">
+                                <label style="font-weight: 600; font-size:14px; color:#475569;">Pilih Siswa:</label>
+                                <select id="skl-student-select" class="form-control" style="width: 250px;" onchange="generateSKLPreview()">
+                                    <!-- Populated dynamically -->
+                                </select>
+                            </div>
+                            
+                            <button class="btn btn-primary" onclick="printActivePreview()">
+                                <i class="fas fa-print"></i> Cetak / Simpan PDF
+                            </button>
+                        </div>
+                        
+                        <!-- Paper digital sheet -->
+                        <div id="skl-preview-container">
+                            <!-- Digital sheet generated here -->
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ==========================================
+                     PANEL E: CETAK TRANSKRIP (PRINTOUT PREVIEW)
+                     ========================================== -->
+                <section id="panel-transkrip" class="view-panel">
+                    <div class="print-layout-container">
+                        
+                        <!-- Control Bar -->
+                        <div class="canvas-controls">
+                            <div class="canvas-controls-left">
+                                <label style="font-weight: 600; font-size:14px; color:#475569;">Pilih Siswa:</label>
+                                <select id="transkrip-student-select" class="form-control" style="width: 250px;" onchange="generateTranskripPreview()">
+                                    <!-- Populated dynamically -->
+                                </select>
+                            </div>
+                            
+                            <button class="btn btn-primary" onclick="printActivePreview()">
+                                <i class="fas fa-print"></i> Cetak / Simpan PDF
+                            </button>
+                        </div>
+                        
+                        <!-- Paper digital sheet -->
+                        <div id="transkrip-preview-container">
+                            <!-- Digital sheet generated here -->
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ==========================================
+                     PANEL F: EKSPOR & IMPOR DATA (CSV & JSON)
+                     ========================================== -->
+                <section id="panel-ekspor" class="view-panel">
+                    <div class="card-grid-2">
+                        <!-- Impor & Ekspor Excel -->
+                        <div class="premium-card">
+                            <h3 style="color:var(--secondary); text-transform:none; margin-bottom:20px; font-size:18px; border-bottom:1px solid var(--border-color); padding-bottom:12px;">
+                                <i class="fas fa-file-excel text-primary"></i> Kelola Impor & Ekspor Massal Excel
+                            </h3>
+                            <p style="font-size: 13.5px; color: #64748b; margin-bottom: 24px; line-height: 1.6;">
+                                Untuk menghemat waktu pengisian nilai menggunakan banyak laptop guru kelas, gunakan alur pengisian massal di bawah ini:
+                            </p>
+                            
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+                                <!-- 1. Box Unduh Template Excel -->
+                                <div class="import-card-box import-card-primary" onclick="downloadCSVTemplate()" style="cursor: pointer; text-align: center; padding: 24px; border-radius: var(--border-radius-md); transition: all 0.2s ease;">
+                                    <i class="fas fa-file-download" style="color: var(--primary); font-size: 44px; margin-bottom: 12px;"></i>
+                                    <h4 style="font-weight:700; color:var(--primary); font-size: 14px; margin-bottom: 8px;">1. Unduh Template Excel</h4>
+                                    <p style="font-size:11.5px; color:#64748b; line-height:1.5; margin: 0;">Unduh berkas Microsoft Excel (.xlsx) resmi dengan struktur kolom siap isi.</p>
+                                </div>
+                                
+                                <!-- 2. Box Unggah Excel Hasil Pengisian -->
+                                <div class="import-card-box import-card-accent" onclick="document.getElementById('file-excel-import').click()" style="cursor: pointer; text-align: center; padding: 24px; border-radius: var(--border-radius-md); transition: all 0.2s ease;">
+                                    <i class="fas fa-file-upload" style="color: var(--accent); font-size: 44px; margin-bottom: 12px;"></i>
+                                    <h4 style="font-weight:700; color:var(--accent); font-size: 14px; margin-bottom: 8px;">2. Unggah Berkas Excel</h4>
+                                    <p style="font-size:11.5px; color:#64748b; line-height:1.5; margin: 0;">Unggah kembali file Excel (.xlsx) yang telah diisi lengkap dengan nilai oleh guru kelas.</p>
+                                    <input type="file" id="file-excel-import" accept=".xlsx, .xls, .csv" style="display:none;" onchange="handleExcelImport(event)">
+                                </div>
+
+                                <!-- 3. Box Unduh Excel Data Siswa Aktif -->
+                                <div class="import-card-box import-card-warning" onclick="exportExcelData()" style="cursor: pointer; text-align: center; padding: 24px; border-radius: var(--border-radius-md); transition: all 0.2s ease;">
+                                    <i class="fas fa-file-excel" style="color: var(--warning); font-size: 44px; margin-bottom: 12px;"></i>
+                                    <h4 style="font-weight:700; color:var(--warning); font-size: 14px; margin-bottom: 8px;">3. Unduh Excel Data Siswa</h4>
+                                    <p style="font-size:11.5px; color:#64748b; line-height:1.5; margin: 0;">Unduh seluruh data siswa aktif beserta nilai mereka dalam format Microsoft Excel (.xlsx).</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Backup / Restore JSON -->
+                        <div class="premium-card">
+                            <h3 style="color:var(--secondary); text-transform:none; margin-bottom:20px; font-size:18px; border-bottom:1px solid var(--border-color); padding-bottom:12px;">
+                                <i class="fas fa-database text-primary"></i> Cadangkan & Pulihkan Database (JSON)
+                            </h3>
+                            <p style="font-size:13px; color: #64748b; line-height: 1.6; margin-bottom: 24px;">
+                                Ekspor seluruh pengaturan sekolah, logo, rumus nilai, dan daftar siswa ber-nilai lengkap menjadi satu file JSON. Amankan file ini sebagai cadangan kelulusan tahunan sekolah Anda.
+                            </p>
+                            
+                            <div style="display:flex; flex-direction:column; gap:16px;">
+                                <button class="btn btn-success" style="width:100%;" onclick="exportToJSON()">
+                                    <i class="fas fa-download"></i> Unduh File Cadangan Penuh (JSON)
+                                </button>
+                                
+                                <div style="border-top:1px solid var(--border-color); padding-top:20px; margin-top:4px;">
+                                    <label style="font-size:12px; font-weight:600; color:#475569; display:block; margin-bottom:8px;">Pulihkan dari File Cadangan (JSON):</label>
+                                    <input type="file" id="file-json-restore" accept=".json" class="form-control" onchange="handleJSONImport(event)">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="import-instructions">
+                        <h3><i class="fas fa-info-circle text-primary"></i> Petunjuk Pengisian Impor Excel/CSV</h3>
+                        <ul>
+                            <li>Kolom spreadsheet wajib diawali oleh struktur biodata dasar: **Nama Lengkap, Agama, Tempat Lahir, Tanggal Lahir, Orang Tua Wali, NIS, NISN, Nomor Ijazah**.</li>
+                            <li>Kolom nilai harus mengikuti pola penamaan mata pelajaran resmi, contoh: **[Mata Pelajaran] - Sem 9, [Mata Pelajaran] - US, [Mata Pelajaran] - Praktik**.</li>
+                            <li>Unduh template Excel/CSV yang kami sediakan untuk memastikan akurasi data pemetaan kolom saat diunggah.</li>
+                        </ul>
+                    </div>
+                </section>
+                
+            </main>
+        </div>
+    </div>
+
+    <!-- ==========================================
+         3. FULL-SCREEN TABBED MODAL FOR STUDENT EDITOR
+         ========================================== -->
+    <div id="student-modal" class="modal-backdrop">
+        <div class="modal-window">
+            
+            <div class="modal-header">
+                <h2 id="modal-title">Edit Biodata & Nilai Siswa</h2>
+                <button class="modal-close" onclick="closeStudentModal()">&times;</button>
+            </div>
+            
+            <div class="modal-tabs">
+                <button id="tab-btn-pribadi" class="modal-tab-btn active" onclick="switchModalTab('pribadi')">
+                    <i class="fas fa-id-card"></i> Biodata Pribadi
+                </button>
+                <button id="tab-btn-pokok" class="modal-tab-btn" onclick="switchModalTab('pokok')">
+                    <i class="fas fa-book"></i> Mata Pelajaran Pokok (Kelompok A)
+                </button>
+                <button id="tab-btn-mulok" class="modal-tab-btn" onclick="switchModalTab('mulok')">
+                    <i class="fas fa-book-reader"></i> Muatan Lokal (Kelompok B)
+                </button>
+            </div>
+            
+            <div class="modal-body">
+                
+                <!-- TAB 1: BIODATA DIRI -->
+                <div id="tab-content-pribadi" class="modal-tab-content active">
+                    <div class="form-group-row">
+                        <div class="form-group">
+                            <label>Nama Lengkap Siswa (Sesuai Akte)</label>
+                            <input type="text" id="m-nama" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Agama Siswa</label>
+                            <select id="m-agama" class="form-control" onchange="handleModalReligionChange()">
+                                <option value="Islam">Islam</option>
+                                <option value="Kristen">Kristen</option>
+                                <option value="Katolik">Katolik</option>
+                                <option value="Hindu">Hindu</option>
+                                <option value="Buddha">Buddha</option>
+                                <option value="Khonghucu">Khonghucu</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group-row">
+                        <div class="form-group">
+                            <label>Tempat Lahir</label>
+                            <input type="text" id="m-tempat-lahir" class="form-control" placeholder="Contoh: Pati">
+                        </div>
+                        <div class="form-group">
+                            <label>Tanggal Lahir</label>
+                            <input type="date" id="m-tanggal-lahir" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Nama Orang Tua / Wali</label>
+                            <input type="text" id="m-ortu" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="form-group-row">
+                        <div class="form-group">
+                            <label>Nomor Induk Siswa (NIS)</label>
+                            <input type="text" id="m-nis" class="form-control" placeholder="Contoh: 2147">
+                        </div>
+                        <div class="form-group">
+                            <label>NISN (10 Digit)</label>
+                            <input type="text" id="m-nisn" class="form-control" placeholder="Contoh: 0124849286">
+                        </div>
+                        <div class="form-group">
+                            <label>Nomor seri Ijazah (Diisi jika ada)</label>
+                            <input type="text" id="m-ijazah" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="form-group-row">
+                        <div class="form-group">
+                            <label>Nomor Surat Kelulusan (SKL)</label>
+                            <input type="text" id="m-no-skl" class="form-control" placeholder="Contoh: 400.3.11/21.1">
+                        </div>
+                        <div class="form-group">
+                            <label>Nomor Surat Transkrip / SK Nilai</label>
+                            <input type="text" id="m-no-transkrip" class="form-control" placeholder="Contoh: 400.3.11/023.01/2025">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 2: MATA PELAJARAN POKOK (KELOMPOK A) -->
+                <div id="tab-content-pokok" class="modal-tab-content">
+                    <p style="font-size:12px; color:#64748b; margin-bottom:12px;">
+                        <i class="fas fa-info-circle"></i> Tip: Ketik nilai dan tekan tombol **Tab** atau panah arah pada keyboard Anda untuk ber-navigasi antar baris sel layaknya di program Microsoft Excel.
+                    </p>
+                    <div id="excel-grid-pokok-container" class="excel-grid-container">
+                        <!-- Excel Grade Grid Pokok built by JS -->
+                    </div>
+                </div>
+
+                <!-- TAB 3: MUATAN LOKAL (KELOMPOK B) -->
+                <div id="tab-content-mulok" class="modal-tab-content">
+                    <p style="font-size:12px; color:#64748b; margin-bottom:12px;">
+                        <i class="fas fa-info-circle"></i> Input nilai Muatan Lokal Kelompok B yang digunakan untuk transkrip nilai resmi.
+                    </p>
+
+                    <!-- Inline Add Custom Mulok Form -->
+                    <div id="inline-mulok-form" style="display: none; background-color: var(--bg-app); border: 1px solid var(--border-color); border-radius: var(--border-radius-md); padding: 16px; margin-bottom: 16px; animation: fadeIn 0.2s ease;">
+                        <h4 style="font-size:13px; font-weight:700; color:var(--secondary); margin-bottom:12px;"><i class="fas fa-plus-circle text-primary"></i> Tambah Muatan Lokal Baru</h4>
+                        <div class="form-group-row" style="margin-bottom: 12px; gap: 12px;">
+                            <div class="form-group" style="margin-bottom: 0;">
+                                <label style="font-size:11px;">Nama Mata Pelajaran</label>
+                                <input type="text" id="inline-mulok-name" class="form-control" style="padding: 8px 12px; font-size: 13px;" placeholder="Contoh: Seni Rupa Daerah">
+                            </div>
+                            <div class="form-group" style="margin-bottom: 0; max-width: 120px;">
+                                <label style="font-size:11px;">Ujian Praktik?</label>
+                                <select id="inline-mulok-praktik" class="form-control" style="padding: 8px 12px; font-size: 13px;">
+                                    <option value="true">Ada</option>
+                                    <option value="false">Tidak Ada</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div style="display: flex; justify-content: flex-end; gap: 8px; margin-top: 12px;">
+                            <button class="btn btn-secondary btn-sm" onclick="toggleInlineMulokForm(false)" style="padding: 4px 10px; font-size: 11px;">Batal</button>
+                            <button class="btn btn-primary btn-sm" onclick="saveInlineMulokSubject()" style="padding: 4px 12px; font-size: 11px;"><i class="fas fa-check"></i> Simpan Mapel</button>
+                        </div>
+                    </div>
+
+                    <div id="inline-mulok-trigger" style="margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center; background-color: var(--primary-light); padding: 10px 16px; border-radius: var(--border-radius-md); border: 1px solid rgba(79, 70, 229, 0.15);">
+                        <div style="font-size:13px; color:var(--primary); font-weight:600;">
+                            <i class="fas fa-book-reader"></i> Butuh mata pelajaran Muatan Lokal tambahan?
+                        </div>
+                        <button class="btn btn-primary btn-sm" onclick="toggleInlineMulokForm(true)" style="padding: 6px 12px; font-size:12px;">
+                            <i class="fas fa-plus"></i> Tambah Mapel Mulok
+                        </button>
+                    </div>
+
+                    <div id="excel-grid-mulok-container" class="excel-grid-container">
+                        <!-- Excel Grade Grid Mulok built by JS -->
+                    </div>
+                </div>
+                
+            </div>
+            
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeStudentModal()">Batal</button>
+                <button class="btn btn-primary" onclick="saveStudent()">
+                    <i class="fas fa-check-circle"></i> Simpan Data & Nilai
+                </button>
+            </div>
+            
+        </div>
+    </div>
+
+    <!-- Link App Logic Engine -->
+    <script src="app.js"></script>
+</body>
+</html>

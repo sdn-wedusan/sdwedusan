@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SD Negeri Wedusan - Portal Informasi Resmi Sekolah</title>
+    
+    <!-- Font Awesome for Elegant Vector Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Link Premium Stylesheet -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Glowing background decorative blobs -->
+    <div class="glow-blob blob-1"></div>
+    <div class="glow-blob blob-2"></div>
+    <div class="glow-blob blob-3"></div>
+
+    <!-- ==========================================
+         1. TOP BAR & GLASSMORPHIC NAVBAR
+         ========================================== -->
+    <div class="top-bar">
+        <div class="container">
+            <div class="top-info">
+                <span><i class="fas fa-envelope"></i> sdwedusan@gmail.com</span>
+                <span><i class="fas fa-phone-alt"></i> 085347641171</span>
+            </div>
+            <div class="top-links">
+                <a href="#portal-kelulusan" class="pulse-btn"><i class="fas fa-graduation-cap"></i> Pengumuman Kelulusan</a>
+            </div>
+        </div>
+    </div>
+
+    <header class="navbar">
+        <div class="container">
+            <a href="#" class="brand" id="brand-container" style="position: relative;">
+                <div class="brand-logo">
+                    <i class="fas fa-school"></i>
+                </div>
+                <div class="brand-text">
+                    <span class="brand-name">SDN Wedusan</span>
+                    <span class="brand-sub">Mewujudkan Generasi Cerdas & Berkarakter</span>
+                </div>
+            </a>
+            
+            <ul class="nav-menu">
+                <li><a href="#beranda" class="nav-link active">Beranda</a></li>
+                <li><a href="#sambutan" class="nav-link">Sambutan</a></li>
+                <li><a href="#profil" class="nav-link">Profil</a></li>
+                <li><a href="#program" class="nav-link">Program</a></li>
+                <li><a href="#fasilitas" class="nav-link">Fasilitas</a></li>
+                <li><a href="#berita" class="nav-link">Berita</a></li>
+                <li><a href="#agenda" class="nav-link">Agenda</a></li>
+                <li><a href="#kontak" class="nav-link">Kontak</a></li>
+                <li><a href="#" class="btn-nav" onclick="openSpmbModal(event)"><i class="fas fa-paper-plane"></i> SPMB</a></li>
+            </ul>
+            
+            <button class="mobile-toggle" id="menu-btn" aria-label="Menu Toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- ==========================================
+         2. HERO SLIDER SECTION (DYNAMIC DIAPHRAGM)
+         ========================================== -->
+    <section id="beranda" class="hero-slider">
+        <!-- Dynamic slides, controls, and dots will be rendered here by JS -->
+    </section>
+
+    <!-- ==========================================
+         3. STATS STRIP SECTION
+         ========================================== -->
+    <section class="stats-bar">
+        <div class="container" id="stats-container" style="position: relative;">
+            <!-- Dynamic Stats will be rendered here by JS -->
+        </div>
+    </section>
+
+    <!-- ==========================================
+         4. SAMBUTAN KASEK
+         ========================================== -->
+    <section id="sambutan" class="about">
+        <div class="container" id="welcome-container" style="position: relative;">
+            <!-- Dynamic Welcome content will be rendered here by JS -->
+        </div>
+    </section>
+
+    <!-- ==========================================
+         5. VISI & MISI
+         ========================================== -->
+    <section id="profil" class="visi-misi-section">
+        <div class="container" id="visi-misi-container" style="position: relative;">
+            <!-- Dynamic Visi & Misi will be rendered here by JS -->
+        </div>
+    </section>
+
+    <!-- ==========================================
+         6. PROGRAM UNGGULAN
+         ========================================== -->
+    <section id="program" class="features">
+        <div class="container" id="programs-container" style="position: relative;">
+            <!-- Dynamic Programs will be rendered here by JS -->
+        </div>
+    </section>
+
+    <!-- ==========================================
+         7. DYNAMIC PORTAL KELULUSAN (INTEGRASI UTAMA)
+         ========================================== -->
+    <section id="portal-kelulusan" class="portal-banner">
+        <div class="container">
+            <div class="portal-banner-grid">
+                <div class="portal-banner-content">
+                    <div class="portal-badge"><i class="fas fa-info-circle"></i> Sistem Kelulusan Mandiri Siswa (Digital SKL)</div>
+                    <h2>Layanan Cek Kelulusan Online Kelas VI</h2>
+                    <p>Surat Keterangan Lulus (SKL) dan Transkrip Nilai resmi murid kelas VI Tahun Ajaran 2025/2026 kini dapat dicari, diunduh, dan dicetak secara mandiri dari rumah! Cukup masukkan **10 Digit NISN** murid untuk mengecek status dan mencetak dokumen Anda.</p>
+                </div>
+                <div class="portal-banner-action">
+                    <a href="../skl-generator-sd/index.html" class="btn btn-primary" target="_blank"><i class="fas fa-search"></i> Cek Kelulusan & Cetak SKL</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         8. FASILITAS SEKOLAH
+         ========================================== -->
+    <section id="fasilitas" class="facilities-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Sarana Prasarana</span>
+                <h2 class="section-title">Fasilitas SD Negeri Wedusan</h2>
+                <p class="section-subtitle">Sarana prasarana modern, bersih, aman, dan lengkap yang menunjang kenyamanan fisik maupun batin saat kegiatan belajar mengajar.</p>
+            </div>
+            
+            <div class="add-btn-wrapper">
+                <button class="btn-add-item" onclick="openAddItem('facilities')"><i class="fas fa-plus"></i> Tambah Fasilitas Baru</button>
+            </div>
+            <div class="features-grid" id="facilities-grid">
+                <!-- Fasilitas 1 -->
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-door-open"></i></div>
+                    <h3>Gerbang & Papan Nama</h3>
+                    <p>Akses masuk sekolah yang kokoh, megah, dan berwibawa di pinggir jalan raya utama Desa Wedusan.</p>
+                    <a href="https://sdnwedusan.aksespedia.com/fasilitas" class="feature-link" target="_blank">Selengkapnya <i class="fas fa-arrow-right"></i></a>
+                </div>
+                
+                <!-- Fasilitas 2 -->
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-book-reader"></i></div>
+                    <h3>Perpustakaan Nyaman</h3>
+                    <p>Ruang membaca tenang dan sejuk yang dilengkapi ribuan buku referensi ilmu pengetahuan menarik.</p>
+                    <a href="https://sdnwedusan.aksespedia.com/fasilitas" class="feature-link" target="_blank">Selengkapnya <i class="fas fa-arrow-right"></i></a>
+                </div>
+                
+                <!-- Fasilitas 3 -->
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-chalkboard-user"></i></div>
+                    <h3>Ruang Kelas Kondusif</h3>
+                    <p>Ruang belajar luas yang bersih, terang, dilengkapi proyektor interaktif dan sirkulasi udara baik.</p>
+                    <a href="https://sdnwedusan.aksespedia.com/fasilitas" class="feature-link" target="_blank">Selengkapnya <i class="fas fa-arrow-right"></i></a>
+                </div>
+                
+                <!-- Fasilitas 4 -->
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-mosque"></i></div>
+                    <h3>Musholla & Area Ibadah</h3>
+                    <p>Musholla sekolah yang bersih untuk pembiasaan sholat berjamaah dan tadarus keagamaan harian murid.</p>
+                    <a href="https://sdnwedusan.aksespedia.com/fasilitas" class="feature-link" target="_blank">Selengkapnya <i class="fas fa-arrow-right"></i></a>
+                </div>
+                
+                <!-- Fasilitas 5 -->
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-restroom"></i></div>
+                    <h3>Kamar Mandi Higienis</h3>
+                    <p>Fasilitas toilet bersih, terpisah untuk siswa pria dan wanita, serta guru dengan air mengalir melimpah.</p>
+                    <a href="https://sdnwedusan.aksespedia.com/fasilitas" class="feature-link" target="_blank">Selengkapnya <i class="fas fa-arrow-right"></i></a>
+                </div>
+                
+                <!-- Fasilitas 6 -->
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-tree"></i></div>
+                    <h3>Halaman Hijau Adiwiyata</h3>
+                    <p>Area bermain outdoor dan halaman upacara bendera yang asri dikelilingi pepohonan pelindung rindang.</p>
+                    <a href="https://sdnwedusan.aksespedia.com/fasilitas" class="feature-link" target="_blank">Selengkapnya <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         9. BERITA TERBARU (KABAR SEKOLAH)
+         ========================================== -->
+    <section id="berita" class="gallery">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Kabar Terkini</span>
+                <h2 class="section-title">Berita & Informasi Terbaru</h2>
+                <p class="section-subtitle">Ikuti liputan berita terhangat mengenai prestasi, dinamika, dan kegiatan penting civitas akademika kami.</p>
+            </div>
+            
+            <div class="add-btn-wrapper">
+                <button class="btn-add-item" onclick="openAddItem('news')"><i class="fas fa-plus"></i> Tambah Berita Baru</button>
+            </div>
+            <div class="gallery-grid" id="news-grid">
+                <!-- Berita 1 -->
+                <div class="gallery-card">
+                    <div class="gallery-media">
+                        <i class="fas fa-users-rectangle"></i>
+                        <span class="gallery-tag">Prestasi</span>
+                    </div>
+                    <div class="gallery-content">
+                        <div class="gallery-date"><i class="fas fa-calendar-alt"></i> 26 Mei 2026</div>
+                        <h3>Prestasi Juara II POPDA Korfball 2026 Gugus Dewi Sartika</h3>
+                        <p>Dukung penuh minat bakat siswa, kontingen Gugus Dewi Sartika berhasil membawa pulang medali Perak POPDA Korfball.</p>
+                        <a href="https://sdnwedusan.aksespedia.com/berita/dukung-minat-bakat-siswa-gugus-dewi-sartika-torehkan-prestasi-juara-ii-di-ajang-popda-korfball-2026" class="feature-link" target="_blank">Baca Selengkapnya <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                
+                <!-- Berita 2 -->
+                <div class="gallery-card">
+                    <div class="gallery-media">
+                        <i class="fas fa-ribbon"></i>
+                        <span class="gallery-tag">Pendidikan</span>
+                    </div>
+                    <div class="gallery-content">
+                        <div class="gallery-date"><i class="fas fa-calendar-alt"></i> 02 Mei 2026</div>
+                        <h3>Gelorakan Hardiknas 2026, SDN Wedusan Perkuat Sinergi</h3>
+                        <p>Perkuat Sinergi Semesta demi Pendidikan Bermutu demi menyongsong generasi unggul berkarakter Pancasila.</p>
+                        <a href="https://sdnwedusan.aksespedia.com/berita/gelorakan-hardiknas-2026-sdn-wedusan-perkuat-sinergi-semesta-demi-pendidikan-bermutu" class="feature-link" target="_blank">Baca Selengkapnya <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                
+                <!-- Berita 3 -->
+                <div class="gallery-card">
+                    <div class="gallery-media">
+                        <i class="fas fa-trophy"></i>
+                        <span class="gallery-tag">POPDA & O2SN</span>
+                    </div>
+                    <div class="gallery-content">
+                        <div class="gallery-date"><i class="fas fa-calendar-alt"></i> 24 April 2026</div>
+                        <h3>Membanggakan! Raih Juara POPDA & O2SN Kec. Dukuhseti</h3>
+                        <p>Siswa-siswi SD Negeri Wedusan tampil perkasa menyabet emas dan penghargaan di ajang POPDA & O2SN Dukuhseti.</p>
+                        <a href="https://sdnwedusan.aksespedia.com/berita/membanggakan-siswa-siswi-sdn-wedusan-raih-juara-di-ajang-popda-dan-o2sn-tingkat-kecamatan-dukuhseti-2026" class="feature-link" target="_blank">Baca Selengkapnya <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         10. AGENDA KEGIATAN
+         ========================================== -->
+    <section id="agenda" class="agenda-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Agenda terdekat</span>
+                <h2 class="section-title">Agenda & Kegiatan Mendatang</h2>
+                <p class="section-subtitle">Kalender akademik penting sekolah dan kegiatan rutin mendatang yang wajib diketahui oleh guru serta wali murid.</p>
+            </div>
+            
+            <div class="add-btn-wrapper">
+                <button class="btn-add-item" onclick="openAddItem('agenda')"><i class="fas fa-plus"></i> Tambah Agenda Baru</button>
+            </div>
+            <div class="features-grid" id="agenda-grid">
+                <!-- Agenda 1 -->
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-file-signature"></i></div>
+                    <div class="card-date-badge">09 Feb 2026</div>
+                    <h3>Ujian Praktik Kelas VI SD</h3>
+                    <p>Pelaksanaan ujian praktik kelayakan kompetensi bagi seluruh peserta didik kelas VI sebagai salah satu syarat utama kelulusan.</p>
+                    <a href="https://sdnwedusan.aksespedia.com/agenda/ujian-praktik-kelas-vi" class="feature-link" target="_blank">Selengkapnya <i class="fas fa-arrow-right"></i></a>
+                </div>
+                
+                <!-- Agenda 2 -->
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-users"></i></div>
+                    <div class="card-date-badge">05 Feb 2026</div>
+                    <h3>Rapat Pleno Komite Sekolah</h3>
+                    <p>Rapat koordinasi sinergi tahunan antara pengurus komite sekolah, paguyuban wali murid, serta Kepala Sekolah untuk program pendidikan.</p>
+                    <a href="https://sdnwedusan.aksespedia.com/agenda" class="feature-link" target="_blank">Selengkapnya <i class="fas fa-arrow-right"></i></a>
+                </div>
+                
+                <!-- Agenda 3 -->
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-trophy"></i></div>
+                    <div class="card-date-badge">02 Feb 2026</div>
+                    <h3>Lomba Kompetensi Siswa</h3>
+                    <p>Ajang unjuk bakat, kreativitas, prestasi, dan keterampilan akademik maupun non-akademik antarkelas di lingkungan sekolah.</p>
+                    <a href="https://sdnwedusan.aksespedia.com/agenda" class="feature-link" target="_blank">Selengkapnya <i class="fas fa-arrow-right"></i></a>
+                </div>
+                
+                <!-- Agenda 4 -->
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-graduation-cap"></i></div>
+                    <div class="card-date-badge">01 Feb 2026</div>
+                    <h3>Pelepasan Siswa Kelas VI</h3>
+                    <p>Acara seremonial pelepasan siswa kelas akhir yang dikombinasikan dengan pentas gebyar kreativitas seni tari tradisional.</p>
+                    <a href="https://sdnwedusan.aksespedia.com/agenda" class="feature-link" target="_blank">Selengkapnya <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         11. PUSAT UNDUH & DOKUMEN (DOWNLOADS)
+         ========================================== -->
+    <section class="download-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Pusat berkas</span>
+                <h2 class="section-title">Unduh File & Dokumen Penting</h2>
+                <p class="section-subtitle">Dapatkan akses cepat pengunduhan berbagai program kerja, SOP kurikulum, dan kalender KBM resmi sekolah.</p>
+            </div>
+            
+            <div class="add-btn-wrapper">
+                <button class="btn-add-item" onclick="openAddItem('downloads')"><i class="fas fa-plus"></i> Tambah Dokumen Baru</button>
+            </div>
+            <div class="features-grid" id="downloads-grid">
+                <!-- File 1 -->
+                <a href="https://docs.google.com/document/d/1ke0bLNoEsCbUJmEQLVxhMthtEPaPGYrp/edit?usp=sharing&ouid=114689328531825124802&rtpof=true&sd=true" class="feature-card" target="_blank" style="text-decoration: none;">
+                    <div class="feature-icon"><i class="fas fa-file-word"></i></div>
+                    <h3>Laporan TKA SD</h3>
+                    <p>Microsoft Word • Laporan resmi Program TKA sekolah dasar. Buka dan unduh berkas secara langsung.</p>
+                    <span class="feature-link">Unduh File <i class="fas fa-download"></i></span>
+                </a>
+                
+                <!-- File 2 -->
+                <a href="https://docs.google.com/document/d/1OnTIPAF_rLAVzOPTQ4CddXwNv4gqKwoj/edit?usp=sharing&ouid=114689328531825124802&rtpof=true&sd=true" class="feature-card" target="_blank" style="text-decoration: none;">
+                    <div class="feature-icon"><i class="fas fa-file-contract"></i></div>
+                    <h3>SOP TKA Tahun 2026</h3>
+                    <p>Microsoft Word • Dokumen Standar Operasional Prosedur (SOP) pelaksanaan program TKA terpadu sekolah dasar.</p>
+                    <span class="feature-link">Unduh File <i class="fas fa-download"></i></span>
+                </a>
+                
+                <!-- File 3 -->
+                <a href="https://docs.google.com/document/d/1gZyIwJmtBulUCTR7e7nx0bPuLFxt6S3R/edit?usp=sharing&ouid=114689328531825124802&rtpof=true&sd=true" class="feature-card" target="_blank" style="text-decoration: none;">
+                    <div class="feature-icon"><i class="fas fa-file-alt"></i></div>
+                    <h3>Contoh Program Kerja TKA</h3>
+                    <p>Microsoft Word • Contoh rancangan program kerja pelaksanaan TKA sebagai referensi penyusunan dokumen lembaga.</p>
+                    <span class="feature-link">Unduh File <i class="fas fa-download"></i></span>
+                </a>
+                
+                <!-- File 4 -->
+                <a href="https://sdnwedusan.aksespedia.com/storage/tenants/50/Stzc6r5Ghfwzltf3DTaK4WIOASTJKsKCtEM7GlyH.pdf" class="feature-card" target="_blank" style="text-decoration: none;">
+                    <div class="feature-icon"><i class="fas fa-file-pdf"></i></div>
+                    <h3>Jadwal KBM Ramadhan</h3>
+                    <p>Dokumen PDF Resmi • Kalender Kegiatan Belajar Mengajar (KBM) khusus bulan suci Ramadhan 1447 H / 2026 M. (127 KB)</p>
+                    <span class="feature-link">Unduh PDF <i class="fas fa-download"></i></span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         12. TESTIMONIALS (SUARA MASYARAKAT)
+         ========================================== -->
+    <section class="testimonials-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Apa kata mereka</span>
+                <h2 class="section-title">Testimoni & Suara Wali Murid</h2>
+                <p class="section-subtitle">Ungkapan tulus dan apresiasi dari ketua komite, wali murid, alumni, dan pedagang kantin lingkungan sekolah dasar kami.</p>
+            </div>
+            
+            <div class="testimonials-grid">
+                <!-- Testi 1 -->
+                <div class="testi-card">
+                    <div class="testi-icon"><i class="fas fa-quote-left"></i></div>
+                    <p class="testi-content">"Kami mengapresiasi seluruh program sekolah yang telah dilaksanakan, baik dalam peningkatan akademik, penguatan karakter, literasi digital, maupun pembiasaan religius secara terarah."</p>
+                    <div class="testi-user">
+                        <h4>Moh Sudarto</h4>
+                        <p>Ketua Komite Sekolah</p>
+                    </div>
+                </div>
+                
+                <!-- Testi 2 -->
+                <div class="testi-card">
+                    <div class="testi-icon"><i class="fas fa-quote-left"></i></div>
+                    <p class="testi-content">"Kami sebagai wali murid sangat bersyukur atas program pembiasaan budi pekerti religius serta program Sabtu Sehat di SDN Wedusan. Lingkungan sangat ramah anak dan kondusif."</p>
+                    <div class="testi-user">
+                        <h4>Nur Hamimah</h4>
+                        <p>Wali Murid Kelas V</p>
+                    </div>
+                </div>
+                
+                <!-- Testi 3 -->
+                <div class="testi-card">
+                    <div class="testi-icon"><i class="fas fa-quote-left"></i></div>
+                    <p class="testi-content">"Saya bangga menjadi bagian dari alumni SDN Wedusan. Bekal kepemimpinan dan karakter yang dibentuk guru-guru di sini sangat berharga bagi karir saya di industri teknologi."</p>
+                    <div class="testi-user">
+                        <h4>Lintang Ramadhani</h4>
+                        <p>Alumni IT & Profesional</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         13. CONTACT & FORM
+         ========================================== -->
+    <section id="kontak" class="contact">
+        <div class="container">
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <span class="section-badge">Hubungi Kami</span>
+                    <h3>Pendaftaran SPMB Baru Telah Dibuka!</h3>
+                    <p class="contact-desc">Ada pertanyaan seputar Penerimaan Murid Baru (SPMB) Tahun Ajaran 2026/2027 atau butuh informasi administrasi lainnya? Hubungi admin resmi kami sekarang.</p>
+                    
+                    <div class="contact-list">
+                        <div class="contact-item">
+                            <div class="contact-item-icon"><i class="fas fa-map-marked-alt"></i></div>
+                            <div class="contact-item-text">
+                                <h4>Alamat Resmi Sekolah</h4>
+                                <p>Jl. Puncel - Ngablak KM. 05 Desa Wedusan, Kec. Dukuhseti, Kabupaten Pati, Jawa Tengah (59158)</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-item-icon"><i class="fas fa-envelope-open"></i></div>
+                            <div class="contact-item-text">
+                                <h4>Surel Resmi</h4>
+                                <p>sdwedusan@gmail.com</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-item-icon"><i class="fas fa-phone-alt"></i></div>
+                            <div class="contact-item-text">
+                                <h4>Kontak PPDB / WhatsApp</h4>
+                                <p>085347641171 (Admin Tata Usaha)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-form-box">
+                    <div class="contact-form-card">
+                        <h4 style="font-size: 18px; font-weight:800; margin-bottom: 24px; color: var(--secondary);"><i class="fas fa-paper-plane text-primary"></i> Kirim Pesan Cepat</h4>
+                        <form id="school-contact-form">
+                            <div class="form-group-2">
+                                <div class="form-field">
+                                    <label for="form-name">Nama Lengkap</label>
+                                    <input type="text" id="form-name" class="form-input" placeholder="Contoh: Budi Prasetyo" required>
+                                </div>
+                                <div class="form-field">
+                                    <label for="form-email">Alamat Email / HP</label>
+                                    <input type="text" id="form-email" class="form-input" placeholder="Contoh: budi@gmail.com" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-field">
+                                <label for="form-subject">Topik Pertanyaan</label>
+                                <input type="text" id="form-subject" class="form-input" placeholder="Contoh: Informasi PPDB Kelas 1" required>
+                            </div>
+                            
+                            <div class="form-field last">
+                                <label for="form-message">Pesan Pertanyaan</label>
+                                <textarea id="form-message" class="form-input" placeholder="Tuliskan pesan pertanyaan Anda secara lengkap..." required></textarea>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary" style="width: 100%;"><i class="fas fa-paper-plane"></i> Kirim Pertanyaan</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         14. FOOTER SECTION
+         ========================================== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <!-- Col 1 -->
+                <div class="footer-col footer-about">
+                    <h3>SDN Wedusan</h3>
+                    <p>Satuan pendidikan dasar negeri di Kecamatan Dukuhseti, Pati yang berkomitmen menyatukan teknologi digital cerdas dan karakter kepemimpinan luhur.</p>
+                    <div class="footer-socials">
+                        <a href="#" class="social-btn"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-btn"><i class="fab fa-youtube"></i></a>
+                        <a href="#" class="social-btn"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                
+                <!-- Col 2 -->
+                <div class="footer-col">
+                    <h4>Link Cepat</h4>
+                    <ul class="footer-links">
+                        <li><a href="#beranda">Beranda</a></li>
+                        <li><a href="#sambutan">Sambutan</a></li>
+                        <li><a href="#profil">Visi & Misi</a></li>
+                        <li><a href="#program">Program Unggulan</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Col 3 -->
+                <div class="footer-col">
+                    <h4>Portal Layanan</h4>
+                    <ul class="footer-links">
+                        <li><a href="../skl-generator-sd/index.html" target="_blank">Digital SKL Kelas VI</a></li>
+                        <li><a href="#fasilitas">Fasilitas Sekolah</a></li>
+                        <li><a href="#berita">Liputan Berita</a></li>
+                        <li><a href="#" onclick="openSpmbModal(event)">Pendaftaran SPMB Baru</a></li>
+                        <li><a href="#" id="admin-login-trigger"><i class="fas fa-lock"></i> Login Admin</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Col 4 -->
+                <div class="footer-col footer-sub">
+                    <h4>Langganan Berita</h4>
+                    <p>Dapatkan update rilis pengumuman, kalender pendidikan, dan bulletin kegiatan bulanan sekolah langsung ke email Anda.</p>
+                    <div class="sub-box">
+                        <input type="email" class="sub-input" placeholder="Masukkan surel Anda..." required>
+                        <button class="sub-btn"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; <span id="current-year"></span> SD Negeri Wedusan. Hak Cipta Dilindungi.</p>
+                <p>CMS Untukmu Negeri. Mendedikasi dengan Hati, Mengukir Prestasi Emas.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ==========================================
+         15. FLOATING QUICK ACTIONS WIDGET
+         ========================================== -->
+    <div class="floating-widget">
+        <button class="widget-toggle" aria-label="Quick Actions">
+            <i class="fas fa-graduation-cap"></i>
+        </button>
+        <div class="widget-menu">
+            <a href="../skl-generator-sd/index.html" class="widget-item" target="_blank" title="Cek Kelulusan">
+                <i class="fas fa-search"></i> <span>Cek Kelulusan</span>
+            </a>
+            <a href="#" class="widget-item" onclick="openSpmbModal(event)" title="Pendaftaran SPMB">
+                <i class="fas fa-user-plus"></i> <span>Daftar SPMB</span>
+            </a>
+            <a href="#agenda" class="widget-item" title="Agenda Kegiatan">
+                <i class="fas fa-calendar-alt"></i> <span>Agenda</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- ==========================================
+         ADMIN SYSTEM DIALOGS (GLASSMORPHIC)
+         ========================================== -->
+    
+    <!-- Admin Top Bar Control Panel -->
+    <div id="admin-control-bar" class="admin-bar">
+        <div class="container admin-bar-container">
+            <div class="admin-bar-info">
+                <i class="fas fa-user-shield"></i> Mode Admin Aktif (SDN Wedusan)
+            </div>
+            <div class="admin-bar-actions">
+                <button id="btn-view-ppdb" class="btn-admin-bar"><i class="fas fa-users-rectangle"></i> Pendaftar PPDB</button>
+                <button id="btn-export-db" class="btn-admin-bar"><i class="fas fa-file-export"></i> Ekspor Data</button>
+                <button id="btn-import-db" class="btn-admin-bar"><i class="fas fa-file-import"></i> Impor Data</button>
+                <input type="file" id="input-import-file" style="display: none;" accept=".json">
+                <button id="btn-logout-admin" class="btn-admin-bar danger"><i class="fas fa-sign-out-alt"></i> Keluar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 1. Admin Login Modal -->
+    <div id="admin-login-modal" class="modal-overlay">
+        <div class="modal-card glass-modal">
+            <div class="modal-card-header">
+                <h3><i class="fas fa-lock"></i> Login Kontrol Panel Admin</h3>
+                <button class="modal-close" id="btn-close-login">&times;</button>
+            </div>
+            <form id="admin-login-form">
+                <div class="form-field">
+                    <label for="admin-password">Kata Sandi Akses</label>
+                    <input type="password" id="admin-password" class="form-input" placeholder="Masukkan kata sandi..." required autocomplete="current-password">
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 10px;"><i class="fas fa-sign-in-alt"></i> Masuk Admin</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 2. Admin CRUD Modal (Add/Edit items) -->
+    <div id="admin-crud-modal" class="modal-overlay">
+        <div class="modal-card glass-modal large">
+            <div class="modal-card-header">
+                <h3 id="crud-modal-title"><i class="fas fa-edit"></i> Edit Item</h3>
+                <button class="modal-close" id="btn-close-crud">&times;</button>
+            </div>
+            <form id="admin-crud-form">
+                <!-- Hidden fields for routing -->
+                <input type="hidden" id="crud-item-id">
+                <input type="hidden" id="crud-section-type">
+
+                <div class="form-group-2">
+                    <div class="form-field">
+                        <label for="crud-title" id="lbl-crud-title">Judul Item</label>
+                        <input type="text" id="crud-title" class="form-input" required placeholder="Contoh: Laporan TKA SD">
+                    </div>
+                    <div class="form-field">
+                        <label for="crud-badge" id="lbl-crud-badge">Badge / Sub-judul / Tanggal</label>
+                        <input type="text" id="crud-badge" class="form-input" placeholder="Contoh: 26 Mei 2026 atau PDF • 127 KB">
+                    </div>
+                </div>
+
+                <div class="form-field">
+                    <label for="crud-desc">Deskripsi Singkat</label>
+                    <textarea id="crud-desc" class="form-input" placeholder="Tuliskan keterangan detail di sini..." required></textarea>
+                </div>
+
+                <div class="form-group-2">
+                    <div class="form-field">
+                        <label for="crud-link">Tautan Aksi (Link URL)</label>
+                        <input type="text" id="crud-link" class="form-input" placeholder="Contoh: https://google.com atau link dokumen">
+                    </div>
+                    <div class="form-field">
+                        <label for="crud-icon-select">Ikon FontAwesome</label>
+                        <select id="crud-icon-select" class="form-input">
+                            <option value="fa-hands-holding">Tangan Peduli (Karakter)</option>
+                            <option value="fa-laptop">Laptop (Teknologi/Digital)</option>
+                            <option value="fa-compass">Kompas (Kepemimpinan)</option>
+                            <option value="fa-award">Medali Emas (Akademik/Prestasi)</option>
+                            <option value="fa-mosque">Musholla (Keagamaan)</option>
+                            <option value="fa-campground">Tenda (Pramuka/Seni)</option>
+                            <option value="fa-door-open">Pintu Gerbang</option>
+                            <option value="fa-book-reader">Perpustakaan</option>
+                            <option value="fa-chalkboard-user">Guru/Kelas</option>
+                            <option value="fa-restroom">Toilet/Kamar Mandi</option>
+                            <option value="fa-tree">Pohon (Halaman)</option>
+                            <option value="fa-file-word">Dokumen Word (Biru)</option>
+                            <option value="fa-file-pdf">Dokumen PDF (Merah)</option>
+                            <option value="fa-file-contract">SOP / Kontrak</option>
+                            <option value="fa-file-alt">File Teks / Alt</option>
+                            <option value="fa-file-signature">Ujian Praktik / Tanda Tangan</option>
+                            <option value="fa-users">Rapat / Orang Tua</option>
+                            <option value="fa-trophy">Lomba / LKS</option>
+                            <option value="fa-graduation-cap">Kelulusan / Toga</option>
+                            <option value="fa-calendar-check">Kalender Sukses</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-field">
+                    <label>Pilihan Gambar Unggulan (Hanya untuk Berita/Fasilitas)</label>
+                    <div class="image-upload-wrapper">
+                        <input type="file" id="crud-file-input" accept="image/*" class="form-input-file">
+                        <div class="image-upload-preview" id="crud-img-preview-box">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <p>Klik atau Tarik gambar ke sini untuk mengunggah (Maks 1MB)</p>
+                            <img id="crud-img-preview" src="" style="display: none;" alt="Preview">
+                        </div>
+                        <input type="hidden" id="crud-base64-image">
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 15px;"><i class="fas fa-save"></i> Simpan Perubahan</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ==========================================
+         CMS & SPMB ADDITIONAL MODALS (GLASSMORPHIC)
+         ========================================== -->
+
+    <!-- 1. SPMB / PPDB Registration Modal for Parents -->
+    <div id="spmb-modal" class="modal-overlay">
+        <div class="modal-card glass-modal large">
+            <div class="modal-card-header">
+                <h3><i class="fas fa-file-signature text-primary"></i> Formulir Pendaftaran Siswa Baru (SPMB)</h3>
+                <button class="modal-close" onclick="closeSpmbModal()">&times;</button>
+            </div>
+            <form id="spmb-registration-form" onsubmit="submitSpmbForm(event)">
+                <div class="form-group-2">
+                    <div class="form-field">
+                        <label for="spmb-nama">Nama Lengkap Calon Siswa</label>
+                        <input type="text" id="spmb-nama" class="form-input" placeholder="Contoh: Rian Hidayat" required>
+                    </div>
+                    <div class="form-field">
+                        <label for="spmb-nisn">NISN / NIK Calon Siswa</label>
+                        <input type="text" id="spmb-nisn" class="form-input" placeholder="Contoh: 331812345678" required>
+                    </div>
+                </div>
+
+                <div class="form-group-2">
+                    <div class="form-field">
+                        <label for="spmb-ttl">Tempat & Tanggal Lahir</label>
+                        <input type="text" id="spmb-ttl" class="form-input" placeholder="Contoh: Pati, 12 Juni 2019" required>
+                    </div>
+                    <div class="form-field">
+                        <label for="spmb-jk">Jenis Kelamin</label>
+                        <select id="spmb-jk" class="form-input" required>
+                            <option value="Laki-laki">Laki-laki</option>
+                            <option value="Perempuan">Perempuan</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group-2">
+                    <div class="form-field">
+                        <label for="spmb-ortu">Nama Orang Tua / Wali</label>
+                        <input type="text" id="spmb-ortu" class="form-input" placeholder="Contoh: Budi Prasetyo" required>
+                    </div>
+                    <div class="form-field">
+                        <label for="spmb-wa">Nomor WhatsApp Aktif</label>
+                        <input type="text" id="spmb-wa" class="form-input" placeholder="Contoh: 08123456789" required>
+                    </div>
+                </div>
+
+                <div class="form-group-2">
+                    <div class="form-field">
+                        <label for="spmb-asal-tk">Asal Sekolah / TK</label>
+                        <input type="text" id="spmb-asal-tk" class="form-input" placeholder="Contoh: TK Pertiwi Wedusan" required>
+                    </div>
+                    <div class="form-field">
+                        <label for="spmb-alamat">Alamat Lengkap</label>
+                        <input type="text" id="spmb-alamat" class="form-input" placeholder="Contoh: RT 02 RW 01 Desa Wedusan" required>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 15px;"><i class="fas fa-paper-plane"></i> Kirim Pendaftaran & Kirim ke WA</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 2. Admin View Registrations (PPDB CRM) Modal -->
+    <div id="admin-registrations-modal" class="modal-overlay">
+        <div class="modal-card glass-modal large" style="max-width: 950px; width: 95%;">
+            <div class="modal-card-header">
+                <h3><i class="fas fa-users-viewfinder text-primary"></i> Panel Manajemen Pendaftar Baru (PPDB)</h3>
+                <button class="modal-close" onclick="closeRegistrationsModal()">&times;</button>
+            </div>
+            
+            <div class="admin-bar-actions" style="margin-bottom: 20px; display: flex; gap: 12px; justify-content: flex-end;">
+                <button onclick="openAddOfflineRegistration()" class="btn btn-add-item" style="padding: 10px 20px; border-style: solid;"><i class="fas fa-plus-circle"></i> Input Pendaftar Offline</button>
+                <button onclick="exportRegistrationsToExcel()" class="btn btn-secondary" style="padding: 10px 20px; border-color: #059669; color: #059669;"><i class="fas fa-file-excel"></i> Ekspor ke Excel (CSV)</button>
+                <button onclick="exportRegistrationsToPDF()" class="btn btn-secondary" style="padding: 10px 20px; border-color: #ef4444; color: #ef4444;"><i class="fas fa-file-pdf"></i> Cetak / Ekspor PDF</button>
+            </div>
+
+            <!-- Scrollable Table -->
+            <div class="registration-table-wrapper" style="overflow-x: auto; max-height: 400px; border: 1px solid var(--border-color); border-radius: var(--radius-md); background: white;">
+                <table id="ppdb-table" style="width: 100%; border-collapse: collapse; text-align: left; font-size: 13px;">
+                    <thead>
+                        <tr style="background-color: var(--secondary-light); border-bottom: 2px solid var(--border-color);">
+                            <th style="padding: 12px; font-weight: 700; color: var(--secondary);">No</th>
+                            <th style="padding: 12px; font-weight: 700; color: var(--secondary);">Nama Calon Siswa</th>
+                            <th style="padding: 12px; font-weight: 700; color: var(--secondary);">NIK/NISN</th>
+                            <th style="padding: 12px; font-weight: 700; color: var(--secondary);">TTL</th>
+                            <th style="padding: 12px; font-weight: 700; color: var(--secondary);">L/P</th>
+                            <th style="padding: 12px; font-weight: 700; color: var(--secondary);">Orang Tua</th>
+                            <th style="padding: 12px; font-weight: 700; color: var(--secondary);">WhatsApp</th>
+                            <th style="padding: 12px; font-weight: 700; color: var(--secondary);">Asal Sekolah</th>
+                            <th style="padding: 12px; font-weight: 700; color: var(--secondary); text-align: center;">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ppdb-table-body">
+                        <!-- Rendered by JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. Admin Add/Edit Offline Registration (Formulir Manual Guru) -->
+    <div id="admin-offline-reg-modal" class="modal-overlay">
+        <div class="modal-card glass-modal large">
+            <div class="modal-card-header">
+                <h3><i class="fas fa-user-plus text-primary"></i> Input Siswa Baru Tatap Muka (Offline)</h3>
+                <button class="modal-close" onclick="closeOfflineRegModal()">&times;</button>
+            </div>
+            <form id="admin-offline-reg-form" onsubmit="submitOfflineRegForm(event)">
+                <div class="form-group-2">
+                    <div class="form-field">
+                        <label for="off-nama">Nama Lengkap Calon Siswa</label>
+                        <input type="text" id="off-nama" class="form-input" required>
+                    </div>
+                    <div class="form-field">
+                        <label for="off-nisn">NISN / NIK</label>
+                        <input type="text" id="off-nisn" class="form-input" required>
+                    </div>
+                </div>
+
+                <div class="form-group-2">
+                    <div class="form-field">
+                        <label for="off-ttl">Tempat & Tanggal Lahir</label>
+                        <input type="text" id="off-ttl" class="form-input" required>
+                    </div>
+                    <div class="form-field">
+                        <label for="off-jk">Jenis Kelamin</label>
+                        <select id="off-jk" class="form-input" required>
+                            <option value="Laki-laki">Laki-laki</option>
+                            <option value="Perempuan">Perempuan</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group-2">
+                    <div class="form-field">
+                        <label for="off-ortu">Nama Orang Tua / Wali</label>
+                        <input type="text" id="off-ortu" class="form-input" required>
+                    </div>
+                    <div class="form-field">
+                        <label for="off-wa">Nomor WhatsApp Aktif</label>
+                        <input type="text" id="off-wa" class="form-input" required>
+                    </div>
+                </div>
+
+                <div class="form-group-2">
+                    <div class="form-field">
+                        <label for="off-asal-tk">Asal Sekolah / TK</label>
+                        <input type="text" id="off-asal-tk" class="form-input" required>
+                    </div>
+                    <div class="form-field">
+                        <label for="off-alamat">Alamat Lengkap</label>
+                        <input type="text" id="off-alamat" class="form-input" required>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 15px;"><i class="fas fa-save"></i> Simpan Data Calon Murid</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 4. Admin Edit Stats Modal -->
+    <div id="admin-stats-modal" class="modal-overlay">
+        <div class="modal-card glass-modal">
+            <div class="modal-card-header">
+                <h3><i class="fas fa-chart-line text-primary"></i> Edit Statistik Sekolah</h3>
+                <button class="modal-close" onclick="closeStatsModal()">&times;</button>
+            </div>
+            <form id="admin-stats-form" onsubmit="submitStatsForm(event)">
+                <div id="stats-inputs-wrapper">
+                    <!-- 4 dynamic stats input groups will be inserted here by JS -->
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 15px;"><i class="fas fa-save"></i> Simpan Statistik</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 5. Admin Edit Sambutan Modal -->
+    <div id="admin-welcome-modal" class="modal-overlay">
+        <div class="modal-card glass-modal large">
+            <div class="modal-card-header">
+                <h3><i class="fas fa-user-tie text-primary"></i> Edit Sambutan Kepala Sekolah</h3>
+                <button class="modal-close" onclick="closeWelcomeModal()">&times;</button>
+            </div>
+            <form id="admin-welcome-form" onsubmit="submitWelcomeForm(event)">
+                <div class="form-group-2">
+                    <div class="form-field">
+                        <label for="wel-name">Nama Kepala Sekolah</label>
+                        <input type="text" id="wel-name" class="form-input" required>
+                    </div>
+                    <div class="form-field">
+                        <label for="wel-title">Jabatan / Gelar</label>
+                        <input type="text" id="wel-title" class="form-input" required>
+                    </div>
+                </div>
+
+                <div class="form-field">
+                    <label for="wel-quote">Quote Singkat Kepala Sekolah</label>
+                    <input type="text" id="wel-quote" class="form-input" required>
+                </div>
+
+                <div class="form-field">
+                    <label for="wel-heading">Judul Sambutan Utama</label>
+                    <input type="text" id="wel-heading" class="form-input" required>
+                </div>
+
+                <div class="form-group-2">
+                    <div class="form-field">
+                        <label for="wel-text1">Paragraf Sambutan 1</label>
+                        <textarea id="wel-text1" class="form-input" style="min-height: 120px;" required></textarea>
+                    </div>
+                    <div class="form-field">
+                        <label for="wel-text2">Paragraf Sambutan 2</label>
+                        <textarea id="wel-text2" class="form-input" style="min-height: 120px;" required></textarea>
+                    </div>
+                </div>
+
+                <div class="form-field">
+                    <label>Foto Resmi Kepala Sekolah (Unggah Foto Baru)</label>
+                    <div class="image-upload-wrapper" style="height: 120px;">
+                        <input type="file" id="wel-file-input" accept="image/*" class="form-input-file">
+                        <div class="image-upload-preview" id="wel-img-preview-box">
+                            <i class="fas fa-user-circle"></i>
+                            <p>Klik untuk mengganti foto Kepala Sekolah (Maks 1MB)</p>
+                            <img id="wel-img-preview" src="" style="display: none;" alt="Preview">
+                        </div>
+                        <input type="hidden" id="wel-base64-image">
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 15px;"><i class="fas fa-save"></i> Simpan Sambutan</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 6. Admin Edit Visi & Misi Modal -->
+    <div id="admin-vision-modal" class="modal-overlay">
+        <div class="modal-card glass-modal large">
+            <div class="modal-card-header">
+                <h3><i class="fas fa-bullseye text-primary"></i> Edit Visi & Misi Sekolah</h3>
+                <button class="modal-close" onclick="closeVisionModal()">&times;</button>
+            </div>
+            <form id="admin-vision-form" onsubmit="submitVisionForm(event)">
+                <div class="form-field">
+                    <label for="vis-vision">Pernyataan Visi Sekolah</label>
+                    <textarea id="vis-vision" class="form-input" style="min-height: 80px;" required></textarea>
+                </div>
+
+                <div class="form-field">
+                    <label style="display: flex; justify-content: space-between; align-items: center;">
+                        <span>Daftar Poin Misi Sekolah</span>
+                        <button type="button" onclick="addNewMissionInput()" class="btn-admin-bar" style="background: var(--primary); padding: 4px 10px; font-size: 11px;"><i class="fas fa-plus"></i> Tambah Misi</button>
+                    </label>
+                    <div id="vision-misi-list-inputs" style="display: flex; flex-direction: column; gap: 10px; margin-top: 8px;">
+                        <!-- Dynamic mission inputs will be rendered here by JS -->
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 15px;"><i class="fas fa-save"></i> Simpan Visi & Misi</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 7. Admin Edit Logo & Identitas Sekolah Modal -->
+    <div id="admin-logo-modal" class="modal-overlay">
+        <div class="modal-card glass-modal large">
+            <div class="modal-card-header">
+                <h3><i class="fas fa-school text-primary"></i> Edit Logo & Identitas Sekolah</h3>
+                <button class="modal-close" onclick="closeLogoModal()">&times;</button>
+            </div>
+            <form id="admin-logo-form" onsubmit="submitLogoForm(event)">
+                <div class="form-group-2">
+                    <div class="form-field">
+                        <label for="logo-name">Nama Sekolah (Branding Utama)</label>
+                        <input type="text" id="logo-name" class="form-input" required placeholder="Contoh: SDN Wedusan">
+                    </div>
+                    <div class="form-field">
+                        <label for="logo-tagline">Slogan / Tagline Sekolah</label>
+                        <input type="text" id="logo-tagline" class="form-input" required placeholder="Contoh: Mewujudkan Generasi Cerdas & Berkarakter">
+                    </div>
+                </div>
+
+                <div class="form-group-2">
+                    <div class="form-field">
+                        <label for="logo-type">Tipe Logo Utama</label>
+                        <select id="logo-type" class="form-input" onchange="toggleLogoTypeInputs()">
+                            <option value="icon">Menggunakan Ikon Klasik (FontAwesome)</option>
+                            <option value="image">Menggunakan Gambar Logo Kustom (Unggah)</option>
+                        </select>
+                    </div>
+                    <div class="form-field" id="field-logo-icon">
+                        <label for="logo-icon-select">Pilihan Ikon Klasik</label>
+                        <select id="logo-icon-select" class="form-input">
+                            <option value="fa-school">Gedung Sekolah (Default)</option>
+                            <option value="fa-graduation-cap">Topi Toga (Kelulusan)</option>
+                            <option value="fa-award">Medali Emas</option>
+                            <option value="fa-book">Buku Terbuka</option>
+                            <option value="fa-compass">Kompas Arah</option>
+                            <option value="fa-laptop">Laptop Modern</option>
+                            <option value="fa-child">Siswa/Anak Ceria</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-field" id="field-logo-image" style="display: none;">
+                    <label>Unggah Gambar Logo Sekolah (Format PNG Transparan Direkomendasikan)</label>
+                    <div class="image-upload-wrapper" style="height: 120px;">
+                        <input type="file" id="logo-file-input" accept="image/*" class="form-input-file">
+                        <div class="image-upload-preview" id="logo-img-preview-box">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <p>Klik untuk mengunggah gambar logo kustom (Maks 500KB)</p>
+                            <img id="logo-img-preview" src="" style="display: none;" alt="Preview Logo">
+                        </div>
+                        <input type="hidden" id="logo-base64-image">
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 15px;"><i class="fas fa-save"></i> Simpan Logo & Branding</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Link Premium Script -->
+    <script src="app.js"></script>
+</body>
+</html>
