@@ -1786,7 +1786,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 </head>
                 <body>
                     <div style="max-width: 580px; margin: 0 auto; border: 1px solid #cbd5e1; border-radius: 8px; padding: 25px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
-                        \${slip.innerHTML}
+                        ${slip.innerHTML}
                     </div>
                     <script>
                         window.onload = function() {
