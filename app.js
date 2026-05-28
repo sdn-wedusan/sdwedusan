@@ -856,18 +856,6 @@ document.addEventListener("DOMContentLoaded", () => {
         ` : "";
 
         const cardsHtml = schoolDB.programs.map(item => {
-            let buttonText = "Selengkapnya";
-            let buttonUrl = "#";
-            if (item.link) {
-                if (item.link.includes("|")) {
-                    const parts = item.link.split("|");
-                    buttonText = parts[0].trim();
-                    buttonUrl = parts[1].trim();
-                } else {
-                    buttonUrl = item.link.trim();
-                }
-            }
-
             const imgSrc = item.base64Image || item.imageUrl;
             const coverHtml = imgSrc ? `
                 <div class="card-cover-box" style="background-image: url('${imgSrc}'); background-size: cover; background-position: center; height: 160px; border-radius: var(--radius-md) var(--radius-md) 0 0; margin: -40px -32px 24px -32px; border-bottom: 1px solid var(--border-color);"></div>
@@ -882,7 +870,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     ${coverHtml}
                     <h3>${item.title}</h3>
                     <p>${item.desc}</p>
-                    <a href="${buttonUrl}" class="feature-link" ${buttonUrl.startsWith('http') ? 'target="_blank"' : ''}>${buttonText} <i class="fas fa-arrow-right"></i></a>
+                    <a href="#" class="feature-link" onclick="openDetailView(event, 'programs', '${item.id}')">Selengkapnya <i class="fas fa-arrow-right"></i></a>
                 </div>
             `;
         }).join("");
@@ -1094,6 +1082,7 @@ document.addEventListener("DOMContentLoaded", () => {
         try { renderDynamicGallery(); } catch (e) { console.error("Error rendering gallery:", e); }
         try { renderDynamicDownloads(); } catch (e) { console.error("Error rendering downloads:", e); }
         try { renderDynamicContact(); } catch (e) { console.error("Error rendering contact:", e); }
+        try { updateDatabaseSizeIndicator(); } catch (e) { console.error("Error updating db indicator:", e); }
     }
 
     // Toggle Admin Mode Class on Body
@@ -1135,6 +1124,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 badgeEl.innerText = "Galeri Kegiatan";
                 badgeEl.style.background = "rgba(16, 185, 129, 0.1)";
                 badgeEl.style.color = "#059669";
+            } else if (section === "programs") {
+                badgeEl.innerText = "Program Unggulan";
+                badgeEl.style.background = "var(--primary-light)";
+                badgeEl.style.color = "var(--primary)";
             }
         }
 
@@ -1151,6 +1144,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 dateEl.innerHTML = `<i class="fas fa-calendar-check"></i> Tanggal Pelaksanaan: ${item.badge || ""}`;
             } else if (section === "gallery") {
                 dateEl.innerHTML = `<i class="fas fa-image"></i> Album: ${item.title} • ${item.badge || ""}`;
+            } else if (section === "programs") {
+                dateEl.innerHTML = `<i class="fas fa-award"></i> Program Unggulan SD Negeri Wedusan`;
             } else {
                 dateEl.innerHTML = `<i class="fas fa-school"></i> Fasilitas Sekolah SDN Wedusan`;
             }
@@ -1263,7 +1258,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const contentField = document.getElementById("field-crud-content");
         if (contentField) {
             document.getElementById("crud-content").value = "";
-            if (section === "news" || section === "facilities" || section === "agenda" || section === "gallery") {
+            if (section === "news" || section === "facilities" || section === "agenda" || section === "gallery" || section === "programs") {
                 contentField.style.display = "block";
             } else {
                 contentField.style.display = "none";
@@ -1337,7 +1332,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const contentField = document.getElementById("field-crud-content");
         if (contentField) {
             document.getElementById("crud-content").value = item.content || "";
-            if (section === "news" || section === "facilities" || section === "agenda" || section === "gallery") {
+            if (section === "news" || section === "facilities" || section === "agenda" || section === "gallery" || section === "programs") {
                 contentField.style.display = "block";
             } else {
                 contentField.style.display = "none";
@@ -2043,29 +2038,215 @@ document.addEventListener("DOMContentLoaded", () => {
     renderAllDynamicSections();
     updateAdminUI();
 
-    // Image Upload base64 Conversion
+    // ==========================================================================
+    // OFFLINE CLIENT-SIDE IMAGE COMPRESSION & DATABASE OPTIMIZATION ENGINE
+    // ==========================================================================
+
+    // 1. Client-Side Image Compression using HTML5 Canvas
+    function compressAndResizeImage(file, maxWidth, maxHeight, quality, callback) {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            const img = new Image();
+            img.onload = () => {
+                let width = img.width;
+                let height = img.height;
+
+                // Adjust dimensions preserving aspect ratio
+                if (width > height) {
+                    if (width > maxWidth) {
+                        height = Math.round((height * maxWidth) / width);
+                        width = maxWidth;
+                    }
+                } else {
+                    if (height > maxHeight) {
+                        width = Math.round((width * maxHeight) / height);
+                        height = maxHeight;
+                    }
+                }
+
+                const canvas = document.createElement("canvas");
+                canvas.width = width;
+                canvas.height = height;
+
+                const ctx = canvas.getContext("2d");
+                ctx.drawImage(img, 0, 0, width, height);
+
+                // Output compressed high-efficiency JPEG string
+                const compressedBase64 = canvas.toDataURL("image/jpeg", quality);
+                callback(compressedBase64);
+            };
+            img.src = event.target.result;
+        };
+        reader.onerror = () => {
+            showToast("Gagal membaca berkas gambar!", "danger");
+        };
+        reader.readAsDataURL(file);
+    }
+
+    // 2. Real-time Database Size Indicator in Admin Top Bar
+    function updateDatabaseSizeIndicator() {
+        const statusEl = document.getElementById("admin-db-status");
+        if (!statusEl) return;
+        
+        const dbString = localStorage.getItem("school_website_db") || "";
+        const sizeBytes = new Blob([dbString]).size;
+        const sizeKB = (sizeBytes / 1024).toFixed(1);
+        
+        statusEl.innerHTML = `<i class="fas fa-database" style="color: #34d399;"></i> Database: ${sizeKB} KB / 5000 KB`;
+        
+        if (sizeBytes > 4000 * 1024) {
+            statusEl.style.color = "#ef4444"; // Danger Red
+        } else if (sizeBytes > 2500 * 1024) {
+            statusEl.style.color = "#f59e0b"; // Warning Orange
+        } else {
+            statusEl.style.color = "#94a3b8"; // Neutral Slate
+        }
+    }
+
+    // 3. One-Click Batch Image Optimizer (Shrinks existing db images)
+    window.optimizeExistingDatabase = (e) => {
+        if (e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+        
+        showToast("Memulai optimasi database luring...", "success");
+        
+        const btn = document.getElementById("btn-optimize-db");
+        const originalHtml = btn.innerHTML;
+        btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Optimasi...`;
+        btn.disabled = true;
+        
+        const dbStringBefore = localStorage.getItem("school_website_db") || "";
+        const sizeBefore = new Blob([dbStringBefore]).size;
+        
+        let imagesToCompress = [];
+        
+        function checkAndQueue(parentObj, key, maxWidth, maxHeight, quality) {
+            if (parentObj && parentObj[key] && parentObj[key].startsWith("data:image/")) {
+                const imgStr = parentObj[key];
+                // Queue if it is not already small
+                if (imgStr.length > 50 * 1024) { 
+                    imagesToCompress.push({
+                        parent: parentObj,
+                        key: key,
+                        data: imgStr,
+                        maxWidth: maxWidth,
+                        maxHeight: maxHeight,
+                        quality: quality
+                    });
+                }
+            }
+        }
+        
+        // Scan single key profiles
+        if (schoolDB.logo) checkAndQueue(schoolDB.logo, "base64Image", 300, 300, 0.8);
+        if (schoolDB.welcome) checkAndQueue(schoolDB.welcome, "base64Image", 400, 400, 0.75);
+        if (schoolDB.schoolHistory) checkAndQueue(schoolDB.schoolHistory, "base64Image", 1200, 1200, 0.7);
+        
+        // Scan list models
+        const listSections = [
+            { name: "news", maxW: 1200, maxH: 1200, q: 0.7 },
+            { name: "facilities", maxW: 1200, maxH: 1200, q: 0.7 },
+            { name: "heroSlides", maxW: 1200, maxH: 1200, q: 0.7 },
+            { name: "sidebarBanners", maxW: 1200, maxH: 1200, q: 0.7 },
+            { name: "programs", maxW: 1200, maxH: 1200, q: 0.7 },
+            { name: "agenda", maxW: 1200, maxH: 1200, q: 0.7 },
+            { name: "gallery", maxW: 1200, maxH: 1200, q: 0.7 }
+        ];
+        
+        listSections.forEach(section => {
+            if (schoolDB[section.name]) {
+                schoolDB[section.name].forEach(item => {
+                    checkAndQueue(item, "base64Image", section.maxW, section.maxH, section.q);
+                });
+            }
+        });
+        
+        if (imagesToCompress.length === 0) {
+            showToast("Database Anda sudah optimal! Tidak ada gambar besar terdeteksi.", "success");
+            btn.innerHTML = originalHtml;
+            btn.disabled = false;
+            return;
+        }
+        
+        let processedCount = 0;
+        
+        function processNext() {
+            if (processedCount >= imagesToCompress.length) {
+                // Done! Save and re-render
+                localStorage.setItem("school_website_db", JSON.stringify(schoolDB));
+                renderAllDynamicSections();
+                
+                const dbStringAfter = localStorage.getItem("school_website_db") || "";
+                const sizeAfter = new Blob([dbStringAfter]).size;
+                const savedKB = ((sizeBefore - sizeAfter) / 1024).toFixed(1);
+                const pct = (((sizeBefore - sizeAfter) / sizeBefore) * 100).toFixed(0);
+                
+                showToast(`Optimasi sukses! Berhasil menghemat ${savedKB} KB (${pct}% lebih ringan).`, "success");
+                btn.innerHTML = originalHtml;
+                btn.disabled = false;
+                return;
+            }
+            
+            const task = imagesToCompress[processedCount];
+            const tempImg = new Image();
+            tempImg.onload = () => {
+                let width = tempImg.width;
+                let height = tempImg.height;
+                
+                if (width > height) {
+                    if (width > task.maxWidth) {
+                        height = Math.round((height * task.maxWidth) / width);
+                        width = task.maxWidth;
+                    }
+                } else {
+                    if (height > task.maxHeight) {
+                        width = Math.round((width * task.maxHeight) / height);
+                        height = task.maxHeight;
+                    }
+                }
+                
+                const canvas = document.createElement("canvas");
+                canvas.width = width;
+                canvas.height = height;
+                const ctx = canvas.getContext("2d");
+                ctx.drawImage(tempImg, 0, 0, width, height);
+                
+                task.parent[task.key] = canvas.toDataURL("image/jpeg", task.quality);
+                
+                processedCount++;
+                setTimeout(processNext, 30); // Yield main thread to prevent UI freezing
+            };
+            tempImg.onerror = () => {
+                processedCount++;
+                processNext();
+            };
+            tempImg.src = task.data;
+        }
+        
+        processNext();
+    };
+
+    // 4. Integrated Compressed File Upload Event Listeners
     const crudFileInput = document.getElementById("crud-file-input");
     if (crudFileInput) {
         crudFileInput.addEventListener("change", (e) => {
             const file = e.target.files[0];
             if (!file) return;
             
-            if (file.size > 102 * 1024 * 10) { // Limit 1MB to prevent localstorage quota overflow
-                showToast("Ukuran file terlalu besar! Maksimal ukuran file foto adalah 1MB.", "danger");
-                crudFileInput.value = "";
-                return;
-            }
+            showToast("Sedang memproses dan mengompres foto kegiatan...", "success");
             
-            const reader = new FileReader();
-            reader.onload = (event) => {
-                const base64 = event.target.result;
-                document.getElementById("crud-base64-image").value = base64;
+            compressAndResizeImage(file, 1200, 1200, 0.7, (compressedBase64) => {
+                document.getElementById("crud-base64-image").value = compressedBase64;
                 const imgEl = document.getElementById("crud-img-preview");
-                imgEl.src = base64;
+                imgEl.src = compressedBase64;
                 imgEl.style.display = "block";
-                showToast("Foto berhasil dimuat untuk diunggah!", "success");
-            };
-            reader.readAsDataURL(file);
+                
+                const origKB = (file.size / 1024).toFixed(1);
+                const compKB = (new Blob([compressedBase64]).size / 1024).toFixed(1);
+                showToast(`Foto berhasil dikompres: ${origKB} KB -> ${compKB} KB!`, "success");
+            });
         });
     }
 
@@ -2075,22 +2256,18 @@ document.addEventListener("DOMContentLoaded", () => {
             const file = e.target.files[0];
             if (!file) return;
             
-            if (file.size > 102 * 1024 * 10) { // Limit 1MB to prevent localstorage quota overflow
-                showToast("Ukuran file terlalu besar! Maksimal ukuran file foto adalah 1MB.", "danger");
-                welFileInput.value = "";
-                return;
-            }
+            showToast("Mengompres foto Kepala Sekolah...", "success");
             
-            const reader = new FileReader();
-            reader.onload = (event) => {
-                const base64 = event.target.result;
-                document.getElementById("wel-base64-image").value = base64;
+            compressAndResizeImage(file, 400, 400, 0.75, (compressedBase64) => {
+                document.getElementById("wel-base64-image").value = compressedBase64;
                 const imgEl = document.getElementById("wel-img-preview");
-                imgEl.src = base64;
+                imgEl.src = compressedBase64;
                 imgEl.style.display = "block";
-                showToast("Foto Kepala Sekolah berhasil dimuat untuk disimpan!", "success");
-            };
-            reader.readAsDataURL(file);
+                
+                const origKB = (file.size / 1024).toFixed(1);
+                const compKB = (new Blob([compressedBase64]).size / 1024).toFixed(1);
+                showToast(`Foto Kasek berhasil dikompres: ${origKB} KB -> ${compKB} KB!`, "success");
+            });
         });
     }
 
@@ -2100,22 +2277,18 @@ document.addEventListener("DOMContentLoaded", () => {
             const file = e.target.files[0];
             if (!file) return;
             
-            if (file.size > 500 * 1024) { // Limit 500KB to keep localStorage light
-                showToast("Ukuran logo terlalu besar! Maksimal ukuran file logo kustom adalah 500KB.", "danger");
-                logoFileInput.value = "";
-                return;
-            }
+            showToast("Mengompres logo kustom sekolah...", "success");
             
-            const reader = new FileReader();
-            reader.onload = (event) => {
-                const base64 = event.target.result;
-                document.getElementById("logo-base64-image").value = base64;
+            compressAndResizeImage(file, 300, 300, 0.8, (compressedBase64) => {
+                document.getElementById("logo-base64-image").value = compressedBase64;
                 const imgEl = document.getElementById("logo-img-preview");
-                imgEl.src = base64;
+                imgEl.src = compressedBase64;
                 imgEl.style.display = "block";
-                showToast("Foto Logo Sekolah berhasil dimuat untuk disimpan!", "success");
-            };
-            reader.readAsDataURL(file);
+                
+                const origKB = (file.size / 1024).toFixed(1);
+                const compKB = (new Blob([compressedBase64]).size / 1024).toFixed(1);
+                showToast(`Logo berhasil dikompres: ${origKB} KB -> ${compKB} KB!`, "success");
+            });
         });
     }
 
@@ -2125,27 +2298,22 @@ document.addEventListener("DOMContentLoaded", () => {
             const file = e.target.files[0];
             if (!file) return;
             
-            if (file.size > 1024 * 1024) { // Limit 1MB to preserve performance
-                showToast("Ukuran foto sejarah terlalu besar! Maksimal ukuran adalah 1MB.", "danger");
-                histFileInput.value = "";
-                return;
-            }
+            showToast("Mengompres foto sejarah sekolah...", "success");
             
-            const reader = new FileReader();
-            reader.onload = (event) => {
-                const base64 = event.target.result;
-                document.getElementById("hist-base64-image").value = base64;
+            compressAndResizeImage(file, 1200, 1200, 0.7, (compressedBase64) => {
+                document.getElementById("hist-base64-image").value = compressedBase64;
                 const imgEl = document.getElementById("hist-img-preview");
-                imgEl.src = base64;
+                imgEl.src = compressedBase64;
                 imgEl.style.display = "block";
                 
                 const previewBox = document.getElementById("hist-img-preview-box");
                 if (previewBox.querySelector("p")) previewBox.querySelector("p").style.display = "none";
                 if (previewBox.querySelector("i")) previewBox.querySelector("i").style.display = "none";
                 
-                showToast("Foto sejarah sekolah berhasil dimuat untuk disimpan!", "success");
-            };
-            reader.readAsDataURL(file);
+                const origKB = (file.size / 1024).toFixed(1);
+                const compKB = (new Blob([compressedBase64]).size / 1024).toFixed(1);
+                showToast(`Foto sejarah berhasil dikompres: ${origKB} KB -> ${compKB} KB!`, "success");
+            });
         });
     }
 

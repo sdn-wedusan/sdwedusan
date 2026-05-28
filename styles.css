@@ -387,6 +387,7 @@ h1, h2, h3, h4, h5 {
     transform: scale(0.98);
     z-index: 1;
     padding-top: 100px;
+    will-change: transform, opacity;
 }
 
 .slide.active {
@@ -1619,17 +1620,16 @@ textarea.form-input {
 .glow-blob {
     position: absolute;
     border-radius: 50%;
-    filter: blur(120px);
-    opacity: 0.15;
     z-index: -1;
     pointer-events: none;
-    animation: blobDrift 20s infinite alternate ease-in-out;
+    animation: blobDrift 25s infinite alternate ease-in-out;
+    will-change: transform;
 }
 
 .blob-1 {
     width: 500px;
     height: 500px;
-    background: var(--primary);
+    background: radial-gradient(circle, rgba(5, 150, 105, 0.15) 0%, rgba(5, 150, 105, 0) 70%);
     top: 5%;
     right: -10%;
 }
@@ -1637,21 +1637,19 @@ textarea.form-input {
 .blob-2 {
     width: 600px;
     height: 600px;
-    background: var(--secondary);
+    background: radial-gradient(circle, rgba(30, 58, 138, 0.12) 0%, rgba(30, 58, 138, 0) 70%);
     top: 40%;
     left: -15%;
     animation-delay: -5s;
-    opacity: 0.12;
 }
 
 .blob-3 {
     width: 400px;
     height: 400px;
-    background: var(--accent);
+    background: radial-gradient(circle, rgba(245, 158, 11, 0.1) 0%, rgba(245, 158, 11, 0) 70%);
     bottom: 10%;
     right: 5%;
     animation-delay: -10s;
-    opacity: 0.1;
 }
 
 @keyframes blobDrift {
@@ -1706,6 +1704,7 @@ textarea.form-input {
     pointer-events: none;
     transform: translateY(20px);
     transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    will-change: transform, opacity;
 }
 
 .floating-widget:hover .widget-menu,

@@ -577,6 +577,12 @@
                 <i class="fas fa-user-shield"></i> Mode Admin Aktif (SDN Wedusan)
             </div>
             <div class="admin-bar-actions">
+                <span id="admin-db-status" style="color: #94a3b8; font-size: 12px; font-weight: 700; margin-right: 15px; display: inline-flex; align-items: center; gap: 6px;">
+                    <i class="fas fa-database" style="color: #059669;"></i> Database: 0 KB / 5 MB
+                </span>
+                <button id="btn-optimize-db" class="btn-admin-bar" style="background: rgba(5, 150, 105, 0.2); border-color: rgba(5, 150, 105, 0.3); color: #34d399; margin-right: 10px;" onclick="optimizeExistingDatabase(event)">
+                    <i class="fas fa-magic"></i> Optimasi
+                </button>
                 <button id="btn-view-ppdb" class="btn-admin-bar"><i class="fas fa-users-rectangle"></i> Pendaftar PPDB</button>
                 <button id="btn-export-db" class="btn-admin-bar"><i class="fas fa-file-export"></i> Ekspor Data</button>
                 <button id="btn-import-db" class="btn-admin-bar"><i class="fas fa-file-import"></i> Impor Data</button>
