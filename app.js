@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 badge: "<i class=\"fas fa-graduation-cap\"></i> Selamat Datang",
                 title: "Selamat Datang di Platform Digital Resmi <span>SD Negeri Wedusan</span>",
                 desc: "Berkomitmen mewujudkan generasi cerdas, berkarakter, dan berdaya saing global melalui pendidikan berkualitas.",
-                link: "Daftar PPDB Baru|#kontak",
+                link: "Daftar PPDB Baru|#spmb",
                 base64Image: "",
                 imageUrl: "https://sdnwedusan.aksespedia.com/storage/tenants/50/ZQaiNR8vqNZHqJG28ymmefxZj6Sj7X3ui5Zn2l25.jpg"
             },
@@ -505,6 +505,18 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
     
+    // Self-heal hero slides link to use #spmb instead of #kontak for student admission
+    if (schoolDB && schoolDB.heroSlides && schoolDB.heroSlides[0]) {
+        if (schoolDB.heroSlides[0].link === "Daftar PPDB Baru|#kontak") {
+            schoolDB.heroSlides[0].link = "Daftar PPDB Baru|#spmb";
+            try {
+                localStorage.setItem("school_website_db", JSON.stringify(schoolDB));
+            } catch (e) {
+                console.error("Gagal menyimpan self-healing slide link:", e);
+            }
+        }
+    }
+    
     // Self-heal logo to use premium transparent Kemendikbud shield
     if (schoolDB && schoolDB.logo) {
         if (!schoolDB.logo.imageUrl || schoolDB.logo.type === "icon") {
@@ -631,6 +643,7 @@ document.addEventListener("DOMContentLoaded", () => {
         let slidesHtml = schoolDB.heroSlides.map((item, idx) => {
             let buttonText = "Selengkapnya";
             let buttonUrl = "#";
+            let onclickAttr = "";
             if (item.link) {
                 if (item.link.includes("|")) {
                     const parts = item.link.split("|");
@@ -638,6 +651,11 @@ document.addEventListener("DOMContentLoaded", () => {
                     buttonUrl = parts[1].trim();
                 } else {
                     buttonUrl = item.link.trim();
+                }
+                
+                if (buttonUrl === "#spmb") {
+                    onclickAttr = 'onclick="openSpmbModal(event)"';
+                    buttonUrl = "#";
                 }
             }
 
@@ -653,7 +671,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         <button class="btn-admin-card edit" onclick="openEditItem('heroSlides', '${item.id}')" title="Edit Slide"><i class="fas fa-edit"></i></button>
                         <button class="btn-admin-card delete" onclick="deleteItem('heroSlides', '${item.id}')" title="Hapus Slide"><i class="fas fa-trash"></i></button>
                     </div>
-
+ 
                     <!-- Centered Slide Content container -->
                     <div class="container" style="position: relative; z-index: 10; height: 100%; display: flex; align-items: center; justify-content: center; text-align: center;">
                         <div class="hero-content" style="max-width: 880px; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; animation: slideUp 0.8s ease;">
@@ -661,7 +679,7 @@ document.addEventListener("DOMContentLoaded", () => {
                             <h1 class="hero-title" style="color: white; text-shadow: 0 4px 15px rgba(0,0,0,0.5); font-size: 48px; font-weight: 900; line-height: 1.25; margin-bottom: 20px; font-family: var(--font-sans);">${item.title}</h1>
                             <p class="hero-desc" style="color: rgba(255, 255, 255, 0.92); text-shadow: 0 2px 8px rgba(0,0,0,0.4); font-size: 16px; max-width: 720px; margin-bottom: 35px; line-height: 1.7; font-weight: 500;">${item.desc}</p>
                             <div class="hero-action-buttons" style="display: flex; justify-content: center;">
-                                <a href="${buttonUrl}" class="btn btn-primary" ${buttonUrl.startsWith('http') ? 'target="_blank"' : ''} style="background: linear-gradient(135deg, var(--accent), #d97706); border: none; box-shadow: 0 10px 25px rgba(245, 158, 11, 0.35); font-weight: 800; padding: 16px 38px; border-radius: 9999px; font-size: 15px; display: inline-flex; align-items: center; gap: 8px;">
+                                <a href="${buttonUrl}" ${onclickAttr} class="btn btn-primary" ${buttonUrl.startsWith('http') ? 'target="_blank"' : ''} style="background: linear-gradient(135deg, var(--accent), #d97706); border: none; box-shadow: 0 10px 25px rgba(245, 158, 11, 0.35); font-weight: 800; padding: 16px 38px; border-radius: 9999px; font-size: 15px; display: inline-flex; align-items: center; gap: 8px;">
                                     ${buttonText} <i class="fas fa-arrow-circle-right"></i>
                                 </a>
                             </div>
@@ -1591,6 +1609,11 @@ document.addEventListener("DOMContentLoaded", () => {
     window.openSpmbModal = (e) => {
         if (e) e.preventDefault();
         document.getElementById("spmb-registration-form").reset();
+        
+        // Reset modal visibility state back to form input
+        document.getElementById("spmb-form-container").style.display = "block";
+        document.getElementById("spmb-success-container").style.display = "none";
+        
         document.getElementById("spmb-modal").classList.add("active");
     };
 
@@ -1631,35 +1654,155 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         schoolDB.registrations.push(newReg);
         localStorage.setItem("school_website_db", JSON.stringify(schoolDB));
+
+        // Generate Registration Number (PPDB-[YEAR]-[COUNT])
+        const regCount = schoolDB.registrations.length;
+        const regNumber = "PPDB-" + new Date().getFullYear() + "-" + String(regCount).padStart(4, '0');
+
+        // Create success printable slip HTML structure
+        const logoSrc = schoolDB.logo.base64Image || schoolDB.logo.imageUrl || "https://sdnwedusan.aksespedia.com/storage/tenants/50/fZxyOX0jIfZ5pDa1hu4tcZnyYt8hjX49vqLs9vTy.png";
+        const todayStr = new Date().toLocaleDateString('id-ID', {day: 'numeric', month: 'long', year: 'numeric'});
+
+        const successSlipHtml = `
+            <div class="spmb-success-card" style="text-align: center; padding: 10px 0;">
+                <div style="width: 64px; height: 64px; background: rgba(5, 150, 105, 0.1); color: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 32px; margin: 0 auto 16px auto; border: 2px solid rgba(5, 150, 105, 0.2); animation: scaleUp 0.5s ease;">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <h3 style="font-size: 20px; font-weight: 800; color: var(--secondary); margin-bottom: 6px;">Pendaftaran Berhasil Dikirim!</h3>
+                <p style="color: var(--text-muted); font-size: 13.5px; margin-bottom: 20px; line-height: 1.4;">Berkas pendaftaran calon siswa baru telah tercatat dengan aman di database PPDB SDN Wedusan secara luring.</p>
+                
+                <!-- Printable Slip Box -->
+                <div id="printable-spmb-slip" style="background: white; border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 22px; text-align: left; margin-bottom: 20px; box-shadow: var(--shadow-sm); position: relative; overflow: hidden; color: #334155;">
+                    <!-- Watermark Logo -->
+                    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-30deg); font-size: 60px; font-weight: 900; color: rgba(5, 150, 105, 0.04); pointer-events: none; text-transform: uppercase; white-space: nowrap; user-select: none;">
+                        SDN WEDUSAN
+                    </div>
+                    
+                    <!-- Header Slip -->
+                    <div style="display: flex; gap: 14px; align-items: center; border-bottom: 2px solid var(--primary); padding-bottom: 10px; margin-bottom: 14px;">
+                        <img src="${logoSrc}" style="width: 44px; height: 44px; object-fit: cover;" alt="Logo">
+                        <div>
+                            <h4 style="font-size: 13.5px; font-weight: 800; color: var(--secondary); margin: 0; text-transform: uppercase; letter-spacing: 0.5px; line-height:1.2;">KARTU BUKTI PENDAFTARAN PPDB</h4>
+                            <p style="font-size: 10.5px; color: var(--text-muted); margin: 2px 0 0 0; font-weight: 500;">SD NEGERI WEDUSAN • TAHUN AJARAN 2026/2027</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Slip Metadata -->
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; font-size: 11.5px; background: #f8fafc; padding: 8px 12px; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
+                        <span><strong>No. Pendaftaran:</strong> <span style="font-family: monospace; font-weight: 700; color: var(--primary);">${regNumber}</span></span>
+                        <span><strong>Tanggal:</strong> ${todayStr}</span>
+                    </div>
+                    
+                    <!-- Slip Table Data -->
+                    <table style="width: 100%; font-size: 12.5px; border-collapse: collapse;">
+                        <tr style="border-bottom: 1px solid #f1f5f9;">
+                            <td style="padding: 5px 0; color: var(--text-muted); width: 35%;">Nama Calon Siswa</td>
+                            <td style="padding: 5px 0; font-weight: 700; color: var(--secondary);">: ${nama}</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #f1f5f9;">
+                            <td style="padding: 5px 0; color: var(--text-muted);">NISN / NIK</td>
+                            <td style="padding: 5px 0; font-family: monospace; font-weight: 600;">: ${nisn}</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #f1f5f9;">
+                            <td style="padding: 5px 0; color: var(--text-muted);">Tempat, Tgl Lahir</td>
+                            <td style="padding: 5px 0;">: ${ttl}</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #f1f5f9;">
+                            <td style="padding: 5px 0; color: var(--text-muted);">Jenis Kelamin</td>
+                            <td style="padding: 5px 0;">: ${jk}</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #f1f5f9;">
+                            <td style="padding: 5px 0; color: var(--text-muted);">Nama Orang Tua</td>
+                            <td style="padding: 5px 0;">: ${ortu}</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #f1f5f9;">
+                            <td style="padding: 5px 0; color: var(--text-muted);">Nomor WhatsApp</td>
+                            <td style="padding: 5px 0;">: ${wa}</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #f1f5f9;">
+                            <td style="padding: 5px 0; color: var(--text-muted);">Asal Sekolah / TK</td>
+                            <td style="padding: 5px 0;">: ${asalTk}</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 5px 0; color: var(--text-muted); vertical-align: top;">Alamat Lengkap</td>
+                            <td style="padding: 5px 0; line-height: 1.4;">: ${alamat}</td>
+                        </tr>
+                    </table>
+                    
+                    <!-- Slip Footer Stamp -->
+                    <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-top: 18px; border-top: 1px dashed var(--border-color); padding-top: 12px;">
+                        <!-- Barcode Placeholder -->
+                        <div style="text-align: center; color: var(--text-muted); font-size: 10px;">
+                            <i class="fas fa-barcode" style="font-size: 26px; display: block; margin-bottom: 2px; color: var(--secondary);"></i>
+                            <span>VERIFIED SYSTEM</span>
+                        </div>
+                        
+                        <!-- Stamp Place -->
+                        <div style="text-align: center; width: 140px;">
+                            <span style="font-size: 10px; color: var(--text-muted); display: block; margin-bottom: 30px; font-weight: 500; text-align: center;">Panitia PPDB SDN Wedusan</span>
+                            <div style="width: 120px; border-bottom: 1px dotted var(--text-muted); margin: 0 auto;"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Action buttons -->
+                <div style="display: flex; gap: 10px; justify-content: center;">
+                    <button onclick="window.printSpmbSlip()" class="btn btn-primary" style="background: linear-gradient(135deg, var(--primary), var(--secondary)); border: none; padding: 10px 20px; font-size: 13.5px;"><i class="fas fa-print"></i> Cetak Bukti Pendaftaran</button>
+                    <button onclick="window.closeSpmbModal()" class="btn" style="background: #e2e8f0; color: var(--text-main); border: 1px solid var(--border-color); padding: 10px 20px; font-size: 13.5px;">Tutup</button>
+                </div>
+            </div>
+        `;
+
+        document.getElementById("spmb-success-container").innerHTML = successSlipHtml;
         
-        // Prepare formatted WhatsApp message
-        const messageText = `Halo Panitia PPDB SDN Wedusan, saya ingin mengonfirmasi pendaftaran mandiri calon siswa baru:
-
-Nama Lengkap: ${nama}
-NIK/NISN: ${nisn}
-Tempat & Tanggal Lahir: ${ttl}
-Jenis Kelamin: ${jk}
-Orang Tua / Wali: ${ortu}
-No WhatsApp: ${wa}
-Asal Sekolah/TK: ${asalTk}
-Alamat: ${alamat}
-
-Mohon bantuannya untuk memproses verifikasi berkas lebih lanjut. Terima kasih!`;
-
-        const cleanPhone = formatWaNumber(schoolDB.contact.phone || "085347641171");
-        const waUrl = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(messageText)}`;
+        // Switch view containers beautifully
+        document.getElementById("spmb-form-container").style.display = "none";
+        document.getElementById("spmb-success-container").style.display = "block";
         
-        window.closeSpmbModal();
-        showToast("Pendaftaran berhasil disimpan di sistem! Dialihkan ke WhatsApp Panitia...", "success");
-        
-        setTimeout(() => {
-            window.open(waUrl, "_blank");
-        }, 1200);
+        showToast("Pendaftaran sukses disimpan di database PPDB luring!", "success");
 
-        // Auto refresh table if active in background
+        // Auto refresh table if active in CRM background
         if (document.getElementById("admin-registrations-modal").classList.contains("active")) {
             window.renderRegistrationsTable();
         }
+    };
+
+    window.printSpmbSlip = () => {
+        const slip = document.getElementById("printable-spmb-slip");
+        if (!slip) return;
+        
+        const printWindow = window.open("", "_blank");
+        printWindow.document.write(`
+            <html>
+                <head>
+                    <title>Bukti Pendaftaran PPDB - SDN Wedusan</title>
+                    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+                    <style>
+                        body {
+                            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                            padding: 30px;
+                            color: #334155;
+                            background: white;
+                        }
+                        strong {
+                            color: #0f172a;
+                        }
+                    </style>
+                </head>
+                <body>
+                    <div style="max-width: 580px; margin: 0 auto; border: 1px solid #cbd5e1; border-radius: 8px; padding: 25px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
+                        \${slip.innerHTML}
+                    </div>
+                    <script>
+                        window.onload = function() {
+                            window.print();
+                            setTimeout(function() { window.close(); }, 500);
+                        };
+                    <\/script>
+                </body>
+            </html>
+        `);
+        printWindow.document.close();
     };
 
     // 2. Admin View Registrations CRM Panel

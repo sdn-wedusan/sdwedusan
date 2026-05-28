@@ -698,56 +698,62 @@
                 <h3><i class="fas fa-file-signature text-primary"></i> Formulir Pendaftaran Siswa Baru (SPMB)</h3>
                 <button class="modal-close" onclick="closeSpmbModal()">&times;</button>
             </div>
-            <form id="spmb-registration-form" onsubmit="submitSpmbForm(event)">
-                <div class="form-group-2">
-                    <div class="form-field">
-                        <label for="spmb-nama">Nama Lengkap Calon Siswa</label>
-                        <input type="text" id="spmb-nama" class="form-input" placeholder="Contoh: Rian Hidayat" required>
+            <div id="spmb-form-container">
+                <form id="spmb-registration-form" onsubmit="submitSpmbForm(event)">
+                    <div class="form-group-2">
+                        <div class="form-field">
+                            <label for="spmb-nama">Nama Lengkap Calon Siswa</label>
+                            <input type="text" id="spmb-nama" class="form-input" placeholder="Contoh: Rian Hidayat" required>
+                        </div>
+                        <div class="form-field">
+                            <label for="spmb-nisn">NISN / NIK Calon Siswa</label>
+                            <input type="text" id="spmb-nisn" class="form-input" placeholder="Contoh: 331812345678" required>
+                        </div>
                     </div>
-                    <div class="form-field">
-                        <label for="spmb-nisn">NISN / NIK Calon Siswa</label>
-                        <input type="text" id="spmb-nisn" class="form-input" placeholder="Contoh: 331812345678" required>
-                    </div>
-                </div>
 
-                <div class="form-group-2">
-                    <div class="form-field">
-                        <label for="spmb-ttl">Tempat & Tanggal Lahir</label>
-                        <input type="text" id="spmb-ttl" class="form-input" placeholder="Contoh: Pati, 12 Juni 2019" required>
+                    <div class="form-group-2">
+                        <div class="form-field">
+                            <label for="spmb-ttl">Tempat & Tanggal Lahir</label>
+                            <input type="text" id="spmb-ttl" class="form-input" placeholder="Contoh: Pati, 12 Juni 2019" required>
+                        </div>
+                        <div class="form-field">
+                            <label for="spmb-jk">Jenis Kelamin</label>
+                            <select id="spmb-jk" class="form-input" required>
+                                <option value="Laki-laki">Laki-laki</option>
+                                <option value="Perempuan">Perempuan</option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="form-field">
-                        <label for="spmb-jk">Jenis Kelamin</label>
-                        <select id="spmb-jk" class="form-input" required>
-                            <option value="Laki-laki">Laki-laki</option>
-                            <option value="Perempuan">Perempuan</option>
-                        </select>
-                    </div>
-                </div>
 
-                <div class="form-group-2">
-                    <div class="form-field">
-                        <label for="spmb-ortu">Nama Orang Tua / Wali</label>
-                        <input type="text" id="spmb-ortu" class="form-input" placeholder="Contoh: Budi Prasetyo" required>
+                    <div class="form-group-2">
+                        <div class="form-field">
+                            <label for="spmb-ortu">Nama Orang Tua / Wali</label>
+                            <input type="text" id="spmb-ortu" class="form-input" placeholder="Contoh: Budi Prasetyo" required>
+                        </div>
+                        <div class="form-field">
+                            <label for="spmb-wa">Nomor WhatsApp Aktif</label>
+                            <input type="text" id="spmb-wa" class="form-input" placeholder="Contoh: 08123456789" required>
+                        </div>
                     </div>
-                    <div class="form-field">
-                        <label for="spmb-wa">Nomor WhatsApp Aktif</label>
-                        <input type="text" id="spmb-wa" class="form-input" placeholder="Contoh: 08123456789" required>
-                    </div>
-                </div>
 
-                <div class="form-group-2">
-                    <div class="form-field">
-                        <label for="spmb-asal-tk">Asal Sekolah / TK</label>
-                        <input type="text" id="spmb-asal-tk" class="form-input" placeholder="Contoh: TK Pertiwi Wedusan" required>
+                    <div class="form-group-2">
+                        <div class="form-field">
+                            <label for="spmb-asal-tk">Asal Sekolah / TK</label>
+                            <input type="text" id="spmb-asal-tk" class="form-input" placeholder="Contoh: TK Pertiwi Wedusan" required>
+                        </div>
+                        <div class="form-field">
+                            <label for="spmb-alamat">Alamat Lengkap</label>
+                            <input type="text" id="spmb-alamat" class="form-input" placeholder="Contoh: RT 02 RW 01 Desa Wedusan" required>
+                        </div>
                     </div>
-                    <div class="form-field">
-                        <label for="spmb-alamat">Alamat Lengkap</label>
-                        <input type="text" id="spmb-alamat" class="form-input" placeholder="Contoh: RT 02 RW 01 Desa Wedusan" required>
-                    </div>
-                </div>
 
-                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 15px;"><i class="fas fa-paper-plane"></i> Kirim Pendaftaran & Kirim ke WA</button>
-            </form>
+                    <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 15px;"><i class="fas fa-check-circle"></i> Kirim Formulir Pendaftaran</button>
+                </form>
+            </div>
+            
+            <div id="spmb-success-container" style="display: none;">
+                <!-- Renders printable registration slip dynamically via JS -->
+            </div>
         </div>
     </div>
 
